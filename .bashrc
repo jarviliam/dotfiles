@@ -96,6 +96,15 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+#X11 WSL Configs
+export DISPLAY=$(grep -m 1 nameserver /etc/resolv.conf | awk '{print $2}'):0.0
+dbus_status=$(service dbus status)
+if [[ $dbus_status = *"is not running"* ]]; then
+  sudo service dbus --full-restart
+fi
+export $(dbus-launch)
+
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
