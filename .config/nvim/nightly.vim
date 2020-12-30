@@ -86,6 +86,11 @@ nnoremap <leader>ps :lua require('telescope.builtin').grep_string({ search = vim
 nnoremap <C-p> :lua require('telescope.builtin').git_files()<CR>
 nnoremap <Leader>pf :lua require('telescope.builtin').find_files()<CR>
 
+nnoremap <C-p> :GFiles<CR>
+nnoremap <Leader><CR> :so ~/.config/nvim/init.vim<CR>
+nnoremap <Leader>+ :vertical resize +5<CR>
+nnoremap <Leader>- :vertical resize -5<CR>
+nnoremap <Leader>rp :resize 100<CR>
 
 " <c-k> will either expand the current snippet at the word or try to jump to
 " the next position for the snippet.
@@ -95,6 +100,9 @@ inoremap <c-k> <cmd>lua return require'snippets'.expand_or_advance(1)<CR>
 " If you jump before the first field, it will cancel the snippet.
 inoremap <c-j> <cmd>lua return require'snippets'.advance_snippet(-1)<CR>
 
+nmap <leader>gl :diffget //3<CR>
+nmap <leader>gh :diffget //2<CR>
+nmap <leader>gs :G<CR>
 
 :lua require("lsp")
 :lua require("snippets-config")
@@ -115,3 +123,16 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 "Matching Strategy
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
 
+fun! TrimWhitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfun
+
+
+augroup highlight_yank
+    autocmd!
+    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
+augroup END
+
+autocmd BufWritePre * :call TrimWhitespace()
