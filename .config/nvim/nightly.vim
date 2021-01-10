@@ -12,7 +12,7 @@ call plug#begin('~/.vim/plugged')
 
     "Snippets"
     Plug 'norcalli/snippets.nvim'
-    
+
     "Tree-Sitter"
     Plug 'nvim-treesitter/nvim-treesitter', {'do' : ':TSUpdate'}
     Plug 'nvim-treesitter/playground'
@@ -34,13 +34,15 @@ call plug#begin('~/.vim/plugged')
     Plug 'nvim-lua/popup.nvim'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-lua/telescope.nvim'
-    
+
     "Closing brackets
     Plug '9mm/vim-closer'
 
     "Themes"
     Plug 'lifepillar/gruvbox8'
+    Plug 'kyazdani42/nvim-web-devicons'
 
+    Plug 'jarviliam/lualine.nvim'
 call plug#end()
 
 let mapleader = " "
@@ -52,6 +54,7 @@ if exists('+termguicolors')
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 let g:gruvbox_invert_selection = "0"
+
 
 "Basically the Side Project Menu Window
 let g:netrw_browse_split = 2
@@ -86,8 +89,8 @@ nnoremap <leader>ps :lua require('telescope.builtin').grep_string({ search = vim
 nnoremap <C-p> :lua require('telescope.builtin').git_files()<CR>
 nnoremap <Leader>pf :lua require('telescope.builtin').find_files()<CR>
 
-nnoremap <C-p> :GFiles<CR>
 nnoremap <Leader><CR> :so ~/.config/nvim/init.vim<CR>
+nnoremap <Leader>vs :vsplit<CR>
 nnoremap <Leader>+ :vertical resize +5<CR>
 nnoremap <Leader>- :vertical resize -5<CR>
 nnoremap <Leader>rp :resize 100<CR>
@@ -128,7 +131,6 @@ fun! TrimWhitespace()
     keeppatterns %s/\s\+$//e
     call winrestview(l:save)
 endfun
-
 
 augroup highlight_yank
     autocmd!

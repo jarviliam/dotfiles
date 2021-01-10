@@ -3,6 +3,10 @@ local lsp_status = require('lsp-status')
 
 local status = {}
 
+require'nvim-web-devicons'.setup {
+    default = true;
+    }
+
 status.select_symbol = function(cursor_pos, symbol)
   if symbol.valueRange then
     local value_range = {

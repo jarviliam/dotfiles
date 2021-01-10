@@ -67,6 +67,10 @@ esac
 
 alias cplus="cd /mnt/c/Users/Liam/source/repos/"
 alias desktop="cd /mnt/c/Users/Liam/Desktop"
+alias gotonvim="cd ~/.config/nvim"
+alias nvimconfig="nvim ~/.config/nvim/"
+alias nvimplugged="cd ~/.vim/plugged"
+
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -97,12 +101,12 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 #X11 WSL Configs
-export DISPLAY=$(grep -m 1 nameserver /etc/resolv.conf | awk '{print $2}'):0.0
-dbus_status=$(service dbus status)
-if [[ $dbus_status = *"is not running"* ]]; then
-  sudo service dbus --full-restart
-fi
-export $(dbus-launch)
+#export DISPLAY=$(grep -m 1 nameserver /etc/resolv.conf | awk '{print $2}'):0.0
+#dbus_status=$(service dbus status)
+#if [[ $dbus_status = *"is not running"* ]]; then
+  #sudo service dbus --full-restart
+#fi
+#export $(dbus-launch)
 
 
 # enable programmable completion features (you don't need to enable
@@ -119,3 +123,8 @@ export NVM_DIR="$HOME/.nvm"
 export NIGHTLY_DIR="$HOME/.local/bin"
 export PATH=$PATH:/$NIGHTLY_DIR
 alias config='/usr/bin/git --git-dir=/root/.cfg/ --work-tree=/root'
+
+
+# SDL?
+export XDG_RUNTIME_DIR=/some/directory/you/specify
+export RUNLEVEL=3
