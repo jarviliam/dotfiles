@@ -55,7 +55,8 @@ if exists('+termguicolors')
 endif
 let g:gruvbox_invert_selection = "0"
 
-
+packadd nvim-treesitter
+"
 "Basically the Side Project Menu Window
 let g:netrw_browse_split = 2
 let g:netrw_banner = 0
@@ -110,7 +111,7 @@ nmap <leader>gs :G<CR>
 :lua require("lsp")
 :lua require("snippets-config")
 :lua require("lsp_status")
-:lua require'nvim-treesitter.configs'.setup { ensure_installed = "maintained", highlight = { enable = true } }
+":lua require'nvim-treesitter.configs'.setup { ensure_installed = "maintained", highlight = { enable = true } }
 
 
 command! Format execute 'lua vim.lsp.buf.formatting()'

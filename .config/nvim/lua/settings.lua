@@ -17,7 +17,7 @@ opt.termguicolors = true
 
 opt.showmode       = false
 opt.showcmd        = true
-opt.cmdheight      = 2
+opt.cmdheight      = 1
 opt.incsearch      = true
 opt.showmatch      = true
 opt.relativenumber = true

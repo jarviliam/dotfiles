@@ -84,6 +84,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 
+alias nvim="/usr/bin/nvim"
 alias notebook="jupyter notebook --no-browser --allow-root"
 
 # some more ls aliases
@@ -120,8 +121,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-export NIGHTLY_DIR="$HOME/.local/bin"
-export PATH=$PATH:/$NIGHTLY_DIR
+#export NIGHTLY_DIR="$HOME/.local/bin"
+#export PATH=$PATH:/$NIGHTLY_DIR
 alias config='/usr/bin/git --git-dir=/root/.cfg/ --work-tree=/root'
 
 
