@@ -48,8 +48,8 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 let mapleader = " "
-colorscheme nord
-"let g:gruvbox_contrast_dark = 'hard'
+colorscheme gruvbox8
+let g:gruvbox_contrast_dark = 'hard'
 set  bg=dark
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
