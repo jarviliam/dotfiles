@@ -8,6 +8,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'nvim-lua/completion-nvim'
     Plug 'tjdevries/nlua.nvim'
     Plug 'tjdevries/lsp_extensions.nvim'
+    Plug 'hrsh7th/nvim-compe'
 
     Plug 'nvim-lua/lsp-status.nvim'
 
@@ -18,6 +19,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'nvim-treesitter/nvim-treesitter', {'do' : ':TSUpdate'}
     Plug 'nvim-treesitter/playground'
     Plug 'vim-utils/vim-man'
+
 
     "Tpope stuff"
     Plug 'tpope/vim-fugitive'
@@ -65,6 +67,8 @@ let g:netrw_winsize = 50
 let g:netrw_localrmdir='rm -r'
 
 :lua require("mappings")
+:lua require("lualine_settings")
+
 nnoremap <leader>pw :lua require('telescope.builtin').grep_string { search = vim.fn.expand("<cword>") }<CR>
 nnoremap <leader>ps :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>
 nnoremap <C-p> :lua require('telescope.builtin').git_files()<CR>
@@ -73,6 +77,10 @@ nnoremap <Leader>vs :vsplit<CR>
 nnoremap <Leader>+ :vertical resize +5<CR>
 nnoremap <Leader>- :vertical resize -5<CR>
 nnoremap <Leader>rp :resize 100<CR>
+
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 
 " <c-k> will either expand the current snippet at the word or try to jump to
 " the next position for the snippet.
