@@ -9,6 +9,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'tjdevries/nlua.nvim'
     Plug 'tjdevries/lsp_extensions.nvim'
     Plug 'hrsh7th/nvim-compe'
+    Plug 'glepnir/lspsaga.nvim'
 
     Plug 'nvim-lua/lsp-status.nvim'
 
@@ -50,7 +51,8 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 let mapleader = " "
-colorscheme gruvbox8
+"colorscheme gruvbox8
+colorscheme nord
 let g:gruvbox_contrast_dark = 'hard'
 set  bg=dark
 if exists('+termguicolors')
@@ -81,6 +83,10 @@ nnoremap <Leader>rp :resize 100<CR>
 inoremap <silent><expr> <C-Space> compe#complete()
 inoremap <silent><expr> <CR>      compe#confirm('<CR>')
 inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+
+nnoremap <silent> K <cmd>lua require('lspsaga.hover').render_hover_doc()<CR>
+"rename
+nnoremap <silent>gr <cmd>lua require('lspsaga.rename').rename()<CR>
 
 " <c-k> will either expand the current snippet at the word or try to jump to
 " the next position for the snippet.

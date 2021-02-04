@@ -4,7 +4,9 @@ local lspconfig = require'lspconfig'
 local completion = require('completion')
 local lsp_status = require('lsp-status')
 require'nvim-treesitter.configs'.setup { ensure_installed = "maintained", highlight = { enable = true } }
+local saga = require 'lspsaga'
 
+saga.init_lsp_saga()
 
 --Custom Attach
 local custom_attach = function(client)
