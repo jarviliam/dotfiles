@@ -13,8 +13,8 @@ lua require'settings'
 lua require("mappings")
 lua require("plugins")
 
-colorscheme nord
-
+let g:sonokai_style = 'maia'
+colorscheme sonokai
 "NetRW"
 let g:netrw_browse_split = 2
 let g:netrw_banner = 0

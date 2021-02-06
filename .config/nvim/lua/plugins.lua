@@ -89,6 +89,10 @@ return require("packer").startup {
         require("configs.telescope")
     end
     }
+
+    --Themes
+    use "sainnhe/sonokai"
+    use 'kyazdani42/blue-moon'
     use "arcticicestudio/nord-vim"
     use "lifepillar/gruvbox8"
 end
