@@ -1,6 +1,6 @@
 :lua require("globals")
 :lua require("settings")
-":lua require("bluetooth")
+"lua require("bluetooth")
 
 call plug#begin('~/.vim/plugged')
 	"The classics"
@@ -40,14 +40,14 @@ call plug#begin('~/.vim/plugged')
     Plug 'nvim-lua/telescope.nvim'
 
     "Closing brackets
-    Plug '9mm/vim-closer'
+    "Plug '9mm/vim-closer'
 
     "Themes"
     Plug 'lifepillar/gruvbox8'
     Plug 'arcticicestudio/nord-vim'
     Plug 'kyazdani42/nvim-web-devicons'
 
-    Plug 'jarviliam/lualine.nvim'
+    Plug 'hoob3rt/lualine.nvim'
 call plug#end()
 
 let mapleader = " "
@@ -105,12 +105,13 @@ nmap <leader>gs :G<CR>
 :lua require("lsp")
 :lua require("snippets-config")
 :lua require("lsp_status")
-":lua require'nvim-treesitter.configs'.setup { ensure_installed = "maintained", highlight = { enable = true } }
+:lua require("compe-config")
+:lua require'nvim-treesitter.configs'.setup { ensure_installed = "maintained", highlight = { enable = true } }
 
 
 command! Format execute 'lua vim.lsp.buf.formatting()'
 
-let g:gruvbox_italicize_strings = 1
+"let g:gruvbox_italicize_strings = 1
 
 
 "Recommended Settings for Completion
@@ -120,6 +121,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 "Matching Strategy
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
+set completeopt=menu,menuone,noselect
 
 fun! TrimWhitespace()
     let l:save = winsaveview()
@@ -127,9 +129,11 @@ fun! TrimWhitespace()
     call winrestview(l:save)
 endfun
 
+
 augroup highlight_yank
     autocmd!
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
 augroup END
 
+autocmd BufWritePre *.go lua goimports(1000)
 autocmd BufWritePre * :call TrimWhitespace()

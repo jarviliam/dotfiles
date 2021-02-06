@@ -1,10 +1,6 @@
 --Snippets Config -- snippets.nvim
---
-
 local snip_plug = require('snippets')
 local indent = require('snippets.utils').match_indentation
-
-
 
 local snippets = {}
 

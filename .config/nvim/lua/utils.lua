@@ -1,7 +1,6 @@
 local fn = vim.fn
 local api = vim.api
 local cmd = vim.cmd
-
 local Utils = {}
 
 -- Key mapping

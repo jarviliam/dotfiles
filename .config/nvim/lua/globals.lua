@@ -1,4 +1,3 @@
---Copied from TJ's Github
 local if_nil = function(a, b)
   if a == nil then
     return b
@@ -176,9 +175,6 @@ opt_mt = {
     if v == nil then
       v = ''
     end
-
-    -- TODO: Figure out why nvim_set_option doesn't override values the same way.
-    -- @bfredl said he will fix this for me, so I can just use nvim_set_option
     if type(v) == 'boolean' then
       vim.o[k] = clean_value(v)
       if v then
@@ -192,11 +188,6 @@ opt_mt = {
   end,
 
   __add = function(left, right)
-    --[[
-    set.wildignore = set.wildignore + 'hello'
-    set.wildignore = set.wildignore + { '*.o', '*~', }
-    --]]
-
     assert(left._option, "must have an option key")
     if left._option == 'foldcolumn' then
       error("not implemented for foldcolumn.. use a string")
