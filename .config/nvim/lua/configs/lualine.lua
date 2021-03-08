@@ -7,5 +7,5 @@ lualine.sections = {
       lualine_y = { 'progress' },
       lualine_z = { 'location'  },
     }
-lualine.theme = 'nord'
+lualine.options.theme = 'nord'
 lualine.status()

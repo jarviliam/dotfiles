@@ -20,9 +20,16 @@ return require("packer").startup {
            require("configs.treesitter")
         end
     }
-    use {
+    --[[use {
         "romgrk/barbar.nvim",
         requires = "kyazdani42/nvim-web-devicons"
+    }]]--
+    use {
+        "hoob3rt/lualine.nvim",
+        requires = "kyazdani42/nvim-web-devicons",
+        config = function()
+            require("configs.lualine")
+        end
     }
     use {
         "sumneko/lua-language-server"

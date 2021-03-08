@@ -31,10 +31,6 @@ local function try_loadstring(s, component, name)
 end
 
 _G.packer_plugins = {
-  ["barbar.nvim"] = {
-    loaded = true,
-    path = "/home/liam/.local/share/nvim/site/pack/packer/start/barbar.nvim"
-  },
   ["blue-moon"] = {
     loaded = true,
     path = "/home/liam/.local/share/nvim/site/pack/packer/start/blue-moon"
@@ -68,6 +64,11 @@ _G.packer_plugins = {
   ["lua-language-server"] = {
     loaded = true,
     path = "/home/liam/.local/share/nvim/site/pack/packer/start/lua-language-server"
+  },
+  ["lualine.nvim"] = {
+    config = { "\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20configs.lualine\frequire\0" },
+    loaded = true,
+    path = "/home/liam/.local/share/nvim/site/pack/packer/start/lualine.nvim"
   },
   ["nord-vim"] = {
     loaded = true,
@@ -140,20 +141,22 @@ _G.packer_plugins = {
   }
 }
 
--- Config for: nvim-lspconfig
-try_loadstring("\27LJ\2\nU\0\0\3\0\4\0\t6\0\0\0'\2\1\0B\0\2\0016\0\0\0'\2\2\0B\0\2\0029\0\3\0B\0\1\1K\0\1\0\18init_lsp_saga\flspsaga\16configs.lsp\frequire\0", "config", "nvim-lspconfig")
--- Config for: lexima.vim
-try_loadstring("\27LJ\2\n4\0\0\2\0\4\0\0056\0\0\0009\0\1\0'\1\3\0=\1\2\0K\0\1\0\5\22lexima_map_escape\6g\bvim\0", "config", "lexima.vim")
 -- Config for: nvim-compe
 try_loadstring("\27LJ\2\n-\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\18configs.compe\frequire\0", "config", "nvim-compe")
--- Config for: nvim-treesitter
-try_loadstring("\27LJ\2\n2\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\23configs.treesitter\frequire\0", "config", "nvim-treesitter")
--- Config for: telescope.nvim
-try_loadstring("\27LJ\2\n1\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\22configs.telescope\frequire\0", "config", "telescope.nvim")
--- Config for: snippets.nvim
-try_loadstring("\27LJ\2\n0\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\21configs.snippets\frequire\0", "config", "snippets.nvim")
+-- Config for: nvim-lspconfig
+try_loadstring("\27LJ\2\nU\0\0\3\0\4\0\t6\0\0\0'\2\1\0B\0\2\0016\0\0\0'\2\2\0B\0\2\0029\0\3\0B\0\1\1K\0\1\0\18init_lsp_saga\flspsaga\16configs.lsp\frequire\0", "config", "nvim-lspconfig")
 -- Config for: formatter.nvim
 try_loadstring("\27LJ\2\n†\1\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0016\0\2\0009\0\3\0005\2\4\0'\3\5\0B\0\3\2K\0\1\0\6,\1\n\0\0\bcss\thtml\15javascript\tjson\ago\blua\rmarkdown\ash\tyaml\vconcat\ntable\19configs.format\frequire\0", "config", "formatter.nvim")
+-- Config for: lexima.vim
+try_loadstring("\27LJ\2\n4\0\0\2\0\4\0\0056\0\0\0009\0\1\0'\1\3\0=\1\2\0K\0\1\0\5\22lexima_map_escape\6g\bvim\0", "config", "lexima.vim")
+-- Config for: telescope.nvim
+try_loadstring("\27LJ\2\n1\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\22configs.telescope\frequire\0", "config", "telescope.nvim")
+-- Config for: lualine.nvim
+try_loadstring("\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20configs.lualine\frequire\0", "config", "lualine.nvim")
+-- Config for: snippets.nvim
+try_loadstring("\27LJ\2\n0\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\21configs.snippets\frequire\0", "config", "snippets.nvim")
+-- Config for: nvim-treesitter
+try_loadstring("\27LJ\2\n2\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\23configs.treesitter\frequire\0", "config", "nvim-treesitter")
 END
 
 catch
