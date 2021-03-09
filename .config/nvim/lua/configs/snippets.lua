@@ -14,7 +14,17 @@ project(${1:projname}
 DESCRIPTION "${2:description}"
 HOMEPAGE_URL https://github.com/jarviliam/${3:reponame}
 LANGUAGES CXX)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)]]
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)]],
+["headAlgo"] = [[
+/**
+* ${1:title}
+* @url - ${2:url}
+* Difficulty - ${3:diff}
+* Time : ${4:time}
+* Explanation :
+*
+ */
+]]
 }
 
 --SNIPPETS FOR GOLANG
