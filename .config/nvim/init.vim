@@ -1,9 +1,5 @@
-"
-"
-"
-"
+" Neovim Config
 
-"--
 let g:mapleader=" "
 filetype plugin indent on
 set bg=dark
