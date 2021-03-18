@@ -1,5 +1,6 @@
 local lualine = require('lualine')
-lualine.sections = {
+
+local sections = {
       lualine_a = { 'mode' },
      lualine_b = { 'branch' },
       lualine_c = { 'filename' },
@@ -7,5 +8,9 @@ lualine.sections = {
       lualine_y = { 'progress' },
       lualine_z = { 'location'  },
     }
-lualine.options.theme = 'nord'
-lualine.status()
+lualine.setup{
+    options = {
+        theme = 'nord',
+        sections = sections
+    }
+}

@@ -3,7 +3,7 @@ local opt = vim.opt
 opt.hidden = true
 opt.splitright = false
 opt.splitbelow = true
-opt.updatetime = 1000
+opt.updatetime = 500
 
 --Persistent Undo
 opt.undofile = true
@@ -76,6 +76,8 @@ opt.pumblend = 17
 
 
 opt.cc=80
+
+--opt.tags = opt.tags .. ",./.git/tags"
 
 --Commands
 

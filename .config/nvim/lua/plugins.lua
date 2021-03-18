@@ -73,7 +73,6 @@ return require("packer").startup {
             vim.api.nvim_command("augroup end")]]
         end
         }
-        --Testing
         use {
             "hrsh7th/nvim-compe",
             config = function()
@@ -87,6 +86,7 @@ return require("packer").startup {
             vim.g.lexima_map_escape = ""
         end
     }
+    use {'b3nj5m1n/kommentary', config = require'configs.comment'.config()}
     use {
       "nvim-telescope/telescope.nvim",
       requires = {
