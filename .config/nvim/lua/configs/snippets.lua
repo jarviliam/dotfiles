@@ -44,6 +44,7 @@ func $1 {
     $0
 }
 ]]
+snippets.go.gojson = [[`json:"$0"`]]
 
 snip_plug.snippets = snippets
 snip_plug.use_suggested_mappings()
