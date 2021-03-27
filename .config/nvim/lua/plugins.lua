@@ -97,6 +97,8 @@ return require("packer").startup {
     end
     }
 
+    use {"lukas-reineke/indent-blankline.nvim", branch="lua"}
+
     --Themes
     use "sainnhe/sonokai"
     use 'kyazdani42/blue-moon'
