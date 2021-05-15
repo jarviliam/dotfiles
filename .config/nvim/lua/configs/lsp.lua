@@ -22,7 +22,8 @@ local servers = {
     "gopls",
     "pyls",
     "sumneko_lua",
-    "tsserver"
+    "tsserver",
+    "terraformls"
 }
 
 --Basic Setups
@@ -31,7 +32,6 @@ for _, lsp in ipairs(servers) do
 end
 
 --For More Complex Setups. Do them Individually
-
 
 --Mappings
 U.KeyMap('n',l..'gd', ':lua vim.lsp.buf.definition()<CR>')

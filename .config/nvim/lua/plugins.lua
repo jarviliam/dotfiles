@@ -14,16 +14,12 @@ return require("packer").startup {
     function()
         use {"wbthomason/packer.nvim", opt = true}
 
-        use { "nvim-treesitter/nvim-treesitter",
+    use { "nvim-treesitter/nvim-treesitter",
         run = ":TSUpdate",
         config = function()
            require("configs.treesitter")
         end
     }
-    --[[use {
-        "romgrk/barbar.nvim",
-        requires = "kyazdani42/nvim-web-devicons"
-    }]]--
     use {
         "hoob3rt/lualine.nvim",
         requires = "kyazdani42/nvim-web-devicons",
@@ -41,8 +37,17 @@ return require("packer").startup {
             require("configs.lsp")
             require("lspsaga").init_lsp_saga()
     end
-}
-    use "tpope/vim-commentary"
+    }
+    use {
+        "kyazdani42/nvim-tree.lua",
+    }
+
+    --[[use {
+        "mfussenegger/nvim-jdtls",
+        config = function()
+            require('jdtls').start_or_attach({cmd = {'java-lsp.sh'}})
+        end
+}]]--
     use "tpope/vim-surround"
     use "tpope/vim-eunuch"
     use "tpope/vim-fugitive"
@@ -64,7 +69,7 @@ return require("packer").startup {
             --AutoCMD on Save
             local filetypes =
             table.concat({
-                "css","html","javascript","json","go","lua","markdown","sh","yaml"
+                "css","html","javascript","json","go","lua","markdown","sh","yaml","scss"
             },",")
             --[[
             vim.api.nvim_command("augroup format_map")

@@ -10,7 +10,7 @@ local sections = {
     }
 lualine.setup{
     options = {
-        theme = 'nord',
+        theme = 'gruvbox',
         sections = sections
     }
 }

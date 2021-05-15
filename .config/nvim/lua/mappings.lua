@@ -8,8 +8,7 @@ U.KeyMap('n',l..'k', ':wincmd k<CR>')
 U.KeyMap('n',l..'l', ':wincmd l<CR>')
 
 --NetRc--
-U.KeyMap('n',l..'pv', ':wincmd v<bar> :Ex <bar> : vertical resize 30<CR>')
-
+U.KeyMap("n",l..'pv', ':NvimTreeToggle<CR>')
 U.KeyMap('n',l..'rp', ':resize 100<CR>')
 
 --Resource
@@ -29,3 +28,5 @@ U.KeyMap('n', l..'u', ':UndotreeShow<CR>')
 U.KeyMap('n',l..'gl', ':diffget //3<CR>')
 U.KeyMap('n',l..'gh', ':diffget //2<CR>')
 U.KeyMap('n',l..'gs', ':G<CR>')
+
+--

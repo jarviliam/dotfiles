@@ -9,8 +9,9 @@ lua require'settings'
 lua require("mappings")
 lua require("plugins")
 
-let g:sonokai_style = 'maia'
+"let g:sonokai_style = 'atlantis'
 colorscheme sonokai
+"
 "NetRW"
 let g:netrw_browse_split = 2
 let g:netrw_banner = 0
@@ -33,6 +34,10 @@ call lexima#set_default_rules()
 inoremap <silent><expr> <C-Space> compe#complete()
 inoremap <silent><expr> <CR>      compe#confirm(lexima#expand('<LT>CR>', 'i'))
 inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+
+nnoremap <leader>r :NvimTreeRefresh<CR>
+nnoremap <leader>n :NvimTreeFindFile<CR>
+
 
 "Recompile"
 function s:recompile_plugins()

@@ -224,8 +224,8 @@ color_level_ok="$color_green"
 color_level_warn="$color_yellow"
 color_level_stress="$color_red"
 color_window_off_indicator="colour088"
-color_window_off_status_bg="colour237"
-color_window_off_status_current_bg="colour214"
+color_window_off_status_bg="colour238"
+color_window_off_status_current_bg="colour254"
 
 # =====================================
 # ===    Appearence and status bar  ===
@@ -234,10 +234,10 @@ color_window_off_status_current_bg="colour214"
 set -g mode-style "fg=default,bg=$color_main"
 
 # command line style
-set -g message-style "fg=colour223,bg=colour239"
+set -g message-style "fg=$color_main,bg=$color_dark"
 
 # status line style
-set -g status-style "fg=colour223,bg=colour237"
+set -g status-style "fg=$color_status_text,bg=$color_dark"
 
 # window segments in status line
 set -g window-status-separator ""
@@ -246,14 +246,14 @@ separator_powerline_right=""
 
 # setw -g window-status-style "fg=$color_status_text,bg=$color_dark"
 setw -g window-status-format " #I:#W "
-setw -g window-status-current-style "fg=colour237,bold,bg=colour214"
-setw -g window-status-current-format "#[fg=colour237,bg=colour214]$separator_powerline_right#[default] #I:#W# #[fg=colour214,bg=colour237]$separator_powerline_right#[default]"
+setw -g window-status-current-style "fg=$color_light,bold,bg=$color_main"
+setw -g window-status-current-format "#[fg=$color_dark,bg=$color_main]$separator_powerline_right#[default] #I:#W# #[fg=$color_main,bg=$color_dark]$separator_powerline_right#[default]"
 
 # when window has monitoring notification
-setw -g window-status-activity-style "fg=colour248"
+setw -g window-status-activity-style "fg=$color_main"
 
 # outline for active pane
-setw -g pane-active-border-style "fg=colour250"
+setw -g pane-active-border-style "fg=$color_main"
 
 # general status bar settings
 set -g status on
