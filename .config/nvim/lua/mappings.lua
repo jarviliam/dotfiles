@@ -7,7 +7,7 @@ U.KeyMap('n',l..'j', ':wincmd j<CR>')
 U.KeyMap('n',l..'k', ':wincmd k<CR>')
 U.KeyMap('n',l..'l', ':wincmd l<CR>')
 
---NetRc--
+--NvimTree--
 U.KeyMap("n",l..'pv', ':NvimTreeToggle<CR>')
 U.KeyMap('n',l..'rp', ':resize 100<CR>')
 

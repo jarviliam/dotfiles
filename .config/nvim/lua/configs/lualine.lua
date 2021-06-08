@@ -10,7 +10,7 @@ local sections = {
     }
 lualine.setup{
     options = {
-        theme = 'gruvbox',
+        theme = 'sonokai',
         sections = sections
     }
 }

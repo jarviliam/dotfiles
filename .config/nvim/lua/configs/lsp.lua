@@ -36,18 +36,20 @@ end
 --Mappings
 U.KeyMap('n',l..'gd', ':lua vim.lsp.buf.definition()<CR>')
 U.KeyMap('n',l..'gi', ':lua vim.lsp.buf.implementation()<CR>')
+U.KeyMap('n',l..'gsh', ':lua vim.lsp.buf.signature_help()<CR>')
 U.KeyMap('n',l..'grf', ':lua vim.lsp.buf.references()<CR>')
 U.KeyMap('n',l..'grn', ':lua vim.lsp.buf.rename()<CR>')
 U.KeyMap('n',l..'gf', ':lua vim.lsp.buf.formatting()<CR>')
 U.KeyMap('n',l..'gsd', ':lua vim.lsp.show_line_diagnostics()<CR>')
 U.KeyMap('n',l..'k', ':lua vim.lsp.buf.hover()<CR>')
+U.KeyMap('n',l..'ca', ':lua vim.lsp.buf.code_action()<CR>')
 
 
 --LSPSaga
 U.KeyMap('n',l..'pd', ':lua require\'lspsaga.provider\'.preview_definition()<CR>')
 U.KeyMap('n',l..'cd', ':lua require\'lspsaga.diagnostic\'.show_line_diagnostics()<CR>')
-U.KeyMap('n',l..'e[', ':lua require\'lspsaga.diagnostic\'.lsp_jump_diagnostic_prev()<CR>')
-U.KeyMap('n',l..'e]', ':lua require\'lspsaga.diagnostic\'.lsp_jump_diagnostic_next()<CR>')
+U.KeyMap('n',l..'g[', ':lua require\'lspsaga.diagnostic\'.lsp_jump_diagnostic_prev()<CR>')
+U.KeyMap('n',l..'g]', ':lua require\'lspsaga.diagnostic\'.lsp_jump_diagnostic_next()<CR>')
 
 --Go Imports
   function goimports(timeoutms)

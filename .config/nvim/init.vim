@@ -10,6 +10,9 @@ lua require("mappings")
 lua require("plugins")
 
 "let g:sonokai_style = 'atlantis'
+let g:sonokai_enable_italic = 1
+let g:sonokai_disable_italic_comment = 1
+
 colorscheme sonokai
 "
 "NetRW"
@@ -19,10 +22,14 @@ let g:netrw_winsize = 50
 let g:netrw_localrmdir='rm -r'
 
 "Term Colours"
-if exists('+termguicolors')
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+if has('termguicolors')
+    set termguicolors
 endif
+
+"if exists('+termguicolors')
+"     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+" endif
 
 "Recommended Settings for Completion
 " Use <Tab> and <S-Tab> to navigate through popup menu
