@@ -30,6 +30,9 @@ local servers = {
 for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup{on_attach=custom_attach}
 end
+lspconfig.terraformls.setup{
+    filetypes = {"tf"}
+}
 
 --For More Complex Setups. Do them Individually
 
@@ -39,7 +42,7 @@ U.KeyMap('n',l..'gi', ':lua vim.lsp.buf.implementation()<CR>')
 U.KeyMap('n',l..'gsh', ':lua vim.lsp.buf.signature_help()<CR>')
 U.KeyMap('n',l..'grf', ':lua vim.lsp.buf.references()<CR>')
 U.KeyMap('n',l..'grn', ':lua vim.lsp.buf.rename()<CR>')
-U.KeyMap('n',l..'gf', ':lua vim.lsp.buf.formatting()<CR>')
+U.KeyMap('n',l..'gf', ':Neoformat<CR>')
 U.KeyMap('n',l..'gsd', ':lua vim.lsp.show_line_diagnostics()<CR>')
 U.KeyMap('n',l..'k', ':lua vim.lsp.buf.hover()<CR>')
 U.KeyMap('n',l..'ca', ':lua vim.lsp.buf.code_action()<CR>')

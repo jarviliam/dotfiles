@@ -1,6 +1,9 @@
 # Use powerline
 USE_POWERLINE="true"
 
+export PATH=/usr/share/tomcat7:$PATH
+export CATALINA_HOME=/usr/share/tomcat7
+#
 #Alias
 alias nvc="nvim ~/.config/nvim"
 alias nvd="cd ~/.config/nvim"

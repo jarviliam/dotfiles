@@ -10,7 +10,7 @@ local sections = {
     }
 lualine.setup{
     options = {
-        theme = 'sonokai',
+        theme = 'everforest',
         sections = sections
     }
 }
