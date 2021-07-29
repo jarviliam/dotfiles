@@ -1,0 +1,60 @@
+#!/bin/sh
+
+# basic shortcuts
+alias nvc="nvim ~/.config/nvim"
+alias nvd="cd ~/.config/nvim"
+
+alias doc="cd ~/Documents"
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+alias bar="mpd; ~/.config/polybar/launch.sh --hack"
+alias wk= "cd ~/Work"
+
+alias docks="systemctl start docker"
+
+#Unix Alias
+alias p="sudo pacman"
+alias ss="sudo systemctl"
+alias sss="sudo systemctl status"
+alias ssu="systemctl --user"
+alias ssuu="systemctl --user status"
+alias pacman="sudo pacman"
+
+#Unix
+alias vim="nvim"
+alias vi="nvim"
+alias v="nvim"
+
+#Exa
+alias l="exa -l"
+alias ls="exa"
+alias sl="exa"
+alias la="exa -la --git"
+alias lt="exa -Tla --git"
+
+#Movement
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+
+#Git
+alias \
+  ga='git add' \
+  gcl='git clone' \
+  gaa='git add --all' \
+  gb='git branch -a' \
+  gcm='git commit -m' \
+  gd='git diff' \
+  gp='git push' \
+  gl='git pull' \
+  gll='git log' \
+  gs='git status' \
+  gr='git remote -v' \
+  grm='git rm' \
+  grmc='git rm --cached' \
+  gmv='git mv'
+
+# search for a package and installed if needed
+pacfind() {
+  paru -Sl | awk '{print $2($4=="" ? "" : " *")}' | fzf --multi --preview 'paru -Si {1}' | xargs -ro paru -S --needed
+}
