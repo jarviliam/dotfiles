@@ -37,13 +37,7 @@ local pack_use = function()
 			require("configs.compe")
 		end,
 	})
-
-	use({
-		"norcalli/snippets.nvim",
-		config = function()
-			--require("configs.snippets")
-		end,
-	})
+	use({ "hrsh7th/vim-vsnip", after = "nvim-compe" })
 	-----------------------------------------------------------------------------//
 	-- Telescope {{{1
 	-----------------------------------------------------------------------------//

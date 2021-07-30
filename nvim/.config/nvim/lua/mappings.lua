@@ -4,10 +4,43 @@ local l = "<leader>"
 -----------------------------------------------------------------------------//
 -- Core
 -----------------------------------------------------------------------------//
-U.KeyMap("n", l .. "h", ":wincmd h<CR>")
-U.KeyMap("n", l .. "j", ":wincmd j<CR>")
-U.KeyMap("n", l .. "k", ":wincmd k<CR>")
-U.KeyMap("n", l .. "l", ":wincmd l<CR>")
+U.KeyMap("n", "<C-h>", "<C-w>h")
+U.KeyMap("n", "<C-j>", "<C-w>j")
+U.KeyMap("n", "<C-k>", "<C-w>k")
+U.KeyMap("n", "<C-l>", "<C-w>l")
+
+U.KeyMap("n", l .. "wh", "<C-w>h")
+U.KeyMap("n", l .. "wj", "<C-w>j")
+U.KeyMap("n", l .. "wk", "<C-w>k")
+U.KeyMap("n", l .. "wl", "<C-w>l")
+
+-- Move Selection
+U.KeyMap("v", "J", ":m '>+1<CR>gv=gv")
+U.KeyMap("v", "K", ":m '<-2<CR>gv=gv")
+
+-- Yank End
+U.KeyMap("n", "Y", "y$")
+
+U.KeyMap("n", "n", "nzzzv")
+U.KeyMap("n", "N", "Nzzzv")
+U.KeyMap("n", "J", "mzJ`z")
+
+U.KeyMap("n", l .. "wq", "<C-w>q") -- quit window
+U.KeyMap("n", l .. "ws", "<C-w>s") -- split window
+U.KeyMap("n", l .. "wv", "<C-w>v") -- vertical split
+U.KeyMap("n", l .. "wr", "<C-w>x") -- replace current with next
+--
+--Resizing
+U.KeyMap("n", l .. "w,", ":vertical resize -10<CR>") -- decrease width
+U.KeyMap("n", l .. "w.", ":vertical resize +10<CR>") -- increase width
+U.KeyMap("n", l .. "w-", ":resize -15<CR>") -- decrease height
+U.KeyMap("n", l .. "w=", ":resize +15<CR>") -- increase height
+
+-----------------------------------------------------------------------------//
+-- buffers {{{1
+-----------------------------------------------------------------------------//
+U.KeyMap("n", "<TAB>", ":bnext<CR>") -- buffer next
+U.KeyMap("n", "<S-TAB>", ":bprevious<CR>") -- buffer previous
 
 -----------------------------------------------------------------------------//
 -- NvimTree
@@ -15,10 +48,6 @@ U.KeyMap("n", l .. "l", ":wincmd l<CR>")
 U.KeyMap("n", l .. "pv", ":NvimTreeToggle<CR>")
 U.KeyMap("n", l .. "n", ":NvimTreeFindFile<CR>")
 U.KeyMap("n", l .. "r", ":NvimTreeRefresh<CR>")
-
---Resizing
-U.KeyMap("n", l .. "+", ":vertical resize +5<CR>")
-U.KeyMap("n", l .. "-", ":vertical resize -5<CR>")
 
 --Undo Tree---
 U.KeyMap("n", l .. "u", ":UndotreeToggle<CR>")
@@ -76,8 +105,8 @@ U.KeyMap("n", l .. "pC", ":Telescope command_history<CR>")
 U.KeyMap("n", l .. "pS", ":Telescope search_history<CR>")
 U.KeyMap("n", l .. "pb", ":Telescope buffers<CR>")
 U.KeyMap("n", l .. "ph", ":Telescope help_tags<CR>")
-U.KeyMap("n", l .. "qo", ":Telescope quickfix<CR>")
-U.KeyMap("n", l .. "lo", ":Telescope loclist<CR>")
+U.KeyMap("n", l .. "qf", ":Telescope quickfix<CR>")
+U.KeyMap("n", l .. "ql", ":Telescope loclist<CR>")
 
 U.KeyMap("n", "<C-p>", ":Telescope git_files<CR>")
 
@@ -85,6 +114,7 @@ U.KeyMap("n", "<C-p>", ":Telescope git_files<CR>")
 -- Help
 -----------------------------------------------------------------------------//
 U.KeyMap("n", "<leader>hm", ":Telescope man_pages<CR>")
+U.KeyMap("n", "<leader>km", ":Telescope keymaps<CR>")
 U.KeyMap("n", "<leader>hc", ":Telescope colorscheme<CR>")
 U.KeyMap("n", "<leader>ho", ":Telescope vim_options<CR>")
 U.KeyMap("n", "<leader>hpi", ":PackerInstall<CR>")
