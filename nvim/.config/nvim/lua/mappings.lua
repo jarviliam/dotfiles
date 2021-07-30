@@ -21,6 +21,8 @@ U.KeyMap("v", "K", ":m '<-2<CR>gv=gv")
 -- Yank End
 U.KeyMap("n", "Y", "y$")
 
+U.KeyMap("n", "Q", "<Nop>")
+
 U.KeyMap("n", "n", "nzzzv")
 U.KeyMap("n", "N", "Nzzzv")
 U.KeyMap("n", "J", "mzJ`z")
