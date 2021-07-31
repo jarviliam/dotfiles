@@ -24,6 +24,16 @@ alias vim="nvim"
 alias vi="nvim"
 alias v="nvim"
 
+alias -s txt=nvim
+alias -s vim=nvim
+alias -s zsh=nvim
+alias -s zshrc=nvim
+alias -s {c,h}=nvim
+alias -s {js,json}=nvim
+alias -s {md,MD}=nvim
+alias -s {rs,toml}=nvim
+alias -s {yml}=nvim
+
 #Exa
 alias l="exa -l"
 alias ls="exa"
@@ -53,8 +63,3 @@ alias \
   grm='git rm' \
   grmc='git rm --cached' \
   gmv='git mv'
-
-# search for a package and installed if needed
-pacfind() {
-  paru -Sl | awk '{print $2($4=="" ? "" : " *")}' | fzf --multi --preview 'paru -Si {1}' | xargs -ro paru -S --needed
-}

@@ -17,6 +17,8 @@ local pack_use = function()
 	-----------------------------------------------------------------------------//
 	-- LSP, Autocomplete and snippets {{{1
 	-----------------------------------------------------------------------------//
+	use({ "ray-x/lsp_signature.nvim" })
+
 	use({
 		"neovim/nvim-lspconfig",
 		requires = { "glepnir/lspsaga.nvim" },
@@ -42,16 +44,13 @@ local pack_use = function()
 	-- Telescope {{{1
 	-----------------------------------------------------------------------------//
 	use({
+		"nvim-telescope/telescope-fzf-native.nvim",
+		opt = true,
+		run = "make",
+	})
+	use({
 		"nvim-telescope/telescope.nvim",
-		wants = { "plenary.nvim", "popup.nvim", "telescope-fzf-native.nvim" },
 		cmd = "Telescope",
-		requires = {
-			{
-				"nvim-telescope/telescope-fzf-native.nvim",
-				opt = true,
-				run = "make",
-			},
-		},
 		config = function()
 			require("configs.telescope")
 		end,
