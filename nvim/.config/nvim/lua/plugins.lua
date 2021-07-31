@@ -5,8 +5,8 @@ local pack_use = function()
 	-----------------------------------------------------------------------------//
 	-- Required by others {{{1
 	-----------------------------------------------------------------------------//
-	use({ "nvim-lua/plenary.nvim" })
-	use({ "nvim-lua/popup.nvim" })
+	use({ "nvim-lua/plenary.nvim", module = "plenary" })
+	use({ "nvim-lua/popup.nvim", module = "popup" })
 	use({
 		"kyazdani42/nvim-web-devicons",
 		module = "nvim-web-devicons",
@@ -40,22 +40,22 @@ local pack_use = function()
 		end,
 	})
 	use({ "hrsh7th/vim-vsnip", after = "nvim-compe" })
+
 	-----------------------------------------------------------------------------//
 	-- Telescope {{{1
 	-----------------------------------------------------------------------------//
+	use({
+		"nvim-telescope/telescope.nvim",
+		cmd = "Telescope",
+		config = function()
+			require("modules.telescope").config()
+		end,
+	})
 	use({
 		"nvim-telescope/telescope-fzf-native.nvim",
 		opt = true,
 		run = "make",
 	})
-	use({
-		"nvim-telescope/telescope.nvim",
-		cmd = "Telescope",
-		config = function()
-			require("modules.telescope")
-		end,
-	})
-
 	-----------------------------------------------------------------------------//
 	-- Treesitter {{{1
 	-----------------------------------------------------------------------------//
@@ -168,7 +168,7 @@ local compile_path = install_path .. "/plugin/packer_compiled.lua"
 
 local function load_plugins()
 	local pack = require("packer")
-	pack.init({ compile_path = compile_path })
+	pack.init({ compile_path = compile_path, git = { clone_timeout = 600 } })
 	pack.startup({
 		function()
 			pack_use()
@@ -183,3 +183,4 @@ if fn.empty(fn.glob(install_path)) > 0 then
 else
 	load_plugins()
 end
+-- vim:foldmethod=marker
