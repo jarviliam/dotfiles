@@ -1,0 +1,57 @@
+[user]
+	email = jarviliam@gmail.com
+	name = Liam Jarvis
+[core]
+  autocrlf = input
+  editor = nvim
+    excludesfile = ~/.gitignore
+    whitespace = fix
+[credential]
+	helper = store
+[init]
+	defaultBranch = master
+[pull]
+  rebase = merges
+  default = current
+[push]
+  default = current
+[submodule]
+  fetchJobs = "7"
+[help]
+  autocorrect = 5
+[format]
+  pretty = %C(bold yellow)%h%Creset %s %C(bold blue)[%aN]%Creset %Cblue{%aE}%Creset %Cgreen(%cr)%Creset
+[color]
+  ui = true
+  diff = true
+  status = true
+  branch = true
+  interactive = true
+[branch]
+  autosetuprebase = always
+[apply]
+  whitespace = fix
+[diff]
+    tool = nvim_diff
+[difftool]
+    prompt = false
+[difftool "nvim_diff"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+[merge]
+    tool = nvim_merge
+    conflictStyle = diff3
+[mergetool "nvim_merge"]
+    cmd = nvim -f -c "MergetoolStart" "$MERGED" "$BASE" "$LOCAL" "$REMOTE"
+    trustExitCode = true
+
+
+[alias]
+  up = "!f() { git fetch --all; git pull origin HEAD; for upstream in $(git remote); do git remote prune "${upstream}"; done }; f"
+  graph = "!f() { git log --oneline --abbrev-commit --graph --decorate; }; f"
+  undo = !git reset HEAD~1 --mixed
+  # Remove file(s) from Git but not from disk
+  untrack = rm --cache --
+  amend = !git commit --amend --no-edit
+  top = !git log --format=format:%an | sort | uniq -c | sort -r | head -n 20
+  x = "!f() { gitx; }; f"
+  gone = ! "git fetch -p && git for-each-ref --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" {print $1}' | xargs -r git branch -D"
