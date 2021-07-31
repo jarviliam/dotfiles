@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-
 dir="$HOME/.config/polybar"
-themes=($(ls --hide="launch.sh" $dir))
 
 launch_bar() {
   # Terminate already running bar instances
@@ -11,11 +9,9 @@ launch_bar() {
   while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
   # Launch the bar
-  if [[ "$style" == "hack" || "$style" == "cuts" ]]; then
-    polybar -q top -c "$dir/$style/config.ini" &
-    polybar -q bottom -c "$dir/$style/config.ini" &
-  elif [[ "$style" == "pwidgets" ]]; then
-    bash "$dir"/pwidgets/launch.sh --main
+  if [[ "$style" == "hack" ]]; then
+    polybar -q top -c "$dir/hack/config.ini" &
+    polybar -q bottom -c "$dir/hack/config.ini" &
   else
     polybar -q main -c "$dir/$style/config.ini" &
   fi
@@ -25,12 +21,6 @@ if [[ "$1" == "--hack" ]]; then
   style="hack"
   launch_bar
 else
-  cat <<-EOF
-	Usage : launch.sh --theme
-		
-	Available Themes :
-	--blocks    --colorblocks    --cuts      --docky
-	--forest    --grayblocks     --hack      --material
-	--panels    --pwidgets       --shades    --shapes
-	EOF
+  style="default"
+  launch_bar
 fi
