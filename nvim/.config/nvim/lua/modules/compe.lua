@@ -1,3 +1,5 @@
+local M = {}
+
 -- Auto Completion --
 require("compe").setup({
 	enabled = true,

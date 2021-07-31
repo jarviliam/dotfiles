@@ -30,13 +30,13 @@ local pack_use = function()
 		"kabouzeid/nvim-lspinstall",
 		after = "nvim-lspconfig",
 		config = function()
-			require("configs.lsp.servers")
+			require("modules.lsp.servers")
 		end,
 	})
 	use({
 		"hrsh7th/nvim-compe",
 		config = function()
-			require("configs.compe")
+			require("modules.compe")
 		end,
 	})
 	use({ "hrsh7th/vim-vsnip", after = "nvim-compe" })
@@ -52,7 +52,7 @@ local pack_use = function()
 		"nvim-telescope/telescope.nvim",
 		cmd = "Telescope",
 		config = function()
-			require("configs.telescope")
+			require("modules.telescope")
 		end,
 	})
 
@@ -65,7 +65,7 @@ local pack_use = function()
 		run = ":TSUpdate",
 		event = "BufRead",
 		config = function()
-			require("configs.treesitter")
+			require("modules.treesitter")
 		end,
 	})
 
@@ -77,7 +77,7 @@ local pack_use = function()
 		wants = "nvim-web-devicons",
 		cmd = { "NvimTreeToggle", "NvimTreeFindFile" },
 		config = function()
-			require("configs.tree")
+			require("modules.tree")
 		end,
 	})
 	-----------------------------------------------------------------------------//
@@ -122,14 +122,14 @@ local pack_use = function()
 		"hoob3rt/lualine.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
 		config = function()
-			require("configs.lualine")
+			require("modules.lualine")
 		end,
 	})
 	use({
 		"mhartington/formatter.nvim",
 		cmd = { "Format", "FormatWrite" },
 		config = function()
-			require("configs.format").config()
+			require("modules.format").config()
 		end,
 	})
 

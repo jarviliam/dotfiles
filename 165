@@ -1,22 +1,7 @@
 local opt = vim.opt
 
-function default_num(option, int)
-	if option == nil or not tonumber(option) or option <= 0 then
-		return int
-	end
-	return option
-end
-
-function nvim_set_au(au_type, where, dispatch)
-	vim.cmd(string.format("au! %s %s %s", au_type, where, dispatch))
-end
-
-function check_and_set(option, au_type, where, dispatch, boolean)
-	nvim_set_au(au_type, where, dispatch)
-end
-
 -- Timing {{{
-opt.updatetime = default_num(vim.g.nv_updatetime, 300)
+opt.updatetime = as._default_num(vim.g.nv_updatetime, 300)
 --opt.timeoutlen = default_num(vim.g.nv_timeoutlen,400)
 -- }}}
 
@@ -58,9 +43,9 @@ end
 -- }}}
 -----------------------------------------------------------------------------//
 -- Display {{{
-opt.colorcolumn = { default_num(vim.g.nv_colorcolumn, 0) }
-opt.cmdheight = default_num(vim.g.nv_cmdheight, 2)
-opt.scrolloff = default_num(vim.g.nv_scrolloff, 10)
+opt.colorcolumn = { as._default_num(vim.g.nv_colorcolumn, 0) }
+opt.cmdheight = as._default_num(vim.g.nv_cmdheight, 2)
+opt.scrolloff = as._default_num(vim.g.nv_scrolloff, 10)
 opt.conceallevel = 0
 opt.signcolumn = "yes:1"
 opt.showbreak = [[↪ ]] -- Options include -> '…', '↳ ', '→','↪ '
@@ -79,7 +64,7 @@ opt.showmode = false
 -----------------------------------------------------------------------------//
 -- Indentation {{{
 
-local indent = default_num(vim.g.nv_indent_size, 2)
+local indent = as._default_num(vim.g.nv_indent_size, 2)
 opt.wrap = false
 opt.tabstop = 8
 opt.softtabstop = indent
@@ -95,7 +80,7 @@ opt.incsearch = true
 opt.ignorecase = true
 opt.smartcase = true
 opt.inccommand = "nosplit"
-opt.pumheight = default_num(vim.g.nv_compe_items, 10)
+opt.pumheight = as._default_num(vim.g.nv_compe_items, 10)
 opt.completeopt = "menuone,noinsert,noselect"
 -- }}}
 -----------------------------------------------------------------------------//
@@ -177,18 +162,18 @@ opt.belloff = "all" -- Kill It
 
 -----------------------------------------------------------------------------//
 -- Autocommands {{{1
-check_and_set(vim.g.nv_trim_trailing_space, "BufWritePre", "*", [[%s/\s\+$//e]])
-check_and_set(vim.g.nv_trim_trailing_space, "BufWritePre", "*", [[%s/\n\+\%$//e]])
-check_and_set(vim.g.nv_highlight_yank, "TextYankPost", "*", 'lua require"vim.highlight".on_yank{timeout = 250}')
-check_and_set(
+as._check_and_set(vim.g.nv_trim_trailing_space, "BufWritePre", "*", [[%s/\s\+$//e]])
+as._check_and_set(vim.g.nv_trim_trailing_space, "BufWritePre", "*", [[%s/\n\+\%$//e]])
+as._check_and_set(vim.g.nv_highlight_yank, "TextYankPost", "*", 'lua require"vim.highlight".on_yank{timeout = 250}')
+as._check_and_set(
 	vim.g.nv_preserve_cursor,
 	"BufReadPost",
 	"*",
 	[[if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]]
 )
-check_and_set(vim.g.nv_format_on_save, "BufWritePost", "*", "silent FormatWrite")
+as._check_and_set(vim.g.nv_format_on_save, "BufWritePost", "*", "silent FormatWrite")
 
-nvim_set_au("InsertLeave,BufWrite,BufEnter", "<buffer>", "lua vim.lsp.diagnostic.set_loclist({open = false})")
+as._check_and_set("InsertLeave,BufWrite,BufEnter", "<buffer>", "lua vim.lsp.diagnostic.set_loclist({open = false})")
 
 vim.cmd([[menu File.Save :w<CR>]])
 vim.cmd([[menu File.Stop :q<CR>]])

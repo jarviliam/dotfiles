@@ -1,24 +1,10 @@
-let g:mapleader=" "
 filetype plugin indent on
 
-lua require("utils")
-lua require("options")
-lua require("mappings")
-lua require("pack")
+lua require("core.global")
+lua require("core.options")
+lua require("core.mappings")
+lua require("plugins")
 
-let g:sonokai_enable_italic = 1
-let g:sonokai_disable_italic_comment = 1
-let g:everforest_background = 'hard'
-
-set background=dark
-set bg=dark
-
-colorscheme everforest
-
-"Term Colours"
-if has('termguicolors')
-    set termguicolors
-endif
 
 "Recommended Settings for Completion
 " Use <Tab> and <S-Tab> to navigate through popup menu
