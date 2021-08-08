@@ -51,6 +51,13 @@ local pack_use = function()
 			require("modules.telescope").config()
 		end,
 	})
+	-- use({
+	-- 	"~/Documents/telescope.nvim",
+	-- 	cmd = "Telescope",
+	-- 	config = function()
+	-- 		require("modules.telescope").config()
+	-- 	end,
+	-- })
 	use({
 		"nvim-telescope/telescope-fzf-native.nvim",
 		opt = true,
