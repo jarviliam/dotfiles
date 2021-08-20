@@ -62,6 +62,10 @@ reddit() {
   fi
 }
 
+cfunc() {
+  nvim ~/.dotfiles/zsh/.functions.zsh
+}
+
 fkill() {
   local pid
   if [ "$UID" != "0" ]; then

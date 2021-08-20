@@ -1,0 +1,4 @@
+# colors
+bspc config focused_border_color \#dfbf8e
+bspc config normal_border_color  \#665c54 
+spc config urgent_border_color   \#ea6962
