@@ -47,6 +47,11 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
+#General
+alias cp="cp -i"     # Confirm before overwriting something
+alias df='df -h'     # Human-readable sizes
+alias free='free -m' # Show sizes in MB
+
 #Git
 alias \
   ga='git add' \

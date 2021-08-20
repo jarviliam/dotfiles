@@ -1,20 +1,37 @@
-# Use powerline
-USE_POWERLINE="true"
-
 export PATH=/usr/share/tomcat7:$PATH
 export CATALINA_HOME=/usr/share/tomcat7
-export ZDOTDIR=~/.dotfiles/zsh
+export DOTDIR=/home/liam/dotfiles
+export ZDOTDIR=/home/liam/dotfiles/zsh
 
 function zsh_source() {
   [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
 }
 
-source "$ZDOTDIR/.aliasrc"
-source "$ZDOTDIR/.functions.zsh"
+source "${HOME}/dotfiles/zshconfig/.aliasrc"
+source "${HOME}/dotfiles/zshconfig/.functions.zsh"
+
+HISTFILE=~/.zhistory
+HISTSIZE=10000
+SAVEHIST=10000
+## Options section
+setopt correct                                                  # Auto correct mistakes
+setopt extendedglob                                             # Extended globbing. Allows using regular expressions with *
+setopt nocaseglob                                               # Case insensitive globbing
+setopt rcexpandparam                                            # Array expension with parameters
+setopt nocheckjobs                                              # Don't warn about running processes when exiting
+setopt numericglobsort                                          # Sort filenames numerically when it makes sense
+setopt nobeep                                                   # No beep
+setopt appendhistory                                            # Immediately append history instead of overwriting
+setopt histignorealldups                                        # If a new command is a duplicate, remove the older one
+setopt autocd                                                   # if only directory path is entered, cd there.
+setopt inc_append_history                                       # save commands are added to the history immediately, otherwise only when shell exits.
+
+# these directories are necessary for zsh.
+[[ ! -d ~/.cache/zsh ]] && mkdir -p ~/.cache/zsh
+[[ ! -d ~/.local/share/zsh ]] && mkdir -p ~/.local/share/zsh
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-
 
 # {{{completion
 zcomp_init () {
@@ -36,7 +53,7 @@ zcomp_init () {
 
     # Use caching to make completion for commands such as dpkg and apt usable.
     zstyle ':completion::complete:*' use-cache on
-    zstyle ':completion::complete:*' cache-path "${ZDOTDIR:-$HOME}/.cache/.zcompcache"
+    zstyle ':completion::complete:*' cache-path "${HOME}/.cache/zsh/.zcompcache"
 
     # Case-insensitive (all), partial-word, and then substring completion.
     if zstyle -t ':prezto:module:completion:*' case-sensitive; then
@@ -169,7 +186,7 @@ zstyle -e ':completion:*:hosts' hosts 'reply=(
 source "$HOME/.zinit/bin/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
-zinit ice atload"source $HOME/.zsh-theme"
+zinit ice atload"source $HOME/dotfiles/zshconfig/.p10k-theme.zsh"
 zinit light romkatv/powerlevel10k
 zinit light zdharma/fast-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
@@ -181,13 +198,13 @@ zinit ice wait'1' lucid depth=1; zinit light hlissner/zsh-autopair
 zinit ice wait'1' lucid depth=1; zinit light jeffreytse/zsh-vi-mode
 zinit ice wait'0' lucid depth=1; zinit light sainnhe/zsh-completions
 zinit ice wait'0' lucid depth=1 \
-    atload"export FPATH=$HOME/.zinit/plugins/RobSis---zsh-completion-generator/completions:$FPATH"
+    atload"export FPATH=$HOME/.config/.zinit/plugins/RobSis---zsh-completion-generator/completions:$FPATH"
 zinit light RobSis/zsh-completion-generator
 zinit ice wait'0' lucid depth=1 \
-    atload"export FPATH=$HOME/.zinit/plugins/nevesnunes---sh-manpage-completions/completions/zsh:$FPATH" \
+    atload"export FPATH=$HOME/.config/.zinit/plugins/nevesnunes---sh-manpage-completions/completions/zsh:$FPATH" \
     atload"zcomp_init" \
     atclone"mv run.sh gencomp-manpage" \
-    atclone"sed -i -e '1i pushd ~/.zinit/plugins/nevesnunes---sh-manpage-completions/' gencomp-manpage" \
+    atclone"sed -i -e '1i pushd ~/.config/.zinit/plugins/nevesnunes---sh-manpage-completions/' gencomp-manpage" \
     atclone"sed -i -e '\$a popd' gencomp-manpage" \
     atpull"%atclone" \
     as"program"
@@ -196,6 +213,7 @@ zinit ice wait'0' pick'.zsh-snippets' lucid; zinit light "$HOME"
 zinit ice wait'1' lucid; zinit snippet OMZ::plugins/extract/extract.plugin.zsh
 zinit ice wait'1' lucid; zinit snippet OMZ::plugins/command-not-found/command-not-found.plugin.zsh
 # }}}
+
 # {{{fzf
 # $ fzf                 # fuzzy search files
 # Tab/Down/S-Tab/Up     # navigate
@@ -222,8 +240,8 @@ if [ -d /usr/share/fzf ]; then
     source /usr/share/fzf/completion.zsh
     source /usr/share/fzf/key-bindings.zsh
 fi
-# }}}
-# {{{fzf-marks
+
+#fzf-marks
 # Usage:
 # $ mark        # mark current directory
 # $ fzm         # select marked directories using fzf
@@ -235,12 +253,9 @@ FZF_MARKS_COLOR_RHS="249"
 FZF_MARKS_JUMP="^z"
 # }}}
 
-
-# Source manjaro-zsh-configuration
-if [[ -e /usr/share/zsh/manjaro-zsh-config ]]; then
-  source /usr/share/zsh/manjaro-zsh-config
-fi
-# Use manjaro zsh prompt
-if [[ -e /usr/share/zsh/manjaro-zsh-prompt ]]; then
-  source /usr/share/zsh/manjaro-zsh-prompt
-fi
+# bind UP and DOWN arrow keys to history substring search
+zmodload zsh/terminfo
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+bindkey '^[[A' history-substring-search-up			
+bindkey '^[[B' history-substring-search-down
