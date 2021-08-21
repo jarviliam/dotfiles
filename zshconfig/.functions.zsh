@@ -28,7 +28,7 @@ cdg() {
   file=$(fd -H -g .git | fzf) && dir=$(dirname "$file") && cd "$dir"
 }
 
-agit() {
+allgit() {
   dir=$(find ~/{Work,Documents} -type d -name .git | sed 's/\/.git//' |
     fzf --cycle --preview 'tree -C {} | head -50') && cd $dir && git status
 }

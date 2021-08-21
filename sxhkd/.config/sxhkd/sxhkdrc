@@ -1,6 +1,7 @@
-#
-# wm independent hotkeys
-#
+##########################################################
+#                 wm independent hotkeys                 #
+##########################################################
+
 
 # terminal emulator
 super + Return
@@ -20,7 +21,7 @@ super + Tab
 
 # browser
 super + b
-	firefox
+	librewolf
 
 # file manager
 super + shift + f
@@ -34,9 +35,14 @@ super + Escape
 super + shift + s
 	flameshot
 
-#
-# bspwm hotkeys
-#
+# reload polybar
+super + ctrl + Escape
+    polybar-msg cmd restart
+
+##########################################################
+#                     bspwm hotkeys                      #
+##########################################################
+
 
 # quit/restart bspwm
 super + alt + {q,r}
@@ -57,6 +63,13 @@ super + y
 # swap the current node and the biggest window
 super + g
 	bspc node -s biggest.window
+
+# toggle borderless mode
+alt + shift + f
+    case $(bspc config window_gap) in \
+      0) bspc config window_gap 24 ;; \
+      *) bspc config window_gap 0  ;; \
+    esac
 
 #
 # state/flags
@@ -142,8 +155,8 @@ super + {Left,Down,Up,Right}
 
 # volume
 XF86AudioLowerVolume
-	pulseaudio-control --volume-max 130 down
+	pulseaudio-ctl down
 XF86AudioRaiseVolume
-	pulseaudio-control --volume-max 130 up
+	pulseaudio-ctl up
 XF86AudioMute
-        pulseaudio-control togmute
+        pulseaudio-ctl mute

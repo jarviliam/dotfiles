@@ -5,13 +5,12 @@ alias nvc="nvim ~/.config/nvim"
 alias nvd="cd ~/.config/nvim"
 
 alias doc="cd ~/Documents"
-alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias bar="mpd; ~/.config/polybar/launch.sh --hack"
-alias wk= "cd ~/Work"
 
 alias docks="systemctl start docker"
 
 #Unix Alias
+alias pamac="sudo pacman"
 alias p="sudo pacman"
 alias ss="sudo systemctl"
 alias sss="sudo systemctl status"

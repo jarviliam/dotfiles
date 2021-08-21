@@ -1,3 +1,3 @@
 # dotFiles
 
-This repository contains my current dotFiles configurations.
+DotFiles for Arch Linux

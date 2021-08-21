@@ -1,7 +1,3 @@
-export PATH=/usr/share/tomcat7:$PATH
-export CATALINA_HOME=/usr/share/tomcat7
-export DOTDIR=/home/liam/dotfiles
-export ZDOTDIR=/home/liam/dotfiles/zsh
 
 function zsh_source() {
   [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
