@@ -1,2 +1,4 @@
 tmux/.tmux/plugins
 zsh/.zshenvprivate
+ncmpcpp/.config/ncmpcpp/error.log
+ncmpcpp/.config/ncmpcpp/lyrics

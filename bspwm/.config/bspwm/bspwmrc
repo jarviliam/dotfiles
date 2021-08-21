@@ -41,5 +41,5 @@ source ~/.config/bspwm/theme
 bspc rule -a Nitrogen state=floating
 bspc rule -a Zathura state=tiled
 bspc rule -a flameshot state=floating follow=on
-bspc rule -a librewolf desktop='^6' follow=on
-bspc rule -a dolphin desktop='^10' follow=on
+bspc rule -a librewolf desktop='5' follow=on
+bspc rule -a dolphin desktop='10' follow=on
