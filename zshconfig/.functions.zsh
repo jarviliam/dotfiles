@@ -2,6 +2,43 @@ sc() {
   screencapture -x ~/Screenshots/$1
 }
 
+
+cd() {
+    if [[ "$#" != 0 ]]; then
+        builtin cd "$@";
+        return
+    fi
+    while true; do
+        local lsd=$(echo ".." && exa --classify | grep '/$' | sed 's;/$;;')
+        local dir="$(printf '%s\n' "${lsd[@]}" |
+            fzf --reverse --preview '
+                __cd_nxt="$(echo {})";
+                __cd_path="$(echo $(pwd)/${__cd_nxt} | sed "s;//;/;")";
+                echo $__cd_path;
+                echo;
+                ls -p --color=always "${__cd_path}";
+        ')"
+        [[ ${#dir} != 0 ]] || return 0
+        builtin cd "$dir" &> /dev/null
+    done
+}
+
+# fh - repeat history
+fh() {
+  eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed -E 's/ *[0-9]*\*? *//' | sed -E 's/\\/\\\\/g')
+}
+
+# fd - cd to selected directory
+fd() {
+  local dir
+  dir=$(find ${1:-.} -path '*/\.*' -prune \
+                  -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir"
+}
+
+gc(){
+  git clone $1
+}
 csjq() {
   curl -s $1 | jq
 }
@@ -41,7 +78,6 @@ td() {
     cd "$wtdir"
   fi
 }
-
 # Git Issues
 ghi() {
   local item
