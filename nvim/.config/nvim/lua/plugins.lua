@@ -34,13 +34,25 @@ local pack_use = function()
 		end,
 	})
 	use({
-		"hrsh7th/nvim-compe",
+		"hrsh7th/nvim-cmp",
 		config = function()
 			require("modules.compe")
 		end,
 	})
-	use({ "hrsh7th/vim-vsnip", after = "nvim-compe" })
-
+	use("rafamadriz/friendly-snippets")
+	use({
+		"L3MON4D3/LuaSnip",
+		config = function()
+			require("luasnip/loaders/from_vscode").load()
+		end,
+	})
+	use({ "saadparwaiz1/cmp_luasnip" })
+	use({ "hrsh7th/cmp-buffer", after = "nvim-cmp" })
+	use({ "hrsh7th/cmp-calc", after = "nvim-cmp" })
+	use({ "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" })
+	use({ "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" })
+	use({ "hrsh7th/cmp-path", after = "nvim-cmp" })
+	use("onsails/lspkind-nvim") -- icons for completion popup
 	-----------------------------------------------------------------------------//
 	-- Telescope {{{1
 	-----------------------------------------------------------------------------//
@@ -66,7 +78,6 @@ local pack_use = function()
 	-----------------------------------------------------------------------------//
 	-- Treesitter {{{1
 	-----------------------------------------------------------------------------//
-	use({ "nvim-treesitter/playground", after = "nvim-treesitter" })
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		run = ":TSUpdate",
@@ -75,6 +86,7 @@ local pack_use = function()
 			require("modules.treesitter")
 		end,
 	})
+	use({ "nvim-treesitter/playground", after = "nvim-treesitter" })
 
 	-----------------------------------------------------------------------------//
 	-- Utils {{{1
@@ -150,12 +162,27 @@ local pack_use = function()
 		config = "vim.g.undotree_WindowLayout = 2",
 	})
 
+	-- use({
+	-- 	"cohama/lexima.vim",
+	-- 	config = function()
+	-- 		vim.g.lexima_map_escape = ""
+	-- 	end,
+	-- })
+	-- use ({'windwp/nvim-autopairs',
+	--     config = function()
+	--       require("modules.autopairs")
+	--       end,
+	--       after="nvim-cmp"
+	--      })
+
 	use({
-		"cohama/lexima.vim",
+		"~/Documents/Coding/lua/nvim-autopairs",
 		config = function()
-			vim.g.lexima_map_escape = ""
+			require("modules.autopairs")
 		end,
+		after = "nvim-cmp",
 	})
+
 	use({
 		"lukas-reineke/indent-blankline.nvim",
 		event = "BufReadPre",
