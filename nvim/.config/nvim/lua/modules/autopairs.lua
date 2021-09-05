@@ -2,8 +2,7 @@ require("nvim-autopairs").setup({
 	disable_filetype = { "TelescopePrompt" },
 	ignored_next_char = "%w",
 	enable_check_bracket_line = true,
-	check_ts = true,
-	show_ts_warning = true,
+	check_ts = false,
 })
 require("nvim-autopairs.completion.cmp").setup({
 	map_cr = true, --  map <CR> on insert mode

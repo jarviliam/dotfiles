@@ -141,7 +141,7 @@ local pack_use = function()
 		"hoob3rt/lualine.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
 		config = function()
-			require("modules.lualine")
+			require("modules.line")
 		end,
 	})
 	use({
@@ -168,15 +168,8 @@ local pack_use = function()
 	-- 		vim.g.lexima_map_escape = ""
 	-- 	end,
 	-- })
-	-- use ({'windwp/nvim-autopairs',
-	--     config = function()
-	--       require("modules.autopairs")
-	--       end,
-	--       after="nvim-cmp"
-	--      })
-
 	use({
-		"~/Documents/Coding/lua/nvim-autopairs",
+		"windwp/nvim-autopairs",
 		config = function()
 			require("modules.autopairs")
 		end,
