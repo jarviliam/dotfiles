@@ -55,8 +55,8 @@ as.KeyMap("n", l .. "u", ":UndotreeToggle<CR>")
 
 --Mappings
 as.KeyMap("n", l .. "ff", ":Format<CR>")
-as.KeyMap("n", l .. "gd", ":lua vim.lsp.buf.definition()<CR>")
-as.KeyMap("n", l .. "gi", ":lua vim.lsp.buf.implementation()<CR>")
+as.KeyMap("n", l .. "nd", ":lua vim.lsp.buf.definition()<CR>")
+as.KeyMap("n", l .. "ni", ":lua vim.lsp.buf.implementation()<CR>")
 as.KeyMap("n", l .. "gsh", ":lua vim.lsp.buf.signature_help()<CR>")
 as.KeyMap("n", l .. "grf", ":lua vim.lsp.buf.references()<CR>")
 as.KeyMap("n", l .. "grn", ":lua vim.lsp.buf.rename()<CR>")
@@ -65,7 +65,7 @@ as.KeyMap("n", l .. "k", ":lua vim.lsp.buf.hover()<CR>")
 
 --LSPSaga
 as.KeyMap("n", l .. "np", ":lua require'lspsaga.provider'.preview_definition()<CR>")
-as.KeyMap("n", l .. "cd", ":lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>")
+as.KeyMap("n", l .. "nc", ":lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>")
 as.KeyMap("n", l .. "e[", ":lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>")
 as.KeyMap("n", l .. "e]", ":lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>")
 

@@ -63,13 +63,6 @@ local pack_use = function()
 			require("modules.telescope").config()
 		end,
 	})
-	-- use({
-	-- 	"~/Documents/telescope.nvim",
-	-- 	cmd = "Telescope",
-	-- 	config = function()
-	-- 		require("modules.telescope").config()
-	-- 	end,
-	-- })
 	use({
 		"nvim-telescope/telescope-fzf-native.nvim",
 		opt = true,
@@ -161,13 +154,6 @@ local pack_use = function()
 		cmd = "UndotreeToggle",
 		config = "vim.g.undotree_WindowLayout = 2",
 	})
-
-	-- use({
-	-- 	"cohama/lexima.vim",
-	-- 	config = function()
-	-- 		vim.g.lexima_map_escape = ""
-	-- 	end,
-	-- })
 	use({
 		"windwp/nvim-autopairs",
 		config = function()
@@ -183,8 +169,7 @@ local pack_use = function()
 	--Themes
 	use("sainnhe/sonokai")
 	use("sainnhe/everforest")
-	use("kyazdani42/blue-moon")
-	use("arcticicestudio/nord-vim")
+	use("shaunsingh/nord.nvim")
 	use("lifepillar/gruvbox8")
 end
 -- }}}
