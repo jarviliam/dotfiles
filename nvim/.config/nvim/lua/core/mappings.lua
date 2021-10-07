@@ -8,6 +8,11 @@ as.KeyMap("n", "<C-j>", "<C-w>j")
 as.KeyMap("n", "<C-k>", "<C-w>k")
 as.KeyMap("n", "<C-l>", "<C-w>l")
 
+-- <ctrl-s> to Save
+as.KeyMap("n", "<C-S>", "<esc>:update<cr>", { silent = true })
+as.KeyMap("v", "<C-S>", "<esc>:update<cr>", { silent = true })
+as.KeyMap("i", "<C-S>", "<esc>:update<cr>", { silent = true })
+
 as.KeyMap("n", l .. "th", "<C-w>h")
 as.KeyMap("n", l .. "tj", "<C-w>j")
 as.KeyMap("n", l .. "tk", "<C-w>k")
@@ -59,13 +64,12 @@ as.KeyMap("n", l .. "nd", ":lua vim.lsp.buf.definition()<CR>")
 as.KeyMap("n", l .. "ni", ":lua vim.lsp.buf.implementation()<CR>")
 as.KeyMap("n", l .. "gsh", ":lua vim.lsp.buf.signature_help()<CR>")
 as.KeyMap("n", l .. "grf", ":lua vim.lsp.buf.references()<CR>")
-as.KeyMap("n", l .. "grn", ":lua vim.lsp.buf.rename()<CR>")
-as.KeyMap("n", l .. "gsd", ":lua vim.lsp.show_line_diagnostics()<CR>")
+as.KeyMap("n", l .. "nr", ":lua vim.lsp.buf.rename()<CR>")
 as.KeyMap("n", l .. "k", ":lua vim.lsp.buf.hover()<CR>")
 
 --LSPSaga
 as.KeyMap("n", l .. "np", ":lua require'lspsaga.provider'.preview_definition()<CR>")
-as.KeyMap("n", l .. "nc", ":lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>")
+as.KeyMap("n", l .. "nv", ":lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>")
 as.KeyMap("n", l .. "e[", ":lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>")
 as.KeyMap("n", l .. "e]", ":lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>")
 

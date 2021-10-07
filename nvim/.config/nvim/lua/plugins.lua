@@ -5,8 +5,7 @@ local pack_use = function()
 	-----------------------------------------------------------------------------//
 	-- Required by others {{{1
 	-----------------------------------------------------------------------------//
-	use({ "nvim-lua/plenary.nvim", module = "plenary" })
-	use({ "nvim-lua/popup.nvim", module = "popup" })
+	use({ "nvim-lua/plenary.nvim", module = "plenary", event = "BufRead" })
 	use({
 		"kyazdani42/nvim-web-devicons",
 		module = "nvim-web-devicons",
@@ -35,33 +34,34 @@ local pack_use = function()
 	})
 	use({
 		"hrsh7th/nvim-cmp",
-		config = function()
-			require("modules.compe")
-		end,
+		requires = {
+			{ "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
+			{ "hrsh7th/cmp-path", after = "nvim-cmp" },
+			{ "hrsh7th/cmp-buffer", after = "nvim-cmp" },
+			{ "hrsh7th/cmp-calc", after = "nvim-cmp" },
+			{ "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
+		},
+		config = "require('modules.compe')",
+		after = "LuaSnip",
 	})
 	use("rafamadriz/friendly-snippets")
-	use({
-		"L3MON4D3/LuaSnip",
-		config = function()
-			require("luasnip/loaders/from_vscode").load()
-		end,
-	})
+	use({ "L3MON4D3/LuaSnip", config = 'require("modules.luasnip")' })
+
 	use({ "saadparwaiz1/cmp_luasnip" })
-	use({ "hrsh7th/cmp-buffer", after = "nvim-cmp" })
-	use({ "hrsh7th/cmp-calc", after = "nvim-cmp" })
-	use({ "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" })
-	use({ "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" })
-	use({ "hrsh7th/cmp-path", after = "nvim-cmp" })
 	use("onsails/lspkind-nvim") -- icons for completion popup
 	-----------------------------------------------------------------------------//
 	-- Telescope {{{1
 	-----------------------------------------------------------------------------//
 	use({
 		"nvim-telescope/telescope.nvim",
+		requires = {
+			{ "nvim-lua/popup.nvim" },
+			{ "nvim-lua/plenary.nvim" },
+			{ "nvim-telescope/telescope-fzf-native.nvim" },
+		},
 		cmd = "Telescope",
-		config = function()
-			require("modules.telescope").config()
-		end,
+		config = 'require("modules.telescope")',
+		opt = true,
 	})
 	use({
 		"nvim-telescope/telescope-fzf-native.nvim",
@@ -75,56 +75,37 @@ local pack_use = function()
 		"nvim-treesitter/nvim-treesitter",
 		run = ":TSUpdate",
 		event = "BufRead",
-		config = function()
-			require("modules.treesitter")
-		end,
+		config = 'require("modules.treesitter")',
 	})
-	use({ "nvim-treesitter/playground", after = "nvim-treesitter" })
+	use({ "nvim-treesitter/playground", after = "nvim-treesitter", cmd = { "TSPlaygroundToggle" }, opt = true })
+	use({ "nvim-treesitter/nvim-treesitter-textobjects", after = { "nvim-treesitter" } })
 
 	-----------------------------------------------------------------------------//
 	-- Utils {{{1
 	-----------------------------------------------------------------------------//
 	use({
 		"kyazdani42/nvim-tree.lua",
-		wants = "nvim-web-devicons",
+		requires = { "kyazdani42/nvim-web-devicons" },
+		config = 'require("modules.tree")',
 		cmd = { "NvimTreeToggle", "NvimTreeFindFile" },
-		config = function()
-			require("modules.tree")
-		end,
+		opt = true,
 	})
 	-----------------------------------------------------------------------------//
 	-- Text Objects and Editing {{{1
 	-----------------------------------------------------------------------------//
-	use({
-		"b3nj5m1n/kommentary",
-		keys = { "gcc", "gc" },
-		config = function()
-			require("kommentary.config").configure_language("default", {
-				prefer_single_line_comments = true,
-			})
-		end,
-	})
-	use({ "kevinhwang91/nvim-bqf", ft = "qf" })
+	use({ "b3nj5m1n/kommentary", config = "require('plugins.kommentary')" })
+
+	use({ "kevinhwang91/nvim-bqf", config = "require('modules.bqf')", ft = "qf" })
+
 	-----------------------------------------------------------------------------//
 	-- Git {{{1
 	-----------------------------------------------------------------------------//
 	use("tpope/vim-fugitive")
 	use({
 		"lewis6991/gitsigns.nvim",
-		event = "BufRead",
-		wants = "plenary.nvim",
-		config = function()
-			require("gitsigns").setup({
-				signs = {
-					add = { hl = "GitSignsAdd", text = "┃" },
-					change = { hl = "GitSignsChange", text = "┃" },
-					delete = { hl = "GitSignsDelete", text = "契" },
-					topdelete = { hl = "GitSignsDelete", text = "契" },
-					changedelete = { hl = "GitSignsChange", text = "~" },
-				},
-				keymaps = { noremap = true, buffer = true },
-			})
-		end,
+		requires = { "nvim-lua/plenary.nvim" },
+		config = "require('modules.gitsigns')",
+		after = "plenary.nvim",
 	})
 	-----------------------------------------------------------------------------//
 	-- General plugins {{{1

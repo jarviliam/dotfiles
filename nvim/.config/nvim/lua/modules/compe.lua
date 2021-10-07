@@ -12,6 +12,7 @@ end
 
 cmp.setup({
 	formatting = {
+		deprecated = false,
 		format = function(entry, vim_item)
 			vim_item.kind = lspkind.presets.default[vim_item.kind] .. " " .. vim_item.kind
 			vim_item.menu = ({
@@ -37,10 +38,7 @@ cmp.setup({
 			{ "│", "FloatBorder" },
 		},
 	},
-	min_length = 0,
 	mapping = {
-		["<C-p>"] = cmp.mapping.select_prev_item(),
-		["<C-n>"] = cmp.mapping.select_next_item(),
 		["<S-Tab>"] = cmp.mapping(function(fallback)
 			if vim.fn["luasnip#jumpable"](-1) == 1 then
 				vim.fn.feedkeys(t("<C-R>=luasnip#Jump(-1)<CR>"))
@@ -69,11 +67,13 @@ cmp.setup({
 			"i",
 			"s",
 		}),
+		["<C-p>"] = cmp.mapping.select_prev_item(),
+		["<C-n>"] = cmp.mapping.select_next_item(),
 		["<C-d>"] = cmp.mapping.scroll_docs(-4),
 		["<C-f>"] = cmp.mapping.scroll_docs(4),
 		["<C-e>"] = cmp.mapping.close(),
 		["<CR>"] = cmp.mapping.confirm({
-			behavior = cmp.ConfirmBehavior.Insert,
+			behavior = cmp.ConfirmBehavior.Replace,
 			select = true,
 		}),
 		["<C-Space>"] = cmp.mapping.complete(),
@@ -83,12 +83,15 @@ cmp.setup({
 			require("luasnip").lsp_expand(args.body)
 		end,
 	},
+	completion = {
+		keyword_length = 2,
+	},
 	sources = {
+		{ name = "luasnip" },
 		{ name = "nvim_lsp" },
 		{ name = "nvim_lua" },
 		{ name = "buffer" },
 		{ name = "path" },
 		{ name = "calc" },
-		{ name = "luasnip" },
 	},
 })
