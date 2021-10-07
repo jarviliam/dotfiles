@@ -61,43 +61,6 @@ function as._default_num(option, int)
 	return option
 end
 
-function as._lsp_auto(server)
-	local blacklist = vim.g.code_lsp_autostart_blacklist
-	if blacklist == nil or #blacklist < 1 then
-		return true
-	end
-	for _, v in pairs(blacklist) do
-		if server == v then
-			return false
-		end
-	end
-	return true
-end
-
-function as._lsp_borders(value)
-	local opt = { "single", "double" }
-	if value ~= nil then
-		for _, v in pairs(opt) do
-			if value == v then
-				return v
-			end
-		end
-	end
-	return nil
-end
-
-function as._compe(source, component)
-	local blacklist = vim.g.code_compe_sources_blacklist
-	if blacklist ~= nil then
-		for _, v in pairs(blacklist) do
-			if source == v then
-				return false
-			end
-		end
-	end
-	return component
-end
-
 function as.select_theme(theme)
 	local all_colors = vim.fn.getcompletion("", "color")
 	local default = "everforest"

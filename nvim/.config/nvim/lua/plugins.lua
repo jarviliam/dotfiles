@@ -17,7 +17,6 @@ local pack_use = function()
 	-- LSP, Autocomplete and snippets {{{1
 	-----------------------------------------------------------------------------//
 	use({ "ray-x/lsp_signature.nvim" })
-
 	use({
 		"neovim/nvim-lspconfig",
 		requires = { "glepnir/lspsaga.nvim" },
@@ -110,7 +109,6 @@ local pack_use = function()
 	-----------------------------------------------------------------------------//
 	-- General plugins {{{1
 	-----------------------------------------------------------------------------//
-
 	use({
 		"hoob3rt/lualine.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
@@ -137,16 +135,17 @@ local pack_use = function()
 	})
 	use({
 		"windwp/nvim-autopairs",
-		config = function()
-			require("modules.autopairs")
-		end,
+		config = 'require("modules.autopairs")',
 		after = "nvim-cmp",
 	})
 
 	use({
 		"lukas-reineke/indent-blankline.nvim",
-		event = "BufReadPre",
+		config = "require('modules.indent-lines')",
+		opt = true,
+		cmd = { "IndentBlanklineToggle" },
 	})
+
 	--Themes
 	use("sainnhe/sonokai")
 	use("sainnhe/everforest")
