@@ -24,7 +24,7 @@ local sections = {
 lualine.setup({
 	sections = sections,
 	options = {
-		theme = vim.g.code_statusline,
+		theme = "everforest",
 		extensions = { "fugitive" },
 	},
 })

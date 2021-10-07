@@ -92,9 +92,14 @@ local pack_use = function()
 	-----------------------------------------------------------------------------//
 	-- Text Objects and Editing {{{1
 	-----------------------------------------------------------------------------//
-	use({ "b3nj5m1n/kommentary", config = "require('plugins.kommentary')" })
-
+	use({ "b3nj5m1n/kommentary", config = "require('modules.kommentary')" })
 	use({ "kevinhwang91/nvim-bqf", config = "require('modules.bqf')", ft = "qf" })
+	use("tpope/vim-surround")
+	use({
+		"windwp/nvim-autopairs",
+		config = 'require("modules.autopairs")',
+		after = "nvim-cmp",
+	})
 
 	-----------------------------------------------------------------------------//
 	-- Git {{{1
@@ -124,7 +129,6 @@ local pack_use = function()
 		end,
 	})
 
-	use("tpope/vim-surround")
 	use("tpope/vim-eunuch")
 	use("junegunn/gv.vim")
 
@@ -133,12 +137,6 @@ local pack_use = function()
 		cmd = "UndotreeToggle",
 		config = "vim.g.undotree_WindowLayout = 2",
 	})
-	use({
-		"windwp/nvim-autopairs",
-		config = 'require("modules.autopairs")',
-		after = "nvim-cmp",
-	})
-
 	use({
 		"lukas-reineke/indent-blankline.nvim",
 		config = "require('modules.indent-lines')",
