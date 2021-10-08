@@ -147,8 +147,8 @@ local pack_use = function()
 	--Themes
 	use("sainnhe/sonokai")
 	use("sainnhe/everforest")
-	use("shaunsingh/nord.nvim")
-	use("lifepillar/gruvbox8")
+	vim.g.nvcode_termcolors = 256
+	use({ "christianchiarulli/nvcode-color-schemes.vim", opt = true })
 end
 -- }}}
 
