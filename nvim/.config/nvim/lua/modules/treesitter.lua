@@ -42,7 +42,6 @@ require("nvim-treesitter.configs").setup({
 				["ic"] = "@class.inner",
 				["af"] = "@function.outer",
 				["if"] = "@function.inner",
-				-- Leader mappings, dups for whichkey
 				["<Leader><Leader>ab"] = "@block.outer",
 				["<Leader><Leader>ib"] = "@block.inner",
 				["<Leader><Leader>af"] = "@function.outer",

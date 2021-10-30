@@ -1,14 +1,6 @@
 local cmp = require("cmp")
 local lspkind = require("lspkind")
-
-local t = function(str)
-	return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-local check_back_space = function()
-	local col = vim.fn.col(".") - 1
-	return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
-end
+local luasnip = require("luasnip")
 
 cmp.setup({
 	formatting = {
@@ -21,7 +13,6 @@ cmp.setup({
 				luasnip = "[Snip]",
 				buffer = "[Buffer]",
 				path = "[Path]",
-				calc = "[Calc]",
 			})[entry.source.name]
 			return vim_item
 		end,
@@ -39,34 +30,24 @@ cmp.setup({
 		},
 	},
 	mapping = {
-		["<S-Tab>"] = cmp.mapping(function(fallback)
-			if vim.fn["luasnip#jumpable"](-1) == 1 then
-				vim.fn.feedkeys(t("<C-R>=luasnip#Jump(-1)<CR>"))
-			elseif vim.fn.pumvisible() == 1 then
-				vim.fn.feedkeys(t("<C-p>"), "n")
-			elseif check_back_space() then
-				vim.fn.feedkeys(t("<S-tab>"), "n")
+		["<Tab>"] = function(fallback)
+			if cmp.visible() then
+				cmp.select_next_item()
+			elseif luasnip.expand_or_jumpable() then
+				luasnip.expand_or_jump()
 			else
-				vim.fn.feedkeys(t("<S-tab>"), "n")
+				fallback()
 			end
-		end, {
-			"i",
-			"s",
-		}),
-		["<Tab>"] = cmp.mapping(function(fallback)
-			if vim.fn["luasnip#jumpable"](1) == 1 then
-				vim.fn.feedkeys(t("<esc>:call luasnip#Jump(1)<CR>"))
-			elseif vim.fn.pumvisible() == 1 then
-				vim.fn.feedkeys(t("<C-n>"), "n")
-			elseif check_back_space() then
-				vim.fn.feedkeys(t("<tab>"), "n")
+		end,
+		["<S-Tab>"] = function(fallback)
+			if cmp.visible() then
+				cmp.select_prev_item()
+			elseif luasnip.jumpable(-1) then
+				luasnip.jump(-1)
 			else
-				vim.fn.feedkeys(t("<tab>"), "n")
+				fallback()
 			end
-		end, {
-			"i",
-			"s",
-		}),
+		end,
 		["<C-p>"] = cmp.mapping.select_prev_item(),
 		["<C-n>"] = cmp.mapping.select_next_item(),
 		["<C-d>"] = cmp.mapping.scroll_docs(-4),
@@ -92,6 +73,5 @@ cmp.setup({
 		{ name = "nvim_lua" },
 		{ name = "buffer" },
 		{ name = "path" },
-		{ name = "calc" },
 	},
 })

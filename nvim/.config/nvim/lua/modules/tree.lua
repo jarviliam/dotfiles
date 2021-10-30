@@ -106,7 +106,13 @@ require("nvim-tree").setup({
 	open_on_tab = false,
 	hijack_cursor = false,
 	update_cwd = false,
-	lsp_diagnostics = false,
+	diagnostics = {
+		enable = true,
+		hint = "",
+		info = "",
+		warning = "",
+		error = "",
+	},
 	update_focused_file = {
 		enable = false,
 		update_cwd = false,

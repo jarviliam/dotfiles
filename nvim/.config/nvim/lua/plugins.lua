@@ -20,6 +20,7 @@ local pack_use = function()
 	use({
 		"neovim/nvim-lspconfig",
 		requires = { "glepnir/lspsaga.nvim" },
+		after = "cmp-nvim-lsp",
 		config = function()
 			require("lspsaga").init_lsp_saga()
 		end,
@@ -37,7 +38,6 @@ local pack_use = function()
 			{ "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
 			{ "hrsh7th/cmp-path", after = "nvim-cmp" },
 			{ "hrsh7th/cmp-buffer", after = "nvim-cmp" },
-			{ "hrsh7th/cmp-calc", after = "nvim-cmp" },
 			{ "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
 		},
 		config = "require('modules.compe')",
@@ -115,7 +115,7 @@ local pack_use = function()
 	-- General plugins {{{1
 	-----------------------------------------------------------------------------//
 	use({
-		"hoob3rt/lualine.nvim",
+		"nvim-lualine/lualine.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
 		config = function()
 			require("modules.line")

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 dir="$HOME/.config/polybar"
 
+export DEFAULT_NETWORK_INTERFACE=$(ip route | grep '^default' | awk '{print $5}' | head -n1)
 launch_bar() {
   # Terminate already running bar instances
   killall -q polybar
@@ -15,6 +16,9 @@ launch_bar() {
   elif [[ "$style" == "rusty" ]]; then
     polybar -c="$dir/rusty/config.ini" -q left &
     polybar -c="$dir/rusty/config.ini" -q right &
+  elif [[ "$style" == "nord" ]]; then
+    polybar -c $dir/nord/config.ini -q main &
+    polybar -c $dir/nord/config.ini -q right &
   else
     polybar -q main -c "$dir/$style/config.ini" &
   fi
@@ -24,6 +28,8 @@ if [[ "$1" == "--hack" ]]; then
   style="hack"
 elif [[ "$1" == "--rusty" ]]; then
   style="rusty"
+elif [[ "$1" == "--nord" ]]; then
+  style="nord"
 else
   style="default"
 fi

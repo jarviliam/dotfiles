@@ -81,7 +81,7 @@ require("telescope").setup({
 			},
 			n = {
 				["<CR>"] = actions.select_default + actions.center,
-				["<C-x>"] = actions.delete_buffer,
+				["<C-d>"] = actions.delete_buffer,
 				["<C-s>"] = actions.select_horizontal,
 				["<C-v>"] = actions.select_vertical,
 				["<C-t>"] = actions.select_tab,

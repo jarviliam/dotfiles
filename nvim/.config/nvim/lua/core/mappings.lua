@@ -100,7 +100,7 @@ as.KeyMap("n", l .. "nw", ':lua require("telescope.builtin").grep_string { searc
 as.KeyMap("n", l .. "ns", ':lua require("telescope.builtin").grep_string({ search = vim.fn.input("Grep For > ")})<CR>')
 as.KeyMap("n", l .. "/", ":Telescope live_grep theme=get_ivy<CR>")
 as.KeyMap("n", l .. "nf", ":Telescope find_files<CR>")
-as.KeyMap("n", l .. "nr", ":Telescope registers<CR>")
+as.KeyMap("n", l .. "nR", ":Telescope registers<CR>")
 as.KeyMap("n", l .. "nc", ":Telescope commands<CR>")
 as.KeyMap("n", l .. "nC", ":Telescope command_history<CR>")
 as.KeyMap("n", l .. "nS", ":Telescope search_history<CR>")

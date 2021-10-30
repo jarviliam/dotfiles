@@ -4,8 +4,8 @@ DOTS=$HOME/dotfiles
 pgrep -x sxhkd >/dev/null || sxhkd &
 nitrogen --restore &
 pgrep -x dunst > /dev/null || dunst &
-pgrep -x picom > /dev/null || picom &
-sh $HOME/.config/polybar/launch.sh --rusty &
+pgrep -x picom > /dev/null || picom --experimental-backends &
+sh $HOME/.config/polybar/launch.sh --nord &
 
 #set desktops
 bspc monitor HDMI1 -d I II III IV V
