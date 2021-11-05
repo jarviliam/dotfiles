@@ -27,12 +27,8 @@ end
 
 -- lsp-install
 local function setup_servers()
-	require("lspinstall").setup()
-
-	-- get all installed servers
-	local servers = require("lspinstall").installed_servers()
-
-	for _, server in pairs(servers) do
+	local installer = require("nvim-lsp-installer")
+	installer.on_server_ready(function(server)
 		local config = make_config()
 
 		config.autostart = true
@@ -58,8 +54,8 @@ local function setup_servers()
 			config.filetypes = { "c", "cpp" }
 		end
 
-		require("lspconfig")[server].setup(config)
-	end
+		server:setup(config)
+	end)
 end
 
 setup_servers()

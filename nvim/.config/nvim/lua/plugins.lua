@@ -26,7 +26,7 @@ local pack_use = function()
 		end,
 	})
 	use({
-		"kabouzeid/nvim-lspinstall",
+		"williamboman/nvim-lsp-installer",
 		after = "nvim-lspconfig",
 		config = function()
 			require("modules.lsp.servers")
