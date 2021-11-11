@@ -2,20 +2,8 @@ local cmd = vim.cmd
 local fn = vim.fn
 local M = {}
 
-function M.highlights(hi_table)
-	for group, styles in pairs(hi_table) do
-		Utils.highlight(group, styles)
-	end
-end
-
 function M.hiLink(src, dest)
 	cmd("highlight link " .. src .. " " .. dest)
-end
-
-function M.hiLinks(hi_table)
-	for src, dest in pairs(hi_table) do
-		Utils.hiLink(src, dest)
-	end
 end
 
 -- automatically creates missing directories when saving a file

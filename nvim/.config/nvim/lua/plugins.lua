@@ -60,11 +60,9 @@ local pack_use = function()
 		},
 		cmd = "Telescope",
 		config = 'require("modules.telescope")',
-		opt = true,
 	})
 	use({
 		"nvim-telescope/telescope-fzf-native.nvim",
-		opt = true,
 		run = "make",
 	})
 	-----------------------------------------------------------------------------//
@@ -140,8 +138,6 @@ local pack_use = function()
 	use({
 		"lukas-reineke/indent-blankline.nvim",
 		config = "require('modules.indent-lines')",
-		opt = true,
-		cmd = { "IndentBlanklineToggle" },
 	})
 
 	--Themes

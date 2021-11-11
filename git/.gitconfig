@@ -48,6 +48,7 @@
 [merge]
     tool = nvim_merge
     conflictStyle = diff3
+
 [mergetool "nvim_merge"]
     cmd = nvim -f -c "MergetoolStart" "$MERGED" "$BASE" "$LOCAL" "$REMOTE"
     trustExitCode = true

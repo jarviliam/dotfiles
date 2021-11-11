@@ -109,7 +109,6 @@ as.KeyMap("n", l .. "?", ":Telescope help_tags<CR>")
 as.KeyMap("n", l .. "nO", ":Telescope lsp_workspace_diagnostics<CR>")
 as.KeyMap("n", l .. "no", ":Telescope lsp_document_diagnostics<CR>")
 as.KeyMap("n", l .. "zj", ":Telescope quickfix<CR>")
-as.KeyMap("n", l .. "zj", ":Telescope quickfix<CR>")
 as.KeyMap("n", l .. "zl", ":Telescope loclist<CR>")
 as.KeyMap("n", "<C-p>", ":Telescope git_files<CR>")
 
