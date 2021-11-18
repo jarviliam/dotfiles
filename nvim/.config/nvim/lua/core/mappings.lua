@@ -62,7 +62,7 @@ as.KeyMap("n", l .. "u", ":UndotreeToggle<CR>")
 as.KeyMap("n", l .. "ff", ":Format<CR>")
 as.KeyMap("n", l .. "nd", ":lua vim.lsp.buf.definition()<CR>")
 as.KeyMap("n", l .. "ni", ":lua vim.lsp.buf.implementation()<CR>")
-as.KeyMap("n", l .. "grf", ":lua vim.lsp.buf.references()<CR>")
+as.KeyMap("n", l .. "gf", ":lua vim.lsp.buf.references()<CR>")
 
 --LSPSaga
 as.KeyMap("n", "K", "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>")

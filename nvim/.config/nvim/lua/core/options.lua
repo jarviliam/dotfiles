@@ -162,19 +162,12 @@ vim.g.markdown_fenced_languages = {
 
 -----------------------------------------------------------------------------//
 -- Autocommands {{{1
-as.check_and_set(vim.g.code_trim_trailing_space, "BufWritePre", "*", [[%s/\s\+$//e]])
-as.check_and_set(vim.g.code_trim_trailing_space, "BufWritePre", "*", [[%s/\n\+\%$//e]])
-as.check_and_set(vim.g.code_highlight_yank, "TextYankPost", "*", 'lua require"vim.highlight".on_yank{timeout = 250}')
-as.check_and_set(
-	vim.g.code_preserve_cursor,
-	"BufReadPost",
-	"*",
-	[[if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]]
-)
-as.check_and_set(vim.g.code_format_on_save, "BufWritePost", "*", "silent FormatWrite")
-
-as.check_and_set("InsertLeave,BufWrite,BufEnter", "<buffer>", "lua vim.lsp.diagnostic.set_loclist({open = false})")
-
+as.nvim_set_au("BufWritePre", "*", [[%s/\s\+$//e]])
+as.nvim_set_au("BufWritePre", "*", [[%s/\n\+\%$//e]])
+as.nvim_set_au("TextYankPost", "*", 'lua require"vim.highlight".on_yank{timeout = 250}')
+as.nvim_set_au("InsertLeave,BufWrite,BufEnter", "<buffer>", "lua vim.lsp.diagnostic.set_loclist({open = false})")
+as.nvim_set_au("BufReadPost", "*", "silent FormatWrite")
+as.nvim_set_au("FileType help,qf,fugitive,fugitiveblame,netrw", "nnoremap <buffer><silent>", "q :close<CR>")
 vim.cmd([[menu File.Save :w<CR>]])
 vim.cmd([[menu File.Stop :q<CR>]])
 vim.cmd([[menu File.Save :W<CR> ]])

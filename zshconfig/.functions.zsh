@@ -2,7 +2,6 @@ sc() {
   screencapture -x ~/Screenshots/$1
 }
 
-
 cd() {
     if [[ "$#" != 0 ]]; then
         builtin cd "$@";
@@ -36,9 +35,6 @@ fd() {
   cd "$dir"
 }
 
-gc(){
-  git clone $1
-}
 csjq() {
   curl -s $1 | jq
 }
@@ -46,16 +42,6 @@ csjq() {
 ghdr() {
   local filter = $1
   git branch -r --merged | grep $1 | awk -F/ '{print $2}' | fzf -m | xargs git push origin -d
-}
-
-# todoist cli - list todos then show detail
-# https://github.com/sachaos/todoist#keybind
-todos() {
-  local todo
-  todo=$(todoist list | fzf | awk '{print $1}')
-  if [[ -n $todo ]]; then
-    todoist show $todo
-  fi
 }
 
 # find all git repos, select one and CD to its parent dir
@@ -70,7 +56,6 @@ allgit() {
     fzf --cycle --preview 'tree -C {} | head -50') && cd $dir && git status
 }
 
-# look up Git worktrees and CD to selected! This was the best idea ever - 
 td() {
   local wtdir
   wtdir=$(git worktree list | fzf | awk '{print $1}')
@@ -85,8 +70,6 @@ ghi() {
   gh issue view $item --web
 }
 
-# get 12 newest or hottest posts from @subreddit & open selection in browser
-# ex: > reddit neovim new
 reddit() {
   local filter=${2:-new}
   local json
@@ -96,10 +79,6 @@ reddit() {
   if [[ -n $url ]]; then
     xdg-open "https://www.reddit.com$url"
   fi
-}
-
-cfunc() {
-  nvim ~/.dotfiles/zsh/.functions.zsh
 }
 
 colours(){

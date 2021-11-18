@@ -3,11 +3,7 @@
 # basic shortcuts
 alias nvc="nvim ~/.config/nvim"
 alias nvd="cd ~/.config/nvim"
-
 alias doc="cd ~/Documents"
-alias bar="mpd; ~/.config/polybar/launch.sh --hack"
-
-alias docks="systemctl start docker"
 
 #Unix Alias
 alias pamac="sudo pacman"

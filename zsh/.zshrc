@@ -3,12 +3,13 @@ function zsh_source() {
   [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
 }
 
-source "${HOME}/dotfiles/zshconfig/.aliasrc"
-source "${HOME}/dotfiles/zshconfig/.functions.zsh"
+source "$HOME/dotfiles/zshconfig/.aliasrc"
+source "$HOME/dotfiles/zshconfig/.functions.zsh"
 
 HISTFILE=~/.zhistory
 HISTSIZE=10000
 SAVEHIST=10000
+
 ## Options section
 setopt correct                                                  # Auto correct mistakes
 setopt extendedglob                                             # Extended globbing. Allows using regular expressions with *
@@ -25,9 +26,6 @@ setopt inc_append_history                                       # save commands 
 # these directories are necessary for zsh.
 [[ ! -d ~/.cache/zsh ]] && mkdir -p ~/.cache/zsh
 [[ ! -d ~/.local/share/zsh ]] && mkdir -p ~/.local/share/zsh
-
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 # {{{completion
 zcomp_init () {
@@ -158,12 +156,6 @@ zstyle -e ':completion:*:hosts' hosts 'reply=(
     zstyle ':completion:*:*:ogg123:*' file-patterns '*.(ogg|OGG|flac):ogg\ files *(-/):directories'
     zstyle ':completion:*:*:mocp:*' file-patterns '*.(wav|WAV|mp3|MP3|ogg|OGG|flac):ogg\ files *(-/):directories'
 
-    # Mutt
-    if [[ -s "$HOME/.mutt/aliases" ]]; then
-      zstyle ':completion:*:*:mutt:*' menu yes select
-      zstyle ':completion:*:mutt:*' users ${${${(f)"$(<"$HOME/.mutt/aliases")"}#alias[[:space:]]}%%[[:space:]]*}
-    fi
-
     # SSH/SCP/RSYNC
     zstyle ':completion:*:(ssh|scp|rsync):*' tag-order 'hosts:-host:host hosts:-domain:domain hosts:-ipaddr:ip\ address *'
     zstyle ':completion:*:(scp|rsync):*' group-order users files all-files hosts-domain hosts-host hosts-ipaddr
@@ -178,13 +170,13 @@ zstyle -e ':completion:*:hosts' hosts 'reply=(
 # https://github.com/zdharma/zinit
 # https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins-Overview
 # https://github.com/sorin-ionescu/prezto
-[ ! -f "$HOME/.zinit/bin/zinit.zsh" ] && mkdir -p ~/.zinit && git clone --depth 1 https://github.com/zdharma/zinit.git ~/.zinit/bin
+[ ! -f "$HOME/.zinit/bin/zinit.zsh" ] && mkdir -p ~/.zinit && git clone --depth 1 https://github.com/zdharma-continuum/zinit.git ~/.zinit/bin
 source "$HOME/.zinit/bin/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 zinit ice atload"source $HOME/dotfiles/zshconfig/.p10k-theme.zsh"
 zinit light romkatv/powerlevel10k
-zinit light zdharma/fast-syntax-highlighting
+zinit light zdharma-continuum/fast-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit ice wait'0' lucid depth=1; zinit light zsh-users/zsh-history-substring-search
 zinit ice wait'0' lucid depth=1; zinit light skywind3000/z.lua
