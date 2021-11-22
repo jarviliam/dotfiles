@@ -99,7 +99,6 @@ options.showmatch = true -- highlight matching [{()}]
 options.inccommand = "nosplit" -- show search and replace in real time
 options.autoread = true -- reread a file if it's changed outside of vim
 options.wrapscan = true -- begin search from top of the file when nothng is found
---options.cpoptions = options.cpoptions .. "x" -- stay at seach item when <esc>
 
 options.backup = false -- no backup file
 options.writebackup = false -- do not backup file before write
@@ -112,7 +111,6 @@ if vim.fn.executable("rg") == 1 then
 	options.grepformat = "%f:%l:%c:%m"
 end
 
--- Disable providers we do not care a about
 vim.g.loaded_python_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
@@ -159,15 +157,6 @@ vim.g.markdown_fenced_languages = {
 	"yaml",
 	"json",
 }
-
------------------------------------------------------------------------------//
--- Autocommands {{{1
-as.nvim_set_au("BufWritePre", "*", [[%s/\s\+$//e]])
-as.nvim_set_au("BufWritePre", "*", [[%s/\n\+\%$//e]])
-as.nvim_set_au("TextYankPost", "*", 'lua require"vim.highlight".on_yank{timeout = 250}')
-as.nvim_set_au("InsertLeave,BufWrite,BufEnter", "<buffer>", "lua vim.lsp.diagnostic.set_loclist({open = false})")
-as.nvim_set_au("BufReadPost", "*", "silent FormatWrite")
-as.nvim_set_au("FileType help,qf,fugitive,fugitiveblame,netrw", "nnoremap <buffer><silent>", "q :close<CR>")
 vim.cmd([[menu File.Save :w<CR>]])
 vim.cmd([[menu File.Stop :q<CR>]])
 vim.cmd([[menu File.Save :W<CR> ]])

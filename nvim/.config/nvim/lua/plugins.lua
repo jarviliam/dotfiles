@@ -19,7 +19,7 @@ local pack_use = function()
 	use({ "ray-x/lsp_signature.nvim" })
 	use({
 		"neovim/nvim-lspconfig",
-		requires = { "glepnir/lspsaga.nvim" },
+		requires = { "tami5/lspsaga.nvim" },
 		after = "cmp-nvim-lsp",
 		config = function()
 			require("lspsaga").init_lsp_saga()

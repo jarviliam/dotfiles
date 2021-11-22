@@ -1,4 +1,5 @@
 require("core.global")
+require("core.auto")
 require("core.options")
 require("core.mappings")
 require("plugins")
