@@ -47,9 +47,6 @@ local function setup_servers()
 		if server == "bash" then
 			config.filetypes = { "sh", "zsh" }
 		end
-		if server == "lua" then
-			config.settings = lua_settings
-		end
 		if server == "cpp" then
 			config.filetypes = { "c", "cpp" }
 		end
