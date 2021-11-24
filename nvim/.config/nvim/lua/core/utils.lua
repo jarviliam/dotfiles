@@ -14,6 +14,10 @@ function M.mkdir()
 	end
 end
 
+-- TODO: Picker for Telescope that changes lualine
+function M.changeTheme()
+end
+
 -- delete buffers and preserve window layout.
 M.delete_buffer = function()
 	local buflisted = fn.getbufinfo({ buflisted = 1 })
