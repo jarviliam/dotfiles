@@ -2,6 +2,9 @@ if not pcall(require, "nvim-treesitter") then
 	return
 end
 
+-- M1 Chip fails to compile Haskall Parser
+require'nvim-treesitter.install'.compilers = { "gcc-11" }
+
 require("nvim-treesitter.configs").setup({
 	ensure_installed = "maintained",
 	ignore_install = {},

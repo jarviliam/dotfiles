@@ -56,15 +56,19 @@ local pack_use = function()
 		requires = {
 			{ "nvim-lua/popup.nvim" },
 			{ "nvim-lua/plenary.nvim" },
-			{ "nvim-telescope/telescope-fzf-native.nvim" },
 		},
 		cmd = "Telescope",
 		config = 'require("modules.telescope")',
 	})
-	use({
+    use({
 		"nvim-telescope/telescope-fzf-native.nvim",
+        after="telescope.nvim",
 		run = "make",
-	})
+        config = function()
+           require("telescope").load_extension("fzf")
+        end,
+    })
+
 	-----------------------------------------------------------------------------//
 	-- Treesitter {{{1
 	-----------------------------------------------------------------------------//

@@ -3,11 +3,10 @@ local lualine = require("lualine")
 local sections = {
 	lualine_a = { "mode" },
 	lualine_b = { "branch" },
-	lualine_c = { "filename" },
-	lualine_x = {
+	lualine_c = {
 		{
 			"diagnostics",
-			sources = { "nvim_lsp" },
+			sources = { "nvim_diagnostic" },
 			color_info = "#83a598",
 			symbols = {
 				error = " ",
