@@ -1,0 +1,31 @@
+# /Users/liam.jarvis/.config/tmuxinator/kumamushi.yml
+
+name: km-editor
+root: ~/
+
+windows:
+  - infra:
+      root: ~/work/kumamushi-infra
+      layout: main-horizontal
+      panes:
+      - editor:
+        - clear
+        - nvim
+        
+  - api:
+      root: ~/work/kumamushi-api/app/
+      layout: main-horizontal
+      focus: True
+      panes:
+        - editor:
+          - clear
+          - nvim
+  # - km-backend:
+  #   layout: main-horizontal
+  #   root: ~/work/kumamushi-backend
+  - dashboard:
+      root: ~/work/kumamushi-frontend
+      layout: main-horizontal
+      panes:
+        - editor:
+          - nvim
