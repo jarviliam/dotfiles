@@ -116,6 +116,7 @@ local pack_use = function()
 	-----------------------------------------------------------------------------//
 	-- General plugins {{{1
 	-----------------------------------------------------------------------------//
+    use("mfussenegger/nvim-dap")
 	use({
 		"nvim-lualine/lualine.nvim",
 		requires = "kyazdani42/nvim-web-devicons",

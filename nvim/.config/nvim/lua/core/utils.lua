@@ -18,6 +18,9 @@ end
 function M.changeTheme()
 end
 
+M.clear_buffers = function()
+end
+
 -- delete buffers and preserve window layout.
 M.delete_buffer = function()
 	local buflisted = fn.getbufinfo({ buflisted = 1 })
