@@ -60,14 +60,14 @@ local pack_use = function()
 		cmd = "Telescope",
 		config = 'require("modules.telescope")',
 	})
-    use({
+	use({
 		"nvim-telescope/telescope-fzf-native.nvim",
-        after="telescope.nvim",
+		after = "telescope.nvim",
 		run = "make",
-        config = function()
-           require("telescope").load_extension("fzf")
-        end,
-    })
+		config = function()
+			require("telescope").load_extension("fzf")
+		end,
+	})
 
 	-----------------------------------------------------------------------------//
 	-- Treesitter {{{1
@@ -116,7 +116,24 @@ local pack_use = function()
 	-----------------------------------------------------------------------------//
 	-- General plugins {{{1
 	-----------------------------------------------------------------------------//
-    use("mfussenegger/nvim-dap")
+	---
+	use({ "mfussenegger/nvim-dap" })
+	use({
+		"mfussenegger/nvim-dap-python",
+		requires = { "mfussenegger/nvim-dap" },
+		config = function()
+			require("dap-python").setup("~/.virtualenvs/debupy/bin/python")
+		end,
+	})
+
+	use({
+		"nvim-telescope/telescope-dap.nvim",
+		requires = { "nvim-telescope/telescope.nvim" },
+        after= "telescope.nvim",
+		config = function()
+			require("telescope").load_extension("dap")
+		end,
+	})
 	use({
 		"nvim-lualine/lualine.nvim",
 		requires = "kyazdani42/nvim-web-devicons",

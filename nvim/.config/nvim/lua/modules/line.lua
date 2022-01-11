@@ -17,7 +17,7 @@ local sections = {
 		},
 		"filetype",
 	},
-	lualine_y = { "progress" },
+	lualine_y = { "filename" },
 	lualine_z = { "location" },
 }
 lualine.setup({

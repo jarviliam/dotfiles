@@ -116,6 +116,16 @@ remap("n", l .. "zj", ":Telescope quickfix<CR>")
 remap("n", l .. "zl", ":Telescope loclist<CR>")
 remap("n", "<C-p>", ":Telescope git_files<CR>")
 
+remap("n", l .. "d,", ":Telescope dap frames<CR>")
+remap("n", l .. "d.", ":Telescope dap list_breakpoints<CR>")
+remap("n", l .. "dj", ":lua require'dap'.down()<CR>")
+remap("n", l .. "dk", ":lua require'dap'.up()<CR>")
+remap("n", l .. "dq", ":lua require'dap'.terminate()<CR>")
+remap("n", l .. "dn", ":lua require'dap'.run_to_cursor()<CR>")
+remap("n", l .. "d~", ":lua require'dap'.toggle_breakpoint()<CR>")
+remap("n", l .. "do", ":lua require'dap'.continue()<CR>")
+
+--
 -----------------------------------------------------------------------------//
 -- Help
 -----------------------------------------------------------------------------//
