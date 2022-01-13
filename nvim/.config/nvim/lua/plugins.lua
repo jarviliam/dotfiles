@@ -121,15 +121,13 @@ local pack_use = function()
 	use({
 		"mfussenegger/nvim-dap-python",
 		requires = { "mfussenegger/nvim-dap" },
-		config = function()
-			require("dap-python").setup("~/.virtualenvs/debupy/bin/python")
-		end,
+		config = require("modules.dap").setup(),
 	})
 
 	use({
 		"nvim-telescope/telescope-dap.nvim",
 		requires = { "nvim-telescope/telescope.nvim" },
-        after= "telescope.nvim",
+		after = "telescope.nvim",
 		config = function()
 			require("telescope").load_extension("dap")
 		end,
