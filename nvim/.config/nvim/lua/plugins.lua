@@ -23,13 +23,7 @@ local pack_use = function()
 		after = "cmp-nvim-lsp",
 		config = function()
 			require("lspsaga").init_lsp_saga()
-		end,
-	})
-	use({
-		"williamboman/nvim-lsp-installer",
-		after = "nvim-lspconfig",
-		config = function()
-			require("modules.lsp.servers")
+			require("core.lsp").init({ debug = false })
 		end,
 	})
 	use({
@@ -40,19 +34,21 @@ local pack_use = function()
 			{ "hrsh7th/cmp-buffer", after = "nvim-cmp" },
 			{ "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
 		},
-		config = "require('modules.compe')",
+		config = function()
+			require("modules.compe")
+		end,
 		after = "LuaSnip",
 	})
 	use("rafamadriz/friendly-snippets")
 	use({ "L3MON4D3/LuaSnip", config = 'require("modules.luasnip")' })
 
 	use({ "saadparwaiz1/cmp_luasnip" })
-	use("onsails/lspkind-nvim") -- icons for completion popup
 	-----------------------------------------------------------------------------//
 	-- Telescope {{{1
 	-----------------------------------------------------------------------------//
 	use({
 		"nvim-telescope/telescope.nvim",
+		event = "CursorHold",
 		requires = {
 			{ "nvim-lua/popup.nvim" },
 			{ "nvim-lua/plenary.nvim" },
@@ -75,11 +71,15 @@ local pack_use = function()
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		run = ":TSUpdate",
-		event = "BufRead",
-		config = 'require("modules.treesitter")',
+		event = "CursorHold",
+		config = function()
+			require("modules.treesitter")
+		end,
 	})
-	use({ "nvim-treesitter/playground", after = "nvim-treesitter", cmd = { "TSPlaygroundToggle" }, opt = true })
+	use({ "nvim-treesitter/playground", after = "nvim-treesitter", cmd = { "TSPlaygroundToggle" } })
 	use({ "nvim-treesitter/nvim-treesitter-textobjects", after = { "nvim-treesitter" } })
+	use({ "nvim-treesitter/nvim-treesitter-refactor", after = { "nvim-treesitter" } })
+	use({ "windwp/nvim-ts-autotag", after = { "nvim-treesitter" } })
 
 	-----------------------------------------------------------------------------//
 	-- Utils {{{1
@@ -88,17 +88,22 @@ local pack_use = function()
 		"kyazdani42/nvim-tree.lua",
 		requires = { "kyazdani42/nvim-web-devicons" },
 		config = 'require("modules.tree")',
-		cmd = { "NvimTreeToggle", "NvimTreeFindFile" },
-		opt = true,
+		cmd = { "NvimTreeToggle" },
 	})
 	-----------------------------------------------------------------------------//
 	-- Text Objects and Editing {{{1
 	-----------------------------------------------------------------------------//
-	use({ "b3nj5m1n/kommentary", config = "require('modules.kommentary')" })
+	use({
+		"numToStr/Comment.nvim",
+		config = function()
+			require("Comment").setup()
+		end,
+	})
 	use({ "kevinhwang91/nvim-bqf", config = "require('modules.bqf')", ft = "qf" })
 	use("tpope/vim-surround")
 	use({
 		"windwp/nvim-autopairs",
+		event = "InsertCharPre",
 		config = 'require("modules.autopairs")',
 		after = "nvim-cmp",
 	})
@@ -113,10 +118,10 @@ local pack_use = function()
 		config = "require('modules.gitsigns')",
 		after = "plenary.nvim",
 	})
+
 	-----------------------------------------------------------------------------//
-	-- General plugins {{{1
+	-- Debugger {{{1
 	-----------------------------------------------------------------------------//
-	---
 	use({ "mfussenegger/nvim-dap" })
 	use({
 		"mfussenegger/nvim-dap-python",
@@ -132,6 +137,11 @@ local pack_use = function()
 			require("telescope").load_extension("dap")
 		end,
 	})
+
+	-----------------------------------------------------------------------------//
+	-- General plugins {{{1
+	-----------------------------------------------------------------------------//
+	---
 	use({
 		"nvim-lualine/lualine.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
@@ -160,7 +170,9 @@ local pack_use = function()
 		config = "require('modules.indent-lines')",
 	})
 
-	--Themes
+	-----------------------------------------------------------------------------//
+	-- Themes {{{1
+	-----------------------------------------------------------------------------//
 	use("sainnhe/sonokai")
 	use("sainnhe/everforest")
 	vim.g.nvcode_termcolors = 256

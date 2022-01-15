@@ -1,4 +1,5 @@
 if not pcall(require, "telescope") then
+    vim.api.nvim_err_write("telescope : err not found")
 	return
 end
 

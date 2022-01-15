@@ -3,6 +3,34 @@ local M = {
 	capabilities = nil,
 }
 
+vim.lsp.protocol.CompletionItemKind = {
+    Text = " [Text]",
+    Method = " [Method]",
+    Function = " [Func]",
+    Constructor = " [Constructor]",
+    Field = "ﰠ [Field]",
+    Variable = " [Var]",
+    Class = " [Class]",
+    Interface = " [Interface]",
+    Module = " [Mod]",
+    Property = "ﰠ [Prop]",
+    Unit = "塞 [Unit]",
+    Value = " [value]",
+    Enum = " [Enum]",
+    Keyword = " [Key]",
+    Snippet = " [Snip]",
+    Color = " [color]",
+    File = " [File]",
+    Reference = " [Ref]",
+    Folder = " [Folder]",
+    EnumMember = " [Enum Member]",
+    Constant = " [Const]",
+    Struct = "פּ [Struct]",
+    Event = " [Event]",
+    Operator = " [Op]",
+    TypeParameter = "",
+}
+
 -- Sets up defaults of border settings of floaters
 -- @param options table
 -- @return nil
@@ -69,7 +97,7 @@ function M.init(opts)
 	end
 
 	setup_borders()
-    setup_signs()
+	setup_signs()
 	setup_diagnostics()
 	setup_comp_capabilities()
 

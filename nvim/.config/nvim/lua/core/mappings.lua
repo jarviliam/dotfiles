@@ -1,7 +1,7 @@
 vim.g.mapleader = " "
 local l = "<leader>"
 local function remap(mode, lhs, rhs)
-   vim.api.nvim_set_keymap(mode,lhs,rhs, {silent= true, noremap = true})
+	vim.api.nvim_set_keymap(mode, lhs, rhs, { silent = true, noremap = true })
 end
 
 -----------------------------------------------------------------------------//
@@ -75,8 +75,6 @@ remap("n", "ga", "<cmd>lua require('lspsaga.codeaction').code_action()<CR>")
 remap("v", "ga", "<C-U>lua require('lspsaga.codeaction').range_code_action()<CR>")
 remap("n", l .. "np", ":lua require'lspsaga.provider'.preview_definition()<CR>")
 remap("n", l .. "nv", ":lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>")
-remap("n", l .. "e[", ":lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>")
-remap("n", l .. "e]", ":lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>")
 remap("n", l .. "nr", "<cmd>lua require('lspsaga.rename').rename()<CR>")
 
 -----------------------------------------------------------------------------//
@@ -100,8 +98,6 @@ remap("n", l .. "g,", ":Gitsigns next_hunk<CR>") -- next hunk
 -----------------------------------------------------------------------------//
 -- Telescope
 -----------------------------------------------------------------------------//
-remap("n", l .. "nw", ':lua require("telescope.builtin").grep_string { search = vim.fn.expand("<cword>") }<CR>')
-remap("n", l .. "ns", ':lua require("telescope.builtin").grep_string({ search = vim.fn.input("Grep For > ")})<CR>')
 remap("n", l .. "/", ":Telescope live_grep theme=get_ivy<CR>")
 remap("n", l .. "nf", ":Telescope find_files<CR>")
 remap("n", l .. "nR", ":Telescope registers<CR>")
@@ -112,8 +108,8 @@ remap("n", l .. "<TAB>", ":Telescope buffers<CR>")
 remap("n", l .. "?", ":Telescope help_tags<CR>")
 remap("n", l .. "nO", ":Telescope diagnostics<CR>")
 remap("n", l .. "no", ":Telescope diagnostics bufnr=0<CR>")
-remap("n", l .. "zj", ":Telescope quickfix<CR>")
-remap("n", l .. "zl", ":Telescope loclist<CR>")
+remap("n", l .. "nz", ":Telescope quickfix<CR>")
+remap("n", l .. "nx", ":Telescope loclist<CR>")
 remap("n", "<C-p>", ":Telescope git_files<CR>")
 
 remap("n", l .. "d,", ":Telescope dap frames<CR>")
