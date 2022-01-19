@@ -23,12 +23,12 @@ local sections = {
 	},
 	lualine_x = { "lsp_progress", "filetype", "encoding", "fileformat" },
 	lualine_y = { "progress" },
-	lualine_z = { "location"},
+	lualine_z = { "location" },
 }
 lualine.setup({
 	sections = sections,
 	options = {
 		theme = "everforest",
 	},
-	extensions = { "fugitive", "nvim-tree" },
+	extensions = { "fugitive", "nvim-tree", "quickfix" },
 })

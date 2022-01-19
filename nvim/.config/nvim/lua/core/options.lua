@@ -3,8 +3,16 @@ vim.cmd([[syntax enable]])
 vim.cmd([[filetype plugin indent on]])
 vim.cmd("set termguicolors")
 vim.cmd("set background=dark")
-vim.cmd("let g:everforest_background = 'hard'")
+
+vim.g.everforest_background = "medium"
+vim.g.everforest_enable_italic = 1
+vim.g.everforest_diagnostic_text_highlight = 1
+vim.g.everforest_diagnostic_virtual_text = "colored"
 vim.cmd("colorscheme everforest")
+
+vim.g.edge_style = "aura"
+vim.g.edge_enable_italic = 1
+vim.g.edge_diagnostic_text_highlight = 1
 
 options.mouse = "" -- disable the mouse
 options.exrc = false -- ignore '~/.exrc'

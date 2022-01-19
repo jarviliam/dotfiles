@@ -124,6 +124,24 @@ local pack_use = function()
 	-----------------------------------------------------------------------------//
 	use({ "mfussenegger/nvim-dap" })
 	use({
+		"theHamsta/nvim-dap-virtual-text",
+		config = function()
+			require("nvim-dap-virtual-text").setup()
+		end,
+	})
+	use({
+		"rcarriga/nvim-dap-ui",
+		requires = { "mfussenegger/nvim-dap" },
+		config = function()
+			require("dapui").setup({
+				sidebar = { size = 80 },
+				tray = { size = 10 },
+				floating = { max_width = 0.9, max_height = 0.5, border = vim.g.border_chars },
+			})
+		end,
+	})
+	use({ "jbyuki/one-small-step-for-vimkind", opt = true })
+	use({
 		"mfussenegger/nvim-dap-python",
 		requires = { "mfussenegger/nvim-dap" },
 		config = require("modules.dap").setup(),
@@ -145,10 +163,12 @@ local pack_use = function()
 	use({
 		"nvim-lualine/lualine.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
+		event = "BufEnter",
 		config = function()
 			require("modules.line")
 		end,
 	})
+	use({ "arkav/lualine-lsp-progress", after = "lualine.nvim" })
 	use({
 		"mhartington/formatter.nvim",
 		cmd = { "Format", "FormatWrite" },
@@ -158,8 +178,6 @@ local pack_use = function()
 	})
 
 	use("tpope/vim-eunuch")
-	use("junegunn/gv.vim")
-
 	use({
 		"mbbill/undotree",
 		cmd = "UndotreeToggle",
@@ -169,14 +187,20 @@ local pack_use = function()
 		"lukas-reineke/indent-blankline.nvim",
 		config = "require('modules.indent-lines')",
 	})
+	use({
+		"karb94/neoscroll.nvim",
+		event = "WinScrolled",
+		config = function()
+			require("neoscroll").setup({ hide_cursor = false })
+		end,
+	})
 
 	-----------------------------------------------------------------------------//
 	-- Themes {{{1
 	-----------------------------------------------------------------------------//
 	use("sainnhe/sonokai")
+	use("sainnhe/edge")
 	use("sainnhe/everforest")
-	vim.g.nvcode_termcolors = 256
-	use({ "christianchiarulli/nvcode-color-schemes.vim", opt = true })
 end
 -- }}}
 

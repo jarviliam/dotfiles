@@ -85,13 +85,13 @@ remap("n", l .. "gb", ":diffget //2<CR>")
 remap("n", l .. "gs", ":G<CR>")
 remap("n", l .. "gl", ":Telescope git_branches<CR>") -- git branches
 remap("n", l .. "gy", ":Telescope git_commits<CR>") -- git commits
-remap("n", l .. "gm", ":Gitsigns preview_hunk<CR>") -- preview hunk
-remap("n", l .. "bl", ":Gitsigns blame_line<CR>") -- git blame
-remap("n", l .. "grh", ":Gitsigns reset_hunk<CR>") -- reset hunk
-remap("n", l .. "grb", ":Gitsigns reset_buffer<CR>") -- reset buffer
-remap("n", l .. "gu", ":Gitsigns undo_stage_hunk<CR>") -- undo last stage hunk
-remap("n", l .. "gsh", ":Gitsigns stage_hunk<CR>") -- git stage hunk
-remap("n", l .. "gsb", ":Gitsigns stage_buffer<CR>") -- git stage buffer
+remap("n", l .. "hp", ":Gitsigns preview_hunk<CR>") -- preview hunk
+remap("n", l .. "hb", ":Gitsigns blame_line<CR>") -- git blame
+remap("n", l .. "hr", ":Gitsigns reset_hunk<CR>") -- reset hunk
+remap("n", l .. "hR", ":Gitsigns reset_buffer<CR>") -- reset buffer
+remap("n", l .. "hu", ":Gitsigns undo_stage_hunk<CR>") -- undo last stage hunk
+remap("n", l .. "hs", ":Gitsigns stage_hunk<CR>") -- git stage hunk
+remap("n", l .. "hS", ":Gitsigns stage_buffer<CR>") -- git stage buffer
 remap("n", l .. "g.", ":Gitsigns prev_hunk<CR>") -- previous hunk
 remap("n", l .. "g,", ":Gitsigns next_hunk<CR>") -- next hunk
 
@@ -101,8 +101,7 @@ remap("n", l .. "g,", ":Gitsigns next_hunk<CR>") -- next hunk
 remap("n", l .. "/", ":Telescope live_grep theme=get_ivy<CR>")
 remap("n", l .. "nf", ":Telescope find_files<CR>")
 remap("n", l .. "nR", ":Telescope registers<CR>")
-remap("n", l .. "nc", ":Telescope commands<CR>")
-remap("n", l .. "nC", ":Telescope command_history<CR>")
+remap("n", l .. "nC", ":Telescope commands<CR>")
 remap("n", l .. "nS", ":Telescope search_history<CR>")
 remap("n", l .. "<TAB>", ":Telescope buffers<CR>")
 remap("n", l .. "?", ":Telescope help_tags<CR>")
@@ -110,12 +109,17 @@ remap("n", l .. "nO", ":Telescope diagnostics<CR>")
 remap("n", l .. "no", ":Telescope diagnostics bufnr=0<CR>")
 remap("n", l .. "nz", ":Telescope quickfix<CR>")
 remap("n", l .. "nx", ":Telescope loclist<CR>")
-remap("n", "<C-p>", ":Telescope git_files<CR>")
 
 remap("n", l .. "d,", ":Telescope dap frames<CR>")
+remap("n", l .. "dh", ":lua require 'dap.ui.widgets'.hover()<CR>")
+remap("v", l .. "dh", ":lua require 'dap.ui.widgets'.visual_hover()<CR>")
+remap("n", l .. "df", ":lua require 'dapui'.toggle()<CR>")
 remap("n", l .. "d.", ":Telescope dap list_breakpoints<CR>")
-remap("n", l .. "dj", ":lua require'dap'.down()<CR>")
-remap("n", l .. "dk", ":lua require'dap'.up()<CR>")
+remap("n", l .. "d-", ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
+remap("n", l .. "dj", ":lua require'dap'.step_into()<CR>")
+remap("n", l .. "dl", ":lua require'dap'.step_over()<CR>")
+remap("n", l .. "dk", ":lua require'dap'.step_out()<CR>")
+remap("n", l .. "dr", ":lua require'dap'.restart()<CR>")
 remap("n", l .. "dq", ":lua require'dap'.terminate()<CR>")
 remap("n", l .. "dn", ":lua require'dap'.run_to_cursor()<CR>")
 remap("n", l .. "d~", ":lua require'dap'.toggle_breakpoint()<CR>")
@@ -125,7 +129,6 @@ remap("n", l .. "do", ":lua require'dap'.continue()<CR>")
 -----------------------------------------------------------------------------//
 -- Help
 -----------------------------------------------------------------------------//
-remap("n", "<leader>hm", ":Telescope man_pages<CR>")
 remap("n", "<leader>hd", ":Telescope keymaps<CR>")
 remap("n", "<leader>hc", ":Telescope colorscheme<CR>")
 remap("n", "<leader>ho", ":Telescope vim_options<CR>")
@@ -141,3 +144,5 @@ remap("n", "[l", ":lprevious<CR>")
 remap("n", "]l", ":lnext<CR>")
 remap("n", "[L", ":lfirst<CR>")
 remap("n", "]L", ":llast<CR>")
+
+remap("n", l .. "q", ":lua require('core.buffers').Clear()<CR>")

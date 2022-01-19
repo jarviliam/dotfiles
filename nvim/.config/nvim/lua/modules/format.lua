@@ -30,6 +30,11 @@ M.clang = fmt({
         AlwaysBreakAfterReturnType: None}'
         ]],
 	},
+    stdin = true
+})
+
+M.cmake = fmt({
+	exe = "cmake-format",
 	stdin = true,
 })
 
@@ -87,6 +92,7 @@ M.config = function()
 			typescript = { M.prettier({ "--single-quote" }) },
 			javascriptreact = { M.prettier({ "--single-quote" }) },
 			typescriptreact = { M.prettier({ "--single-quote" }) },
+			cmake = { M.cmake },
 		},
 	})
 end
