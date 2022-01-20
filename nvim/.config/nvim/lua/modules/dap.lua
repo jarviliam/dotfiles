@@ -6,6 +6,7 @@ M.setup = function()
 		vim.api.nvim_err_writeln("err: dap not found")
 		return
 	end
+	vim.cmd("autocmd FileType dap-float nnoremap <buffer><silent> q <cmd>close!<CR>")
 	require("dap-python").setup("~/.virtualenvs/debugpy/bin/python")
 	dap.configurations.python = {
 		{
