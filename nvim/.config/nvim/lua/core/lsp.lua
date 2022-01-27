@@ -1,34 +1,39 @@
+local function disable_formatting(client)
+	client.resolved_capabilities.document_formatting = false
+	client.resolved_capabilities.document_range_formatting = false
+end
+
 local M = {
-	on_attach = nil,
+	on_attach = disable_formatting,
 	capabilities = nil,
 }
 
 vim.lsp.protocol.CompletionItemKind = {
-    Text = " [Text]",
-    Method = " [Method]",
-    Function = " [Func]",
-    Constructor = " [Constructor]",
-    Field = "ﰠ [Field]",
-    Variable = " [Var]",
-    Class = " [Class]",
-    Interface = " [Interface]",
-    Module = " [Mod]",
-    Property = "ﰠ [Prop]",
-    Unit = "塞 [Unit]",
-    Value = " [value]",
-    Enum = " [Enum]",
-    Keyword = " [Key]",
-    Snippet = " [Snip]",
-    Color = " [color]",
-    File = " [File]",
-    Reference = " [Ref]",
-    Folder = " [Folder]",
-    EnumMember = " [Enum Member]",
-    Constant = " [Const]",
-    Struct = "פּ [Struct]",
-    Event = " [Event]",
-    Operator = " [Op]",
-    TypeParameter = "",
+	Text = " [Text]",
+	Method = " [Method]",
+	Function = " [Func]",
+	Constructor = " [Constructor]",
+	Field = "ﰠ [Field]",
+	Variable = " [Var]",
+	Class = " [Class]",
+	Interface = " [Interface]",
+	Module = " [Mod]",
+	Property = "ﰠ [Prop]",
+	Unit = "塞 [Unit]",
+	Value = " [value]",
+	Enum = " [Enum]",
+	Keyword = " [Key]",
+	Snippet = " [Snip]",
+	Color = " [color]",
+	File = " [File]",
+	Reference = " [Ref]",
+	Folder = " [Folder]",
+	EnumMember = " [Enum Member]",
+	Constant = " [Const]",
+	Struct = "פּ [Struct]",
+	Event = " [Event]",
+	Operator = " [Op]",
+	TypeParameter = "",
 }
 
 -- Sets up defaults of border settings of floaters

@@ -1,21 +1,9 @@
 if not pcall(require, "telescope") then
-    vim.api.nvim_err_write("telescope : err not found")
+	vim.api.nvim_err_write("telescope : err not found")
 	return
 end
 
 local actions = require("telescope.actions")
-local action_state = require("telescope.actions.state")
-local sorters = require("telescope.sorters")
-local themes = require("telescope.themes")
-
-local set_prompt_to_entry_value = function(prompt_bufnr)
-	local entry = action_state.get_selected_entry()
-	if not entry or not type(entry) == "table" then
-		return
-	end
-
-	action_state.get_current_picker(prompt_bufnr):reset_prompt(entry.ordinal)
-end
 
 require("telescope").setup({
 	defaults = {
@@ -26,7 +14,6 @@ require("telescope").setup({
 		scroll_strategy = "cycle",
 		color_devicons = true,
 		winblend = 0,
-
 		layout_strategy = "flex",
 		layout_config = {
 			width = 0.95,
@@ -54,53 +41,34 @@ require("telescope").setup({
 				flip_columns = 120,
 			},
 		},
-
 		mappings = {
 			i = {
 				["<C-d>"] = actions.delete_buffer,
-				["<C-s>"] = actions.select_horizontal,
 				["<C-v>"] = actions.select_vertical,
-				["<C-t>"] = actions.select_tab,
 
 				["<C-j>"] = actions.move_selection_next,
 				["<C-k>"] = actions.move_selection_previous,
-				["<S-up>"] = actions.preview_scrolling_up,
-				["<S-down>"] = actions.preview_scrolling_down,
 				["<C-up>"] = actions.preview_scrolling_up,
 				["<C-down>"] = actions.preview_scrolling_down,
 
-				["<C-u>"] = actions.move_to_top,
-				["<C-b>"] = actions.move_to_top,
-				["<C-f>"] = actions.move_to_bottom,
-
-				["<M-q>"] = actions.send_to_qflist + actions.open_qflist,
-				["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
-				["<C-y>"] = set_prompt_to_entry_value,
-
-				["<C-c>"] = actions.close,
+				["<TAB>"] = actions.toggle_selection + actions.move_selection_next,
+				["<C-s>"] = actions.send_to_qflist,
+				["<C-q>"] = actions.send_selected_to_qflist,
+				["<Esc>"] = actions.close,
 			},
 			n = {
 				["<CR>"] = actions.select_default + actions.center,
 				["<C-d>"] = actions.delete_buffer,
-				["<C-s>"] = actions.select_horizontal,
 				["<C-v>"] = actions.select_vertical,
-				["<C-t>"] = actions.select_tab,
 
 				["j"] = actions.move_selection_next,
 				["k"] = actions.move_selection_previous,
-				["<S-up>"] = actions.preview_scrolling_up,
-				["<S-down>"] = actions.preview_scrolling_down,
 				["<C-up>"] = actions.preview_scrolling_up,
 				["<C-down>"] = actions.preview_scrolling_down,
-
-				["<C-u>"] = actions.move_to_top,
-				["<C-b>"] = actions.move_to_top,
-				["<C-f>"] = actions.move_to_bottom,
 
 				["<C-q>"] = actions.send_to_qflist,
 				["<M-q>"] = actions.send_to_qflist + actions.open_qflist,
 
-				["<C-c>"] = actions.close,
 				["<Esc>"] = actions.close,
 			},
 		},

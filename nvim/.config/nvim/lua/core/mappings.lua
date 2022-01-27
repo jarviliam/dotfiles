@@ -63,7 +63,7 @@ remap("n", l .. "u", ":UndotreeToggle<CR>")
 -----------------------------------------------------------------------------//
 
 --Mappings
-remap("n", l .. "ff", ":Format<CR>")
+remap("n", l .. "ff", ":lua vim.lsp.buf.formatting()<CR>")
 remap("n", l .. "nd", ":lua vim.lsp.buf.definition()<CR>")
 remap("n", l .. "ni", ":lua vim.lsp.buf.implementation()<CR>")
 remap("n", l .. "gf", ":lua vim.lsp.buf.references()<CR>")

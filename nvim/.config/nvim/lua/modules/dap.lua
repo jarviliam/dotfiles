@@ -10,7 +10,7 @@ M.setup = function()
 	require("dap-python").setup("~/.virtualenvs/debugpy/bin/python")
 	dap.configurations.python = {
 		{
-			name = "Kumamushi",
+			name = "KumamushiAPI",
 			type = "python",
 			request = "attach",
 			host = "localhost",
@@ -50,10 +50,13 @@ M.setup = function()
 		local stdout = vim.loop.new_pipe(false)
 		local handle
 		local pid_or_err
-		local port = 38697
+		local host = config.host or "127.0.0.1"
+		local port = config.port or 38697
+		local addr = string.format("%s:%s", host, port)
+		print(addr)
 		local opts = {
 			stdio = { nil, stdout },
-			args = { "dap", "-l", "127.0.0.1:" .. port },
+			args = { "connect", addr, "--log" },
 			detached = true,
 		}
 		handle, pid_or_err = vim.loop.spawn("dlv", opts, function(code)
@@ -77,6 +80,7 @@ M.setup = function()
 			callback({ type = "server", host = "127.0.0.1", port = port })
 		end, 100)
 	end
+
 	-- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
 	dap.configurations.go = {
 		{
@@ -100,7 +104,28 @@ M.setup = function()
 			mode = "test",
 			program = "./${relativeFileDirname}",
 		},
+
+		--TODO: Figure out how to map go mods
+		{
+			type = "go",
+			name = "Upload-Worker",
+			mode = "remote",
+			substitutePath = {
+				{
+					from = "${workspaceFolder}",
+					to = "/usr/src/app/",
+				},
+				{
+					from = "~/go/pkg/",
+					to = "/go/pkg/",
+				},
+			},
+			request = "attach",
+			port = 40000,
+			showLog = true,
+		},
 	}
+
 	dap.adapters.node2 = {
 		type = "executable",
 		command = "node",

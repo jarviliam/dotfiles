@@ -15,10 +15,14 @@ function M.mkdir()
 end
 
 -- TODO: Picker for Telescope that changes lualine
-function M.changeTheme()
-end
+function M.changeTheme() end
 
-M.clear_buffers = function()
+M.clear_buffers = function() end
+
+function M.fmt_on_save(client)
+	if client.resolved_capabilities.document_formatting then
+		vim.api.nvim_command("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+	end
 end
 
 -- delete buffers and preserve window layout.

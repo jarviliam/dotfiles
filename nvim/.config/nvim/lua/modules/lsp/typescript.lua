@@ -6,7 +6,6 @@ if vim.fn.executable(server) == 0 then
 end
 
 require("core.lsp").setup("tsserver", {
-	--root_dir = roo
 	filetypes = {
 		"javascript",
 		"javascriptreact",

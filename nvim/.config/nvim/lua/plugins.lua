@@ -1,14 +1,12 @@
 local pack_use = function()
 	local use = require("packer").use
 	use({ "wbthomason/packer.nvim" })
-	use({ "dstein64/vim-startuptime", cmd = "StartupTime" })
 	-----------------------------------------------------------------------------//
 	-- Required by others {{{1
 	-----------------------------------------------------------------------------//
-	use({ "nvim-lua/plenary.nvim", module = "plenary", event = "BufRead" })
+	use({ "nvim-lua/plenary.nvim" })
 	use({
 		"kyazdani42/nvim-web-devicons",
-		module = "nvim-web-devicons",
 		config = function()
 			require("nvim-web-devicons").setup({ default = true })
 		end,
@@ -49,10 +47,6 @@ local pack_use = function()
 	use({
 		"nvim-telescope/telescope.nvim",
 		event = "CursorHold",
-		requires = {
-			{ "nvim-lua/popup.nvim" },
-			{ "nvim-lua/plenary.nvim" },
-		},
 		cmd = "Telescope",
 		config = 'require("modules.telescope")',
 	})
@@ -76,9 +70,9 @@ local pack_use = function()
 			require("modules.treesitter")
 		end,
 	})
-	use({ "nvim-treesitter/playground", after = "nvim-treesitter", cmd = { "TSPlaygroundToggle" } })
 	use({ "nvim-treesitter/nvim-treesitter-textobjects", after = { "nvim-treesitter" } })
 	use({ "nvim-treesitter/nvim-treesitter-refactor", after = { "nvim-treesitter" } })
+	use({ "nvim-treesitter/playground", after = "nvim-treesitter", cmd = { "TSPlaygroundToggle" } })
 	use({ "windwp/nvim-ts-autotag", after = { "nvim-treesitter" } })
 
 	-----------------------------------------------------------------------------//
@@ -169,14 +163,14 @@ local pack_use = function()
 		end,
 	})
 	use({ "arkav/lualine-lsp-progress", after = "lualine.nvim" })
+
 	use({
-		"mhartington/formatter.nvim",
-		cmd = { "Format", "FormatWrite" },
+		"jose-elias-alvarez/null-ls.nvim",
+		event = "BufRead",
 		config = function()
-			require("modules.format").config()
+			require("modules.null")
 		end,
 	})
-
 	use("tpope/vim-eunuch")
 	use({
 		"mbbill/undotree",
