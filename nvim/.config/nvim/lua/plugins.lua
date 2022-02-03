@@ -193,8 +193,9 @@ local pack_use = function()
 	-- Themes {{{1
 	-----------------------------------------------------------------------------//
 	use("sainnhe/sonokai")
-	use("sainnhe/edge")
 	use("sainnhe/everforest")
+	use("savq/melange")
+	use("EdenEast/nightfox.nvim")
 end
 -- }}}
 

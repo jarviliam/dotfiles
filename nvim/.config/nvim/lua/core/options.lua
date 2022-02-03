@@ -2,17 +2,17 @@ local options = vim.opt
 vim.cmd([[syntax enable]])
 vim.cmd([[filetype plugin indent on]])
 vim.cmd("set termguicolors")
-vim.cmd("set background=dark")
+
+vim.g.sonokai_style = "shusia"
+vim.g.sonokai_enable_italic = 1
+vim.g.sonokai_diagnostic_text_highlight = 1
+vim.g.sonokai_diagnostic_virtual_text = "colored"
 
 vim.g.everforest_background = "medium"
 vim.g.everforest_enable_italic = 1
 vim.g.everforest_diagnostic_text_highlight = 1
 vim.g.everforest_diagnostic_virtual_text = "colored"
-vim.cmd("colorscheme everforest")
-
-vim.g.edge_style = "aura"
-vim.g.edge_enable_italic = 1
-vim.g.edge_diagnostic_text_highlight = 1
+vim.cmd("colorscheme nordfox")
 
 options.mouse = "" -- disable the mouse
 options.exrc = false -- ignore '~/.exrc'
@@ -89,7 +89,7 @@ options.smarttab = true -- Use shiftwidths at left margin, tabstops everywhere e
 options.splitbelow = true -- ':new' ':split' below current
 options.splitright = true -- ':vnew' ':vsplit' right of current
 
-options.foldenable = true -- enable folding
+options.foldenable = false -- enable folding
 options.foldlevelstart = 10 -- open most folds by default
 options.foldnestmax = 10 -- 10 nested fold max
 options.foldmethod = "indent" -- fold based on indent level

@@ -243,7 +243,14 @@ FZF_MARKS_JUMP="^z"
 
 # bind UP and DOWN arrow keys to history substring search
 zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
+#bindkey "$terminfo[kcuu1]" history-substring-search-up
+#bindkey "$terminfo[kcud1]" history-substring-search-down
 bindkey '^[[A' history-substring-search-up			
 bindkey '^[[B' history-substring-search-down
+eval "$(pyenv init -)"
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -f "/Users/liam.jarvis/.ghcup/env" ] && source "/Users/liam.jarvis/.ghcup/env" # ghcup-env
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"

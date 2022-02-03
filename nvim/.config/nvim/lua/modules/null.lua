@@ -13,6 +13,10 @@ null.setup({
 		fmt.stylua,
 		fmt.terraform_fmt,
 		fmt.gofmt,
+		fmt.cmake_format,
+		fmt.clang_format,
+		fmt.black,
+		fmt.isort,
 		-- # DIAGNOSTICS #
 		-- dgn.eslint_d,
 		-- dgn.shellcheck,
