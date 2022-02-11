@@ -1,6 +1,5 @@
-local ok, cmp = pcall(require, "cmp")
+local ok, cmp = as.safe_require("cmp")
 if not ok then
-	vim.api.nvim_err_writeln("cmp: not found")
 	return
 end
 
@@ -35,21 +34,14 @@ cmp.setup({
 		["<C-e>"] = cmp.mapping.close(),
 		["<C-d>"] = cmp.mapping.scroll_docs(-4),
 		["<C-f>"] = cmp.mapping.scroll_docs(4),
-		["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-		["<C-j>"] = function(fallback)
-			if cmp.visible() then
-				return cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })(fallback)
-			else
-				return cmp.mapping.complete({ reason = cmp.ContextReason.Auto })(fallback)
-			end
-		end,
-		["<CR>"] = function(fallback)
-			if cmp.visible() then
-				return cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true })(fallback)
-			else
-				return fallback()
-			end
-		end,
+		["<C-Space>"] = cmp.mapping(
+			cmp.mapping.confirm({
+				behavior = cmp.ConfirmBehavior.Insert,
+				select = true,
+			}),
+			{ "i", "c" }
+		),
+		["<C-y>"] = cmp.mapping.complete(),
 	},
 	sorting = {
 		priority_weight = 100,
@@ -67,6 +59,10 @@ cmp.setup({
 		{ name = "nvim_lsp", priority_weight = 100, max_item_count = 15 },
 		{ name = "nvim_lua", priority_weight = 90 },
 		{ name = "buffer", priority_weight = 70, max_item_count = 5 },
-		{ name = "path", priority_weight = 110 },
+		{ name = "path", priority_weight = 110, keyword_length = 3 },
+	},
+	experimental = {
+		native_menu = false,
+		ghost_text = true,
 	},
 })

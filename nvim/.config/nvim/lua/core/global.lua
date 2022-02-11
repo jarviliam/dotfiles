@@ -1,16 +1,95 @@
---- store all callbacks in one global table so they are able to survive re-requiring this file
-_AsGlobalCallbacks = _AsGlobalCallbacks or {}
-DATA_PATH = vim.fn.stdpath("data")
+--- Store Globals
+_G.__as_global_callbacks = __as_global_callbacks or {}
 
 _G.as = {
-	_store = _AsGlobalCallbacks,
+	_store = __as_global_callbacks,
 }
 
--- TODO: Delete/Refactor
-
--- inspect
-function as.dump(...)
-	local objects = vim.tbl_map(vim.inspect, { ... })
-	print(unpack(objects))
+---Prints out inspect
+---@param ... any
+---@return any
+function P(...)
+	local objects, v = {}, nil
+	for i = 1, select("#", ...) do
+		v = select(i, ...)
+		table.insert(objects, vim.inspect(v))
+	end
+	print(table.concat(objects, "\n"))
 	return ...
+end
+
+---Dumps text
+---@param ... any
+---@return any
+function _G.dump_text(...)
+	local objects, v = {}, nil
+	for i = 1, select("#", ...) do
+		v = select(i, ...)
+		table.insert(objects, vim.inspect(v))
+	end
+
+	local lines = vim.split(table.concat(objects, "\n"), "\n")
+	local lnum = vim.api.nvim_win_get_cursor(0)[1]
+	vim.fn.append(lnum, lines)
+	return ...
+end
+
+---Checks if a cmd is an executable
+---@param e string
+---@return boolean
+function as.executable(e)
+	return vim.fn.executable(e) > 0
+end
+
+---@class Autocommand
+---@field events string[] list of autocommand events
+---@field targets string[] list of autocommand patterns
+---@field modifiers string[] e.g. nested, once
+---@field command string | function
+
+---Checks to see if command is valid
+---@param command Autocommand
+---@return boolean
+local function is_valid_target(command)
+	local valid_type = command.targets and vim.tbl_islist(command.targets)
+	return valid_type or vim.startswith(command.events[1], "User ")
+end
+
+---Creates an autocmd
+---@param name string
+---@param commands Autocommand[]
+function as.augroup(name, commands)
+	vim.cmd("augroup " .. name)
+	vim.cmd("autocmd!")
+	for _, c in ipairs(commands) do
+		if c.command and c.events and is_valid_target(c) then
+			local command = c.command
+			c.events = type(c.events) == "string" and { c.events } or c.events
+			vim.cmd(
+				string.format(
+					"autocmd %s %s %s %s",
+					table.concat(c.events, ","),
+					table.concat(c.targets or {}, ","),
+					table.concat(c.modifiers or {}, " "),
+					command
+				)
+			)
+		else
+			vim.notify(string.format("Autocmd in %s is typed wrong: %s", name, vim.inspect(name)), vim.log.levels.ERROR)
+		end
+	end
+	vim.cmd("augroup END")
+end
+
+---Requires modules via pcall and outputs errors
+---@param module string
+---@param opts table { silent }
+---@return boolean, any
+function as.safe_require(module, opts)
+	opts = opts or { silent = false }
+	local ok, result = pcall(require, module)
+	if not ok and not opts.silent then
+		vim.notify(result, vim.log.levels.ERROR, { title = string.format("Error requiring: %s", module) })
+	end
+	return ok, result
 end

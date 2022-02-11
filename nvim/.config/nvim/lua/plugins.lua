@@ -1,8 +1,14 @@
+---Requires a plugin config
+---@param name string
+---@return any
+local function conf(name)
+	return require(string.format("modules.%s", name))
+end
+
 local pack_use = function()
 	local use = require("packer").use
 	use({ "wbthomason/packer.nvim" })
-	-----------------------------------------------------------------------------//
-	-- Required by others {{{1
+	-----------------------------------------------------------------------------// Required by others {{{1
 	-----------------------------------------------------------------------------//
 	use({ "nvim-lua/plenary.nvim" })
 	use({
@@ -14,31 +20,27 @@ local pack_use = function()
 	-----------------------------------------------------------------------------//
 	-- LSP, Autocomplete and snippets {{{1
 	-----------------------------------------------------------------------------//
-	use({ "ray-x/lsp_signature.nvim" })
 	use({
 		"neovim/nvim-lspconfig",
-		requires = { "tami5/lspsaga.nvim" },
 		after = "cmp-nvim-lsp",
 		config = function()
-			require("lspsaga").init_lsp_saga()
 			require("core.lsp").init({ debug = false })
 		end,
 	})
 	use({
 		"hrsh7th/nvim-cmp",
+		event = "InsertEnter",
 		requires = {
 			{ "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
 			{ "hrsh7th/cmp-path", after = "nvim-cmp" },
 			{ "hrsh7th/cmp-buffer", after = "nvim-cmp" },
 			{ "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
 		},
-		config = function()
-			require("modules.compe")
-		end,
+		config = 'require("modules.compe")',
 		after = "LuaSnip",
 	})
 	use("rafamadriz/friendly-snippets")
-	use({ "L3MON4D3/LuaSnip", config = 'require("modules.luasnip")' })
+	use({ "L3MON4D3/LuaSnip", event = "InsertEnter", config = 'require("modules.luasnip")' })
 
 	use({ "saadparwaiz1/cmp_luasnip" })
 	-----------------------------------------------------------------------------//
@@ -48,7 +50,9 @@ local pack_use = function()
 		"nvim-telescope/telescope.nvim",
 		event = "CursorHold",
 		cmd = "Telescope",
-		config = 'require("modules.telescope")',
+		config = function()
+			require("modules.telescope")
+		end,
 	})
 	use({
 		"nvim-telescope/telescope-fzf-native.nvim",
@@ -66,9 +70,7 @@ local pack_use = function()
 		"nvim-treesitter/nvim-treesitter",
 		run = ":TSUpdate",
 		event = "CursorHold",
-		config = function()
-			require("modules.treesitter")
-		end,
+		config = 'require("modules.treesitter")',
 	})
 	use({ "nvim-treesitter/nvim-treesitter-textobjects", after = { "nvim-treesitter" } })
 	use({ "nvim-treesitter/nvim-treesitter-refactor", after = { "nvim-treesitter" } })
@@ -82,18 +84,19 @@ local pack_use = function()
 		"kyazdani42/nvim-tree.lua",
 		requires = { "kyazdani42/nvim-web-devicons" },
 		config = 'require("modules.tree")',
-		cmd = { "NvimTreeToggle" },
+		--cmd = { "NvimTreeToggle" },
 	})
 	-----------------------------------------------------------------------------//
 	-- Text Objects and Editing {{{1
 	-----------------------------------------------------------------------------//
+	use("ggandor/lightspeed.nvim")
 	use({
 		"numToStr/Comment.nvim",
 		config = function()
 			require("Comment").setup()
 		end,
 	})
-	use({ "kevinhwang91/nvim-bqf", config = "require('modules.bqf')", ft = "qf" })
+	use({ "kevinhwang91/nvim-bqf", config = 'require("modules.bqf")', ft = "qf" })
 	use("tpope/vim-surround")
 	use({
 		"windwp/nvim-autopairs",
@@ -105,18 +108,22 @@ local pack_use = function()
 	-----------------------------------------------------------------------------//
 	-- Git {{{1
 	-----------------------------------------------------------------------------//
-	use("tpope/vim-fugitive")
+	--use("tpope/vim-fugitive")
+	use({
+		"TimUntersberger/neogit",
+		config = 'require("modules.git")',
+	})
 	use({
 		"lewis6991/gitsigns.nvim",
 		requires = { "nvim-lua/plenary.nvim" },
-		config = "require('modules.gitsigns')",
+		config = 'require("modules.gitsigns")',
 		after = "plenary.nvim",
 	})
 
 	-----------------------------------------------------------------------------//
 	-- Debugger {{{1
 	-----------------------------------------------------------------------------//
-	use({ "mfussenegger/nvim-dap" })
+	use({ "mfussenegger/nvim-dap", module = "dap" })
 	use({
 		"theHamsta/nvim-dap-virtual-text",
 		config = function()
@@ -134,7 +141,7 @@ local pack_use = function()
 			})
 		end,
 	})
-	use({ "jbyuki/one-small-step-for-vimkind", opt = true })
+	use({ "jbyuki/one-small-step-for-vimkind", requires = "nvim-dap" })
 	use({
 		"mfussenegger/nvim-dap-python",
 		requires = { "mfussenegger/nvim-dap" },
@@ -158,18 +165,14 @@ local pack_use = function()
 		"nvim-lualine/lualine.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
 		event = "BufEnter",
-		config = function()
-			require("modules.line")
-		end,
+		config = 'require("modules.line")',
 	})
 	use({ "arkav/lualine-lsp-progress", after = "lualine.nvim" })
 
 	use({
 		"jose-elias-alvarez/null-ls.nvim",
 		event = "BufRead",
-		config = function()
-			require("modules.null")
-		end,
+		config = 'require("modules.null")',
 	})
 	use("tpope/vim-eunuch")
 	use({
@@ -179,7 +182,7 @@ local pack_use = function()
 	})
 	use({
 		"lukas-reineke/indent-blankline.nvim",
-		config = "require('modules.indent-lines')",
+		config = 'require("modules.indent-lines")',
 	})
 	use({
 		"karb94/neoscroll.nvim",
@@ -196,6 +199,7 @@ local pack_use = function()
 	use("sainnhe/everforest")
 	use("savq/melange")
 	use("EdenEast/nightfox.nvim")
+	use("folke/lua-dev.nvim")
 end
 -- }}}
 

@@ -1,11 +1,11 @@
-if not pcall(require, "telescope") then
-	vim.api.nvim_err_write("telescope : err not found")
+local ok, telescope = as.safe_require("telescope")
+if not ok then
 	return
 end
 
-local actions = require("telescope.actions")
+local _, actions = as.safe_require("telescope.actions")
 
-require("telescope").setup({
+telescope.setup({
 	defaults = {
 		prompt_prefix = "❯ ",
 		selection_caret = "❯ ",
@@ -46,10 +46,8 @@ require("telescope").setup({
 				["<C-d>"] = actions.delete_buffer,
 				["<C-v>"] = actions.select_vertical,
 
-				["<C-j>"] = actions.move_selection_next,
-				["<C-k>"] = actions.move_selection_previous,
-				["<C-up>"] = actions.preview_scrolling_up,
-				["<C-down>"] = actions.preview_scrolling_down,
+				["<C-k>"] = actions.preview_scrolling_up,
+				["<C-j>"] = actions.preview_scrolling_down,
 
 				["<TAB>"] = actions.toggle_selection + actions.move_selection_next,
 				["<C-s>"] = actions.send_to_qflist,
@@ -61,10 +59,8 @@ require("telescope").setup({
 				["<C-d>"] = actions.delete_buffer,
 				["<C-v>"] = actions.select_vertical,
 
-				["j"] = actions.move_selection_next,
-				["k"] = actions.move_selection_previous,
-				["<C-up>"] = actions.preview_scrolling_up,
-				["<C-down>"] = actions.preview_scrolling_down,
+				["<C-k>"] = actions.preview_scrolling_up,
+				["<C-j>"] = actions.preview_scrolling_down,
 
 				["<C-q>"] = actions.send_to_qflist,
 				["<M-q>"] = actions.send_to_qflist + actions.open_qflist,

@@ -1,10 +1,26 @@
+local bmap = require("keymap").bmap
+
 local function disable_formatting(client)
 	client.resolved_capabilities.document_formatting = false
 	client.resolved_capabilities.document_range_formatting = false
 end
 
+local function default_onattach(client, buf)
+	disable_formatting(client)
+	bmap("<leader>nd", "<cmd>lua vim.lsp.buf.definition()<CR>", buf)
+	bmap("<leader>ni", "<cmd>lua vim.lsp.buf.implementation()<CR>", buf)
+	bmap("<leader>nr", "<cmd>lua vim.lsp.buf.references()<CR>", buf)
+	bmap("<leader>ns", "<cmd>lua vim.lsp.buf.signature_help()<CR>", buf)
+	bmap("<leader>na", "<cmd>lua vim.lsp.buf.code_action()<CR>", buf)
+	bmap("<leader>rr", "<cmd>lua vim.lsp.buf.rename()<CR>", buf)
+	bmap("<leader>ff", "<cmd>lua vim.lsp.buf.formatting()<CR>", buf)
+	bmap("<leader>ff", "<cmd>lua vim.lsp.buf.formatting()<CR>", buf)
+	bmap("?", "<cmd>lua vim.diagnostic.open_float()<CR>", buf)
+	bmap("K", "<cmd>lua vim.lsp.buf.hover()<CR>", buf)
+end
+
 local M = {
-	on_attach = disable_formatting,
+	on_attach = default_onattach,
 	capabilities = nil,
 }
 
@@ -101,7 +117,7 @@ function M.init(opts)
 		opts = { debug = false }
 	end
 
-	setup_borders()
+	setup_borders(opts)
 	setup_signs()
 	setup_diagnostics()
 	setup_comp_capabilities()
@@ -116,6 +132,7 @@ function M.init(opts)
 		"cmake",
 		"docker",
 		"go",
+		"haskell",
 		"html",
 		"json",
 		"lua",

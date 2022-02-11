@@ -1,6 +1,5 @@
-local ok, lualine = pcall(require, "lualine")
+local ok, lualine = as.safe_require("lualine")
 if not ok then
-	vim.api.nvim_err_write("lualine: not found")
 	return
 end
 

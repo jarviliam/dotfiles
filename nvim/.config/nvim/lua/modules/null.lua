@@ -1,8 +1,11 @@
-local null = require("null-ls")
-local fmt = null.builtins.formatting
+local ok, null_ls = as.safe_require("null-ls")
+if not ok then
+	return
+end
+local fmt = null_ls.builtins.formatting
 local U = require("core.utils")
 
-null.setup({
+null_ls.setup({
 	sources = {
 		fmt.trim_whitespace.with({
 			filetypes = { "text", "sh", "zsh", "toml", "make", "conf", "tmux" },
@@ -13,18 +16,13 @@ null.setup({
 		fmt.stylua,
 		fmt.terraform_fmt,
 		fmt.gofmt,
+		fmt.goimports,
 		fmt.cmake_format,
 		fmt.clang_format,
 		fmt.black,
 		fmt.isort,
-		-- # DIAGNOSTICS #
-		-- dgn.eslint_d,
-		-- dgn.shellcheck,
-		-- dgn.luacheck.with({
-		--     extra_args = { '--globals', 'vim', '--std', 'luajit' },
-		-- }),
 	},
-	on_attach = function(client, buff)
+	on_attach = function(client, _)
 		U.fmt_on_save(client)
 	end,
 })

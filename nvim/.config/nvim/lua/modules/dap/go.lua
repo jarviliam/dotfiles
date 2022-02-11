@@ -61,7 +61,23 @@ dap.configurations.go = {
 		mode = "test",
 		program = "./${relativeFileDirname}",
 	},
-
+	{
+		type = "go",
+		name = "Scanner-Worker",
+		mode = "remote",
+		-- substitutePath = {
+		-- 	{
+		-- 		from = "${workspaceFolder}",
+		-- 		to = "/usr/src/app/",
+		-- 	},
+		-- 	{
+		-- 		from = "/Users/liam.jarvis/go/pkg/",
+		-- 		to = "/go/pkg/",
+		-- 	},
+		--},
+		request = "attach",
+		port = 40000,
+	},
 	{
 		type = "go",
 		name = "Upload-Worker",

@@ -254,3 +254,4 @@ export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 [ -f "/Users/liam.jarvis/.ghcup/env" ] && source "/Users/liam.jarvis/.ghcup/env" # ghcup-env
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
