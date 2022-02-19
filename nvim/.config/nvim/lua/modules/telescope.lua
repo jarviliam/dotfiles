@@ -43,15 +43,13 @@ telescope.setup({
 		},
 		mappings = {
 			i = {
-				["<C-d>"] = actions.delete_buffer,
 				["<C-v>"] = actions.select_vertical,
 
 				["<C-k>"] = actions.preview_scrolling_up,
 				["<C-j>"] = actions.preview_scrolling_down,
 
 				["<TAB>"] = actions.toggle_selection + actions.move_selection_next,
-				["<C-s>"] = actions.send_to_qflist,
-				["<C-q>"] = actions.send_selected_to_qflist,
+				["<C-w>"] = actions.send_selected_to_qflist,
 				["<Esc>"] = actions.close,
 			},
 			n = {
@@ -62,26 +60,24 @@ telescope.setup({
 				["<C-k>"] = actions.preview_scrolling_up,
 				["<C-j>"] = actions.preview_scrolling_down,
 
-				["<C-q>"] = actions.send_to_qflist,
-				["<M-q>"] = actions.send_to_qflist + actions.open_qflist,
+				["<C-w>"] = actions.send_to_qflist,
 
 				["<Esc>"] = actions.close,
 			},
 		},
 
 		borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-		file_previewer = require("telescope.previewers").vim_buffer_cat.new,
-		grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
-		qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
-
-		vimgrep_arguments = {
-			"rg",
-			"--column",
-			"--line-number",
-			"--with-filename",
-			"--no-heading",
-			"--smart-case",
-			"--hidden",
+	},
+	pickers = {
+		buffers = {
+			mappings = {
+				i = {
+					["<C-d>"] = actions.delete_buffer,
+				},
+				n = {
+					["<C-d>"] = actions.delete_buffer,
+				},
+			},
 		},
 	},
 	extensions = {

@@ -1,10 +1,3 @@
----Requires a plugin config
----@param name string
----@return any
-local function conf(name)
-	return require(string.format("modules.%s", name))
-end
-
 local pack_use = function()
 	local use = require("packer").use
 	use({ "wbthomason/packer.nvim" })
@@ -35,14 +28,17 @@ local pack_use = function()
 			{ "hrsh7th/cmp-path", after = "nvim-cmp" },
 			{ "hrsh7th/cmp-buffer", after = "nvim-cmp" },
 			{ "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
+			{ "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
 		},
 		config = 'require("modules.compe")',
-		after = "LuaSnip",
 	})
-	use("rafamadriz/friendly-snippets")
-	use({ "L3MON4D3/LuaSnip", event = "InsertEnter", config = 'require("modules.luasnip")' })
+	use({
+		"L3MON4D3/LuaSnip",
+		event = "InsertEnter",
+		config = 'require("modules.luasnip")',
+		requires = "rafamadriz/friendly-snippets",
+	})
 
-	use({ "saadparwaiz1/cmp_luasnip" })
 	-----------------------------------------------------------------------------//
 	-- Telescope {{{1
 	-----------------------------------------------------------------------------//
@@ -84,7 +80,15 @@ local pack_use = function()
 		"kyazdani42/nvim-tree.lua",
 		requires = { "kyazdani42/nvim-web-devicons" },
 		config = 'require("modules.tree")',
-		--cmd = { "NvimTreeToggle" },
+		cmd = { "NvimTreeToggle" },
+	})
+	use({
+		"dstein64/vim-startuptime",
+		cmd = "StartupTime",
+		config = function()
+			vim.g.startuptime_tries = 15
+			vim.g.startuptime_exe_args = { "+let g:auto_session_enabled = 0" }
+		end,
 	})
 	-----------------------------------------------------------------------------//
 	-- Text Objects and Editing {{{1
@@ -114,6 +118,21 @@ local pack_use = function()
 		config = 'require("modules.git")',
 	})
 	use({
+		"sindrets/diffview.nvim",
+		cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+		module = "diffview",
+		keys = "<localleader>gd",
+		config = function()
+			require("diffview").setup({
+				enhanced_diff_hl = true,
+				key_bindings = {
+					file_panel = { q = "<Cmd>DiffviewClose<CR>" },
+					view = { q = "<Cmd>DiffviewClose<CR>" },
+				},
+			})
+		end,
+	})
+	use({
 		"lewis6991/gitsigns.nvim",
 		requires = { "nvim-lua/plenary.nvim" },
 		config = 'require("modules.gitsigns")',
@@ -123,7 +142,7 @@ local pack_use = function()
 	-----------------------------------------------------------------------------//
 	-- Debugger {{{1
 	-----------------------------------------------------------------------------//
-	use({ "mfussenegger/nvim-dap", module = "dap" })
+	use({ "mfussenegger/nvim-dap" })
 	use({
 		"theHamsta/nvim-dap-virtual-text",
 		config = function()

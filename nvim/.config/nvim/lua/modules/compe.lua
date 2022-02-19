@@ -6,29 +6,20 @@ end
 cmp.setup({
 	preselect = cmp.PreselectMode.None,
 	formatting = {
-		format = function(entry, vim_item)
-			vim_item.kind = vim.lsp.protocol.CompletionItemKind[vim_item.kind]
-			vim_item.menu = ({
+		format = function(entry, item)
+			item.kind = as.style.lsp.kind[item.kind]
+			item.menu = ({
 				nvim_lsp = "[LSP]",
 				nvim_lua = "[Api]",
 				luasnip = "[Snip]",
 				buffer = "[Buffer]",
 				path = "[Path]",
 			})[entry.source.name]
-			return vim_item
+			return item
 		end,
 	},
 	documentation = {
-		border = {
-			{ "┌", "FloatBorder" },
-			{ "─", "FloatBorder" },
-			{ "┐", "FloatBorder" },
-			{ "│", "FloatBorder" },
-			{ "┘", "FloatBorder" },
-			{ "─", "FloatBorder" },
-			{ "└", "FloatBorder" },
-			{ "│", "FloatBorder" },
-		},
+		border = as.style.lsp.border,
 	},
 	mapping = {
 		["<C-e>"] = cmp.mapping.close(),

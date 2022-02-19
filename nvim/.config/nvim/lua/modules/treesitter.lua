@@ -31,14 +31,6 @@ require("nvim-treesitter.configs").setup({
 				["aa"] = "@parameter.outer",
 				["ia"] = "@parameter.inner",
 				["uc"] = "@comment.outer",
-
-				-- Or you can define your own textobjects like this
-				-- ["iF"] = {
-				--     python = "(function_definition) @function",
-				--     cpp = "(function_definition) @function",
-				--     c = "(function_definition) @function",
-				--     java = "(method_declaration) @function",
-				-- },
 			},
 		},
 		swap = {

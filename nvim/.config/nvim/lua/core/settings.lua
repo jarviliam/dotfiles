@@ -40,9 +40,6 @@ options.timeout = true
 options.timeoutlen = 500
 options.ttimeoutlen = 10
 
--- recursive :find in current dir
-vim.cmd([[set path=.,,,$PWD/**]])
-
 -- vim clipboard copies to system clipboard
 -- unnamed     = use the " register (cmd-s paste in our term)
 -- unnamedplus = use the + register (cmd-v paste in our term)

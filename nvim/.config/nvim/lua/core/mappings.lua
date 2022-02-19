@@ -32,24 +32,10 @@ nmap("<S-TAB>", ":bprevious<CR>") -- buffer previous
 -----------------------------------------------------------------------------//
 -- NvimTree
 -----------------------------------------------------------------------------//
-nmap(l .. "tt", "<cmd>NvimTreeToggle<CR>")
+nmap(l .. "tt", ":NvimTreeToggle<CR>")
 
 --Undo Tree---
 nmap(l .. "u", ":UndotreeToggle<CR>")
-
------------------------------------------------------------------------------//
--- Git
------------------------------------------------------------------------------//
-nmap(l .. "gs", "<cmd>lua require 'neogit'.open()<CR>")
-nmap(l .. "hp", ":Gitsigns preview_hunk<CR>") -- preview hunk
-nmap(l .. "hb", ":Gitsigns blame_line<CR>") -- git blame
-nmap(l .. "hr", ":Gitsigns reset_hunk<CR>") -- reset hunk
-nmap(l .. "hR", ":Gitsigns reset_buffer<CR>") -- reset buffer
-nmap(l .. "hu", ":Gitsigns undo_stage_hunk<CR>") -- undo last stage hunk
-nmap(l .. "hs", ":Gitsigns stage_hunk<CR>") -- git stage hunk
-nmap(l .. "hS", ":Gitsigns stage_buffer<CR>") -- git stage buffer
-nmap(l .. "g.", ":Gitsigns prev_hunk<CR>") -- previous hunk
-nmap(l .. "g,", ":Gitsigns next_hunk<CR>") -- next hunk
 
 -----------------------------------------------------------------------------//
 -- Telescope
@@ -63,20 +49,7 @@ nmap(l .. "no", ":Telescope diagnostics bufnr=0<CR>")
 nmap(l .. "nz", ":Telescope quickfix<CR>")
 nmap(l .. "nx", ":Telescope loclist<CR>")
 
-nmap(l .. "d,", ":Telescope dap frames<CR>")
-nmap(l .. "dh", ":lua require 'dap.ui.widgets'.hover()<CR>")
-vmap(l .. "dh", ":lua require 'dap.ui.widgets'.visual_hover()<CR>")
-nmap(l .. "df", ":lua require 'dapui'.toggle()<CR>")
 nmap(l .. "d.", ":Telescope dap list_breakpoints<CR>")
-nmap(l .. "d-", ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
-nmap(l .. "dj", ":lua require'dap'.step_into()<CR>")
-nmap(l .. "dl", ":lua require'dap'.step_over()<CR>")
-nmap(l .. "dk", ":lua require'dap'.step_out()<CR>")
-nmap(l .. "dr", ":lua require'dap'.restart()<CR>")
-nmap(l .. "dq", ":lua require'dap'.terminate()<CR>")
-nmap(l .. "dn", ":lua require'dap'.run_to_cursor()<CR>")
-nmap(l .. "d~", ":lua require'dap'.toggle_breakpoint()<CR>")
-nmap(l .. "do", ":lua require'dap'.continue()<CR>")
 
 --
 -----------------------------------------------------------------------------//

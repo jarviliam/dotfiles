@@ -5,6 +5,54 @@ _G.as = {
 	_store = __as_global_callbacks,
 }
 
+as.style = {
+	lsp = {
+		signs = {
+			Error = " ",
+			Warn = " ",
+			Hint = " ",
+			Info = " ",
+		},
+		kind = {
+			Text = " [Text]",
+			Method = " [Method]",
+			Function = " [Func]",
+			Constructor = " [Constructor]",
+			Field = "ﰠ [Field]",
+			Variable = " [Var]",
+			Class = " [Class]",
+			Interface = " [Interface]",
+			Module = " [Mod]",
+			Property = "ﰠ [Prop]",
+			Unit = "塞 [Unit]",
+			Value = " [value]",
+			Enum = " [Enum]",
+			Keyword = " [Key]",
+			Snippet = " [Snip]",
+			Color = " [color]",
+			File = " [File]",
+			Reference = " [Ref]",
+			Folder = " [Folder]",
+			EnumMember = " [Enum Member]",
+			Constant = " [Const]",
+			Struct = "פּ [Struct]",
+			Event = " [Event]",
+			Operator = " [Op]",
+			TypeParameter = "",
+		},
+		border = {
+			{ "┌", "FloatBorder" },
+			{ "─", "FloatBorder" },
+			{ "┐", "FloatBorder" },
+			{ "│", "FloatBorder" },
+			{ "┘", "FloatBorder" },
+			{ "─", "FloatBorder" },
+			{ "└", "FloatBorder" },
+			{ "│", "FloatBorder" },
+		},
+	},
+}
+
 ---Prints out inspect
 ---@param ... any
 ---@return any
@@ -55,6 +103,15 @@ local function is_valid_target(command)
 	return valid_type or vim.startswith(command.events[1], "User ")
 end
 
+function as._create(f)
+	table.insert(as._store, f)
+	return #as._store
+end
+
+function as._execute(id, args)
+	as._store[id](args)
+end
+
 ---Creates an autocmd
 ---@param name string
 ---@param commands Autocommand[]
@@ -64,6 +121,10 @@ function as.augroup(name, commands)
 	for _, c in ipairs(commands) do
 		if c.command and c.events and is_valid_target(c) then
 			local command = c.command
+			if type(command) == "function" then
+				local fn_id = as._create(command)
+				command = string.format("lua as._execute(%s)", fn_id)
+			end
 			c.events = type(c.events) == "string" and { c.events } or c.events
 			vim.cmd(
 				string.format(

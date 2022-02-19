@@ -6,7 +6,9 @@ local fmt = null_ls.builtins.formatting
 local U = require("core.utils")
 
 null_ls.setup({
+	debounce = 150,
 	sources = {
+		null_ls.builtins.code_actions.gitsigns,
 		fmt.trim_whitespace.with({
 			filetypes = { "text", "sh", "zsh", "toml", "make", "conf", "tmux" },
 		}),

@@ -5,51 +5,45 @@ local function disable_formatting(client)
 	client.resolved_capabilities.document_range_formatting = false
 end
 
+local function setup_autocommands(client, _)
+	-- 	if client and client.resolved_capabilities.code_lens then
+	-- 		as.augroup("LspCodeLens", {
+	-- 			{
+	-- 				events = { "BufEnter", "CursorHold", "InsertLeave" },
+	-- 				targes = { "<buffer>" },
+	-- 				command = vim.lsp.codelens.refresh,
+	-- 			},
+	-- 		})
+	-- 	end
+end
+
+---Setup Keymaps for clients
+---@param client table lsp client
+---@param buf number
+local function setup_keymaps(client, buf)
+	bmap("<leader>nd", vim.lsp.buf.definition, buf, { desc = "lsp: definition" })
+	bmap("<leader>ni", vim.lsp.buf.implementation, buf, { desc = "lsp: implementation" })
+	bmap("<leader>nr", vim.lsp.buf.references, buf, { desc = "lsp: references" })
+	bmap("<leader>ns", vim.lsp.buf.signature_help, buf, { desc = "lsp: signature help" })
+	bmap("<leader>na", vim.lsp.buf.code_action, buf, { desc = "lsp: code action" })
+	bmap("<leader>rr", vim.lsp.buf.rename, buf, { desc = "lsp: rename" })
+	bmap("<leader>ff", vim.lsp.buf.formatting, buf, { desc = "lsp: format" })
+	bmap("<leader>ff", vim.lsp.buf.formatting, buf, { desc = "lsp: format" })
+	bmap("?", vim.diagnostic.open_float, buf, { desc = "lsp: diagnostic float" })
+	bmap("K", vim.lsp.buf.hover, buf, { desc = "lsp: hover" })
+	bmap("]d", vim.diagnostic.goto_next, { desc = "lsp: diagnostic next" })
+	bmap("[d", vim.diagnostic.goto_prev, { desc = "lsp: diagnostic prev" })
+end
+
 local function default_onattach(client, buf)
 	disable_formatting(client)
-	bmap("<leader>nd", "<cmd>lua vim.lsp.buf.definition()<CR>", buf)
-	bmap("<leader>ni", "<cmd>lua vim.lsp.buf.implementation()<CR>", buf)
-	bmap("<leader>nr", "<cmd>lua vim.lsp.buf.references()<CR>", buf)
-	bmap("<leader>ns", "<cmd>lua vim.lsp.buf.signature_help()<CR>", buf)
-	bmap("<leader>na", "<cmd>lua vim.lsp.buf.code_action()<CR>", buf)
-	bmap("<leader>rr", "<cmd>lua vim.lsp.buf.rename()<CR>", buf)
-	bmap("<leader>ff", "<cmd>lua vim.lsp.buf.formatting()<CR>", buf)
-	bmap("<leader>ff", "<cmd>lua vim.lsp.buf.formatting()<CR>", buf)
-	bmap("?", "<cmd>lua vim.diagnostic.open_float()<CR>", buf)
-	bmap("K", "<cmd>lua vim.lsp.buf.hover()<CR>", buf)
+	setup_autocommands(client)
+	setup_keymaps(client, buf)
 end
 
 local M = {
 	on_attach = default_onattach,
 	capabilities = nil,
-}
-
-vim.lsp.protocol.CompletionItemKind = {
-	Text = " [Text]",
-	Method = " [Method]",
-	Function = " [Func]",
-	Constructor = " [Constructor]",
-	Field = "ﰠ [Field]",
-	Variable = " [Var]",
-	Class = " [Class]",
-	Interface = " [Interface]",
-	Module = " [Mod]",
-	Property = "ﰠ [Prop]",
-	Unit = "塞 [Unit]",
-	Value = " [value]",
-	Enum = " [Enum]",
-	Keyword = " [Key]",
-	Snippet = " [Snip]",
-	Color = " [color]",
-	File = " [File]",
-	Reference = " [Ref]",
-	Folder = " [Folder]",
-	EnumMember = " [Enum Member]",
-	Constant = " [Const]",
-	Struct = "פּ [Struct]",
-	Event = " [Event]",
-	Operator = " [Op]",
-	TypeParameter = "",
 }
 
 -- Sets up defaults of border settings of floaters
@@ -58,20 +52,18 @@ vim.lsp.protocol.CompletionItemKind = {
 local function setup_borders(options)
 	-- Hover window
 	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, options)
-	-- signature Help winow
-	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signatureHelp, options)
+	-- signature Help window
+	--vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signatureHelp, options)
 end
 
 -- Sets up lsp completion capabilities. Requires cmp_nvim_lsp.
 local function setup_comp_capabilities()
 	M.capabilities = vim.lsp.protocol.make_client_capabilities()
 
-	local ok, cmp_lsp = pcall(require, "cmp_nvim_lsp")
-	if not ok then
-		vim.api.nvim_err_writeln("lsp: should install cmp_nvim_lsp")
-		return
+	local ok, cmp_lsp = as.safe_require("cmp_nvim_lsp")
+	if ok then
+		M.capabilities = cmp_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
 	end
-	M.capabilities = cmp_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
 end
 
 local function setup_diagnostics()
@@ -84,8 +76,7 @@ local function setup_diagnostics()
 end
 
 local function setup_signs()
-	local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-	for type, icon in pairs(signs) do
+	for type, icon in pairs(as.style.lsp.signs) do
 		local hl = "DiagnosticSign" .. type
 		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 	end
@@ -93,6 +84,7 @@ end
 
 -- Setup for lsp servers. Requires lspconfig
 -- @param name string LSPServer name
+-- @paran options table
 function M.setup(name, options)
 	local default_opts = {
 		on_attach = M.on_attach,
@@ -101,9 +93,8 @@ function M.setup(name, options)
 
 	options = vim.tbl_extend("force", default_opts, options or {})
 
-	local ok, lspconfig = pcall(require, "lspconfig")
+	local ok, lspconfig = as.safe_require("lspconfig")
 	if not ok then
-		vim.api.nvim_err_writeln("lspconfig is not installed")
 		return
 	end
 
@@ -145,10 +136,7 @@ function M.init(opts)
 
 	for _, l in pairs(languages) do
 		local config = string.format("modules.lsp.%s", l)
-		local ok, _ = pcall(require, config)
-		if not ok then
-			vim.api.nvim_err_writeln(string.format("lsp: could not find the conf file of %q", l))
-		end
+		as.safe_require(config)
 	end
 end
 

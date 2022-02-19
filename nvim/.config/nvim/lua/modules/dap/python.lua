@@ -1,6 +1,5 @@
-local ok, dap = pcall(require, "dap")
+local ok, dap = as.safe_require("dap")
 if not ok then
-	vim.api.nvim_err_writeln("err: dap not found")
 	return
 end
 require("dap-python").setup("~/.virtualenvs/debugpy/bin/python")
