@@ -10,6 +10,7 @@ M.setup = function()
 	local lang = {
 		"cpp",
 		"go",
+		"go_test",
 		"python",
 		"node",
 		"lua",

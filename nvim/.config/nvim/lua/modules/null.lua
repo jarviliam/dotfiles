@@ -6,7 +6,6 @@ local fmt = null_ls.builtins.formatting
 local U = require("core.utils")
 
 null_ls.setup({
-	debounce = 150,
 	sources = {
 		null_ls.builtins.code_actions.gitsigns,
 		fmt.trim_whitespace.with({
@@ -15,7 +14,9 @@ null_ls.setup({
 		fmt.prettierd,
 		fmt.eslint_d,
 		fmt.rustfmt,
-		fmt.stylua,
+		fmt.stylua.with({
+			extra_args = { "--config-path", vim.fn.expand("~/.config/stylua.toml") },
+		}),
 		fmt.terraform_fmt,
 		fmt.gofmt,
 		fmt.goimports,
@@ -23,6 +24,16 @@ null_ls.setup({
 		fmt.clang_format,
 		fmt.black,
 		fmt.isort,
+    null_ls.builtins.diagnostics.yamllint,
+		null_ls.builtins.hover.dictionary,
+		null_ls.builtins.diagnostics.actionlint,
+		null_ls.builtins.diagnostics.luacheck.with({
+			extra_args = {
+				"--config-path",
+				vim.fn.expand("~/.config/nvim/.luacheckrc"),
+			},
+		}),
+		null_ls.builtins.diagnostics.misspell,
 	},
 	on_attach = function(client, _)
 		U.fmt_on_save(client)

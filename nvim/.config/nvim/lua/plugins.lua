@@ -1,6 +1,6 @@
 local pack_use = function()
 	local use = require("packer").use
-	use({ "wbthomason/packer.nvim" })
+	use( "wbthomason/packer.nvim")
 	-----------------------------------------------------------------------------// Required by others {{{1
 	-----------------------------------------------------------------------------//
 	use({ "nvim-lua/plenary.nvim" })
@@ -10,6 +10,7 @@ local pack_use = function()
 			require("nvim-web-devicons").setup({ default = true })
 		end,
 	})
+	use({ "lewis6991/impatient.nvim", as = "impatient" })
 	-----------------------------------------------------------------------------//
 	-- LSP, Autocomplete and snippets {{{1
 	-----------------------------------------------------------------------------//
@@ -17,7 +18,7 @@ local pack_use = function()
 		"neovim/nvim-lspconfig",
 		after = "cmp-nvim-lsp",
 		config = function()
-			require("core.lsp").init({ debug = false })
+			require("core.lsp").init({ debug = false, border = "rounded" })
 		end,
 	})
 	use({
@@ -37,6 +38,19 @@ local pack_use = function()
 		event = "InsertEnter",
 		config = 'require("modules.luasnip")',
 		requires = "rafamadriz/friendly-snippets",
+	})
+	use({
+		"jose-elias-alvarez/null-ls.nvim",
+		event = "BufRead",
+		config = 'require("modules.null")',
+	})
+
+	use({
+		"danymat/neogen",
+		requires = "nvim-treesitter/nvim-treesitter",
+		config = function()
+			require("modules.neogen")
+		end,
 	})
 
 	-----------------------------------------------------------------------------//
@@ -58,6 +72,25 @@ local pack_use = function()
 			require("telescope").load_extension("fzf")
 		end,
 	})
+	use({
+		"folke/trouble.nvim",
+		requires = "kyazdani42/nvim-web-devicons",
+		config = function()
+			require("trouble").setup({})
+			vim.keymap.set(
+				"n",
+				"<leader>no",
+				"<Cmd>TroubleToggle document_diagnostics<CR>",
+				{ silent = true }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>nO",
+				"<Cmd>TroubleToggle workspace_diagnostics<CR>",
+				{ silent = true }
+			)
+		end,
+	})
 
 	-----------------------------------------------------------------------------//
 	-- Treesitter {{{1
@@ -68,20 +101,24 @@ local pack_use = function()
 		event = "CursorHold",
 		config = 'require("modules.treesitter")',
 	})
-	use({ "nvim-treesitter/nvim-treesitter-textobjects", after = { "nvim-treesitter" } })
-	use({ "nvim-treesitter/nvim-treesitter-refactor", after = { "nvim-treesitter" } })
-	use({ "nvim-treesitter/playground", after = "nvim-treesitter", cmd = { "TSPlaygroundToggle" } })
+	use({
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		after = { "nvim-treesitter" },
+	})
+	use({
+		"nvim-treesitter/nvim-treesitter-refactor",
+		after = { "nvim-treesitter" },
+	})
+	use({
+		"nvim-treesitter/playground",
+		after = "nvim-treesitter",
+		cmd = { "TSPlaygroundToggle" },
+	})
 	use({ "windwp/nvim-ts-autotag", after = { "nvim-treesitter" } })
 
 	-----------------------------------------------------------------------------//
 	-- Utils {{{1
 	-----------------------------------------------------------------------------//
-	use({
-		"kyazdani42/nvim-tree.lua",
-		requires = { "kyazdani42/nvim-web-devicons" },
-		config = 'require("modules.tree")',
-		cmd = { "NvimTreeToggle" },
-	})
 	use({
 		"dstein64/vim-startuptime",
 		cmd = "StartupTime",
@@ -93,14 +130,17 @@ local pack_use = function()
 	-----------------------------------------------------------------------------//
 	-- Text Objects and Editing {{{1
 	-----------------------------------------------------------------------------//
-	use("ggandor/lightspeed.nvim")
+	use({
+		"ggandor/lightspeed.nvim",
+		as = "lightspeed",
+		requires = { "tpope/vim-repeat", as = "repeat" },
+	})
 	use({
 		"numToStr/Comment.nvim",
 		config = function()
 			require("Comment").setup()
 		end,
 	})
-	use({ "kevinhwang91/nvim-bqf", config = 'require("modules.bqf")', ft = "qf" })
 	use("tpope/vim-surround")
 	use({
 		"windwp/nvim-autopairs",
@@ -112,10 +152,14 @@ local pack_use = function()
 	-----------------------------------------------------------------------------//
 	-- Git {{{1
 	-----------------------------------------------------------------------------//
-	--use("tpope/vim-fugitive")
 	use({
 		"TimUntersberger/neogit",
 		config = 'require("modules.git")',
+	})
+	use({
+		"pwntester/octo.nvim",
+		as = "octo",
+		config = 'require("modules.octo")',
 	})
 	use({
 		"sindrets/diffview.nvim",
@@ -156,7 +200,11 @@ local pack_use = function()
 			require("dapui").setup({
 				sidebar = { size = 80 },
 				tray = { size = 10 },
-				floating = { max_width = 0.9, max_height = 0.5, border = vim.g.border_chars },
+				floating = {
+					max_width = 0.9,
+					max_height = 0.5,
+					border = vim.g.border_chars,
+				},
 			})
 		end,
 	})
@@ -179,30 +227,73 @@ local pack_use = function()
 	-----------------------------------------------------------------------------//
 	-- General plugins {{{1
 	-----------------------------------------------------------------------------//
-	---
+
+	use({
+		"akinsho/toggleterm.nvim",
+		as = "toggleterm",
+		config = function()
+			require("modules.terminal")
+		end,
+	})
+
 	use({
 		"nvim-lualine/lualine.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
 		event = "BufEnter",
 		config = 'require("modules.line")',
 	})
-	use({ "arkav/lualine-lsp-progress", after = "lualine.nvim" })
 
 	use({
-		"jose-elias-alvarez/null-ls.nvim",
-		event = "BufRead",
-		config = 'require("modules.null")',
+		"j-hui/fidget.nvim",
+		after = "nvim-lspconfig",
+		config = function()
+			require("fidget").setup({
+				text = {
+					spinner = "circle_halves",
+				},
+			})
+		end,
 	})
+
 	use("tpope/vim-eunuch")
+
+	use({
+		"folke/todo-comments.nvim",
+		as = "todo_comments",
+		requires = "nvim-lua/plenary.nvim",
+		config = function()
+			require("modules.todo")
+		end,
+	})
+
 	use({
 		"mbbill/undotree",
 		cmd = "UndotreeToggle",
 		config = "vim.g.undotree_WindowLayout = 2",
 	})
+
+	use({
+		"mhinz/vim-startify",
+		as = "startify",
+		setup = function()
+			vim.g.startify_fortune_use_unicode = 1
+		end,
+	})
+
 	use({
 		"lukas-reineke/indent-blankline.nvim",
 		config = 'require("modules.indent-lines")',
 	})
+
+	use({
+		"rcarriga/nvim-notify",
+		as = "notify",
+		config = function()
+			-- NOTE: Use require'notify'.notify as the default notification UI. <kunzaatko> --
+			vim.notify = require("notify")
+		end,
+	})
+
 	use({
 		"karb94/neoscroll.nvim",
 		event = "WinScrolled",
@@ -210,6 +301,7 @@ local pack_use = function()
 			require("neoscroll").setup({ hide_cursor = false })
 		end,
 	})
+	use({ "folke/lua-dev.nvim", as = "lua-dev" })
 
 	-----------------------------------------------------------------------------//
 	-- Themes {{{1
@@ -218,7 +310,18 @@ local pack_use = function()
 	use("sainnhe/everforest")
 	use("savq/melange")
 	use("EdenEast/nightfox.nvim")
-	use("folke/lua-dev.nvim")
+	use({
+		"rose-pine/neovim",
+		as = "rose-pine",
+		config = function()
+			require("rose-pine").setup({
+				dark_variant = "moon",
+				bold_vert_split = true,
+				disable_float_background = true,
+			})
+			--vim.cmd([[ colorscheme rose-pine ]])
+		end,
+	})
 end
 -- }}}
 
@@ -237,7 +340,9 @@ local function load_plugins()
 end
 
 if fn.empty(fn.glob(install_path)) > 0 then
-	execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
+	execute(
+		"!git clone https://github.com/wbthomason/packer.nvim " .. install_path
+	)
 	load_plugins()
 	require("packer").sync()
 else

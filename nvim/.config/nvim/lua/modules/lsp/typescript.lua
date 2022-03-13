@@ -15,6 +15,6 @@ require("core.lsp").setup("tsserver", {
 		"typescript.tsx",
 	},
 	flags = {
-		debounce_text_changes = 500,
+		debounce_text_changes = 150,
 	},
 })

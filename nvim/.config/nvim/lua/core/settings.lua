@@ -35,7 +35,7 @@ options.shortmess = {
 }
 
 --- Timings
-options.updatetime = 300 -- decrease update time
+options.updatetime = 300
 options.timeout = true
 options.timeoutlen = 500
 options.ttimeoutlen = 10
@@ -59,10 +59,7 @@ options.virtualedit = "block"
 
 -- Greprg
 if as.executable("rg") then
-	vim.o.grepprg = [[rg --glob "!.git" --no-heading --vimgrep --follow $*]]
-	options.grepformat = vim.opt.grepformat ^ { "%f:%l:%c:%m" }
-elseif as.executable("ag") then
-	vim.o.grepprg = [[ag --nogroup --nocolor --vimgrep]]
+	options.grepprg = [[rg --glob "!.git" --no-heading --vimgrep --follow $*]]
 	options.grepformat = vim.opt.grepformat ^ { "%f:%l:%c:%m" }
 end
 
@@ -95,7 +92,7 @@ options.breakindentopt = "sbr"
 options.linebreak = true
 options.conceallevel = 2
 options.synmaxcol = 1024
-options.cmdheight = 2 -- cmdline height
+options.cmdheight = 1 -- cmdline height
 options.laststatus = 2 -- 2 = always show status line (filename, etc)
 options.linespace = 0 -- font spacing
 options.ruler = false
@@ -117,18 +114,21 @@ options.expandtab = true
 
 -- List Chars
 options.list = true
-options.listchars = {
-	eol = nil,
-	tab = "│ ",
-	extends = "›", -- Alternatives: … »
-	precedes = "‹", -- Alternatives: … «
-	trail = "•", -- BULLET (U+2022, UTF-8: E2 80 A2)
-}
-options.showbreak = [[↪ ]]
+options.listchars = { eol = "↩", tab = "▸ ", trail = "·" }
+options.fillchars = { diff = "🮮", fold = "┉", foldopen = "▾", foldsep = "┊", foldclose = "▸", vert = "┃" }
+-- options.listchars = {
+-- 	eol = nil,
+-- 	tab = "│ ",
+-- 	extends = "›", -- Alternatives: … »
+-- 	precedes = "‹", -- Alternatives: … «
+-- 	trail = "•", -- BULLET (U+2022, UTF-8: E2 80 A2)
+-- }
+-- options.showbreak = [[↪ ]]
 
 --- Wild and file globbing
 options.wildmode = "longest:full,full"
 options.wildignorecase = true
+options.pumheight = 15
 options.wildoptions = "pum" -- Show completion items using the pop-up-menu (pum)
 options.pumblend = 3
 options.wildignore = {
@@ -164,8 +164,8 @@ options.autowriteall = true
 options.smartindent = true -- add <tab> depending on syntax (C/C++)
 options.startofline = false -- keep cursor column on navigation
 
-options.tabstop = 4 -- Tab indentation levels every two columns
-options.softtabstop = 4 -- Tab indentation when mixing tabs & spaces
+local indent = 4
+options.tabstop, options.shiftwidth = indent, indent -- Tab indentation levels every two columns
 options.smarttab = true -- Use shiftwidths at left margin, tabstops everywhere else
 
 --- Window splitting / Buffers
@@ -196,9 +196,8 @@ options.ignorecase = true
 options.smartcase = true
 options.wrapscan = true -- begin search from top of the file when nothng is found
 options.showmatch = true -- highlight matching [{()}]
-options.scrolloff = 9 -- min number of lines to keep between cursor and screen edge
-options.sidescrolloff = 10 -- min number of cols to keep between cursor and screen edge
-options.sidescroll = 1
+options.scrolloff = 3 -- min number of lines to keep between cursor and screen edge
+options.sidescrolloff = 5 -- min number of cols to keep between cursor and screen edge
 
 -- Backups
 options.writebackup = false
@@ -209,37 +208,6 @@ options.swapfile = false
 if vim.fn.executable("rg") == 1 then
 	options.grepprg = "rg --vimgrep --no-heading --smart-case --hidden"
 	options.grepformat = "%f:%l:%c:%m"
-end
-
-vim.g.loaded_python_provider = 0
-vim.g.loaded_ruby_provider = 0
-vim.g.loaded_perl_provider = 0
-vim.g.loaded_node_provider = 0
-
--- Disable some in built plugins completely
-local disabled_built_ins = {
-	"netrw",
-	"netrwPlugin",
-	"netrwSettings",
-	"netrwFileHandlers",
-	"gzip",
-	"zip",
-	"zipPlugin",
-	"tar",
-	"tarPlugin",
-	"getscript",
-	"getscriptPlugin",
-	"vimball",
-	"vimballPlugin",
-	"2html_plugin",
-	"logipat",
-	"rrhelper",
-	"spellfile_plugin",
-	"matchit",
-	--'matchparen',
-}
-for _, plugin in pairs(disabled_built_ins) do
-	vim.g["loaded_" .. plugin] = 1
 end
 
 vim.g.markdown_fenced_languages = {

@@ -7,6 +7,6 @@ end
 
 require("core.lsp").setup(server, {
 	flags = {
-		debounce_text_changes = 500,
+		debounce_text_changes = 150,
 	},
 })

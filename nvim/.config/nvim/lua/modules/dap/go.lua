@@ -95,18 +95,18 @@ dap.configurations.go = {
 		type = "dockergo",
 		name = "Scanner-Worker",
 		mode = "remote",
-		-- substitutePath = {
-		-- 	{
-		-- 		from = "${workspaceFolder}",
-		-- 		to = "/usr/src/app/",
-		-- 	},
-		-- 	{
-		-- 		from = "/Users/liam.jarvis/go/pkg/",
-		-- 		to = "/go/pkg/",
-		-- 	},
-		--},
+		substitutePath = {
+			{
+				from = "${workspaceFolder}",
+				to = "/usr/src/app/",
+			},
+			{
+				from = "/Users/liam.jarvis/go/pkg/",
+				to = "/go/pkg/",
+			},
+		},
 		request = "attach",
-		port = 40000,
+		port = 40001,
 	},
 	{
 		type = "dockergo",
@@ -124,6 +124,5 @@ dap.configurations.go = {
 		},
 		request = "attach",
 		port = 40000,
-		showLog = true,
 	},
 }

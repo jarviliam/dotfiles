@@ -4,6 +4,9 @@ if not ok then
 end
 
 local _, actions = as.safe_require("telescope.actions")
+local _, builtin = as.safe_require("telescope.builtin")
+local trouble = require("trouble.providers.telescope")
+local map = vim.keymap.set
 
 telescope.setup({
 	defaults = {
@@ -13,7 +16,7 @@ telescope.setup({
 		sorting_strategy = "ascending",
 		scroll_strategy = "cycle",
 		color_devicons = true,
-		winblend = 0,
+		winblend = 5,
 		layout_strategy = "flex",
 		layout_config = {
 			width = 0.95,
@@ -49,7 +52,7 @@ telescope.setup({
 				["<C-j>"] = actions.preview_scrolling_down,
 
 				["<TAB>"] = actions.toggle_selection + actions.move_selection_next,
-				["<C-w>"] = actions.send_selected_to_qflist,
+				["<C-t>"] = trouble.open_with_trouble,
 				["<Esc>"] = actions.close,
 			},
 			n = {
@@ -60,7 +63,7 @@ telescope.setup({
 				["<C-k>"] = actions.preview_scrolling_up,
 				["<C-j>"] = actions.preview_scrolling_down,
 
-				["<C-w>"] = actions.send_to_qflist,
+				["<C-t>"] = trouble.open_with_trouble,
 
 				["<Esc>"] = actions.close,
 			},
@@ -89,3 +92,36 @@ telescope.setup({
 		},
 	},
 })
+local function curbuf()
+	local opts = require("telescope.themes").get_dropdown({
+		winblend = 10,
+		border = true,
+		previewer = false,
+		shorten_path = false,
+	})
+	builtin.current_buffer_fuzzy_find(opts)
+end
+local function funcsel()
+	local opts = require("telescope.themes").get_dropdown({
+		symbols = "function",
+		winblend = 10,
+		border = true,
+		previewer = false,
+		shorten_path = false,
+	})
+	builtin.lsp_document_symbols(opts)
+end
+
+map("n", "<leader>/", ":Telescope live_grep theme=get_ivy<CR>")
+map("n", "<leader>nf", builtin.fd, { silent = true, desc = "telescope: fd" })
+map("n", "<leader>ng", builtin.git_files, { silent = true, desc = "telescope: git files" })
+map("n", "<leader><TAB>", builtin.buffers, { silent = true, desc = "telescope: buffers" })
+map("n", "<leader>?", builtin.help_tags, { silent = true, desc = "telescope: help" })
+map("n", "<leader>nz", ":Telescope quickfix<CR>")
+map("n", "<leader>nx", ":Telescope loclist<CR>")
+map("n", "<leader>nv", funcsel, { silent = true, desc = "telescope: buffer fuzzy" })
+map("n", "<leader>nb", curbuf, { silent = true, desc = "telescope: buffer fuzzy" })
+map("n", "<leader>hd", builtin.keymaps, { silent = true, desc = "telescope: keymap" })
+map("n", "<leader>hc", builtin.colorscheme, { silent = true, desc = "telescope: colours" })
+
+map("n", "<leader>d.", ":Telescope dap list_breakpoints<CR>")

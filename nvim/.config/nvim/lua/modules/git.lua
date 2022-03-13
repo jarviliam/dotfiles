@@ -2,11 +2,12 @@ local ok, neogit = as.safe_require("neogit")
 if not ok then
 	return
 end
-local nmap = require("keymap").nmap
+local map = vim.keymap.set
 
 neogit.setup({
+  disable_builtin_notifications = true,
 	integrations = {
 		diffview = true,
 	},
 })
-nmap("<leader>gs", neogit.open, { desc = "neogit: open" })
+map("n", "<leader>gs", neogit.open, { silent = true, desc = "neogit: open" })

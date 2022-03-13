@@ -8,7 +8,7 @@ require("nvim-treesitter.configs").setup({
 	},
 	indent = { enable = true },
 	incremental_selection = {
-		enable = true,
+		enable = false,
 		keymaps = {
 			init_selection = "<leader>si",
 			node_incremental = "<leader>sn",
@@ -20,17 +20,13 @@ require("nvim-treesitter.configs").setup({
 	textobjects = {
 		select = {
 			enable = true,
+			lookahead = true,
 			keymaps = {
 				-- You can use the capture groups defined in textobjects.scm
 				["af"] = "@function.outer",
 				["if"] = "@function.inner",
 				["ac"] = "@class.outer",
 				["ic"] = "@class.inner",
-				["al"] = "@loop.outer",
-				["il"] = "@loop.inner",
-				["aa"] = "@parameter.outer",
-				["ia"] = "@parameter.inner",
-				["uc"] = "@comment.outer",
 			},
 		},
 		swap = {

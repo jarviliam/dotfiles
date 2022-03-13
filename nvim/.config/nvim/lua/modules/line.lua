@@ -20,7 +20,7 @@ local sections = {
 			},
 		},
 	},
-	lualine_x = { "lsp_progress", "filetype", "encoding", "fileformat" },
+	lualine_x = { "filetype", "encoding", "fileformat" },
 	lualine_y = { "progress" },
 	lualine_z = { "location" },
 }

@@ -4,6 +4,11 @@ if not ok then
 end
 indent.setup({
 	char = "|",
+	context_char = "┃",
+	use_treesitter = true,
+	show_first_indent_level = false,
+	filetype_exclude = { "help", "markdown", "packer", "lspinfo", "checkhealth", "txt" },
+	space_char = "·",
 	buftype_exclude = {
 		"terminal",
 		"help",
