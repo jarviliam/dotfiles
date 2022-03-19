@@ -24,9 +24,15 @@ null_ls.setup({
 		fmt.clang_format,
 		fmt.black,
 		fmt.isort,
-    null_ls.builtins.diagnostics.yamllint,
+		fmt.shfmt,
+		null_ls.builtins.diagnostics.yamllint,
 		null_ls.builtins.hover.dictionary,
-		null_ls.builtins.diagnostics.actionlint,
+		null_ls.builtins.diagnostics.actionlint.with({
+			condition = function()
+				local name = vim.api.nvim_buf_get_name(0)
+				return string.find(name, ".github")
+			end,
+		}),
 		null_ls.builtins.diagnostics.luacheck.with({
 			extra_args = {
 				"--config-path",

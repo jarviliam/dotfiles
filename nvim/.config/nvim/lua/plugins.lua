@@ -1,6 +1,6 @@
 local pack_use = function()
 	local use = require("packer").use
-	use( "wbthomason/packer.nvim")
+	use("wbthomason/packer.nvim")
 	-----------------------------------------------------------------------------// Required by others {{{1
 	-----------------------------------------------------------------------------//
 	use({ "nvim-lua/plenary.nvim" })
@@ -307,6 +307,7 @@ local pack_use = function()
 	-- Themes {{{1
 	-----------------------------------------------------------------------------//
 	use("sainnhe/sonokai")
+	use("sainnhe/gruvbox-material")
 	use("sainnhe/everforest")
 	use("savq/melange")
 	use("EdenEast/nightfox.nvim")

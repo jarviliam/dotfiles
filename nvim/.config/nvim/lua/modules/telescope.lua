@@ -103,7 +103,7 @@ local function curbuf()
 end
 local function funcsel()
 	local opts = require("telescope.themes").get_dropdown({
-		symbols = "function",
+		symbols = { "function", "method" },
 		winblend = 10,
 		border = true,
 		previewer = false,
@@ -112,16 +112,54 @@ local function funcsel()
 	builtin.lsp_document_symbols(opts)
 end
 
-map("n", "<leader>/", ":Telescope live_grep theme=get_ivy<CR>")
+map(
+	"n",
+	"<leader>/",
+	":Telescope live_grep theme=get_ivy<CR>",
+	{ silent = true, desc = "telescope: live grep" }
+)
 map("n", "<leader>nf", builtin.fd, { silent = true, desc = "telescope: fd" })
-map("n", "<leader>ng", builtin.git_files, { silent = true, desc = "telescope: git files" })
-map("n", "<leader><TAB>", builtin.buffers, { silent = true, desc = "telescope: buffers" })
-map("n", "<leader>?", builtin.help_tags, { silent = true, desc = "telescope: help" })
-map("n", "<leader>nz", ":Telescope quickfix<CR>")
-map("n", "<leader>nx", ":Telescope loclist<CR>")
-map("n", "<leader>nv", funcsel, { silent = true, desc = "telescope: buffer fuzzy" })
-map("n", "<leader>nb", curbuf, { silent = true, desc = "telescope: buffer fuzzy" })
-map("n", "<leader>hd", builtin.keymaps, { silent = true, desc = "telescope: keymap" })
-map("n", "<leader>hc", builtin.colorscheme, { silent = true, desc = "telescope: colours" })
+map(
+	"n",
+	"<leader>ng",
+	builtin.git_files,
+	{ silent = true, desc = "telescope: git files" }
+)
+map(
+	"n",
+	"<leader><TAB>",
+	builtin.buffers,
+	{ silent = true, desc = "telescope: buffers" }
+)
+map(
+	"n",
+	"<leader>?",
+	builtin.help_tags,
+	{ silent = true, desc = "telescope: help" }
+)
+map(
+	"n",
+	"<leader>nv",
+	funcsel,
+	{ silent = true, desc = "telescope: buffer functions" }
+)
+map(
+	"n",
+	"<leader>nb",
+	curbuf,
+	{ silent = true, desc = "telescope: buffer fuzzy" }
+)
+map(
+	"n",
+	"<leader>hd",
+	builtin.keymaps,
+	{ silent = true, desc = "telescope: keymap" }
+)
+map(
+	"n",
+	"<leader>hc",
+	builtin.colorscheme,
+	{ silent = true, desc = "telescope: colours" }
+)
 
 map("n", "<leader>d.", ":Telescope dap list_breakpoints<CR>")

@@ -5,11 +5,13 @@ vim.g.sonokai_enable_italic = 1
 vim.g.sonokai_diagnostic_text_highlight = 1
 vim.g.sonokai_diagnostic_virtual_text = "colored"
 
+vim.g.gruvbox_material_enable_italic = 1
+
 vim.g.everforest_background = "medium"
 vim.g.everforest_enable_italic = 1
 vim.g.everforest_diagnostic_text_highlight = 1
 vim.g.everforest_diagnostic_virtual_text = "colored"
-vim.cmd("colorscheme nordfox")
+vim.cmd("colorscheme everforest")
 
 --- Mouse
 options.mouse = ""
@@ -18,7 +20,8 @@ options.exrc = true
 options.secure = true
 options.modelines = 1 -- read a modeline at EOF
 options.termguicolors = true
-options.guifont = "Fira Code Regular Nerd Font Complete Mono:h14"
+vim.g.guifont = "Hack Nerd Font Code Mono"
+--options.guifont = "Fira Code Regular Nerd Font Complete Mono:h9"
 
 --- Message outputs
 options.shortmess = {
@@ -59,7 +62,8 @@ options.virtualedit = "block"
 
 -- Greprg
 if as.executable("rg") then
-	options.grepprg = [[rg --glob "!.git" --no-heading --vimgrep --follow $*]]
+	options.grepprg =
+		[[rg --glob "!.git" --hidden --no-heading --vimgrep --follow $*]]
 	options.grepformat = vim.opt.grepformat ^ { "%f:%l:%c:%m" }
 end
 
@@ -115,7 +119,14 @@ options.expandtab = true
 -- List Chars
 options.list = true
 options.listchars = { eol = "↩", tab = "▸ ", trail = "·" }
-options.fillchars = { diff = "🮮", fold = "┉", foldopen = "▾", foldsep = "┊", foldclose = "▸", vert = "┃" }
+options.fillchars = {
+	diff = "🮮",
+	fold = "┉",
+	foldopen = "▾",
+	foldsep = "┊",
+	foldclose = "▸",
+	vert = "┃",
+}
 -- options.listchars = {
 -- 	eol = nil,
 -- 	tab = "│ ",

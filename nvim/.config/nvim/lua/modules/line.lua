@@ -27,8 +27,8 @@ local sections = {
 lualine.setup({
 	sections = sections,
 	options = {
-		--theme = "everforest",
-		theme = "nightfox",
+		theme = "everforest",
+		--theme = "nightfox",
 	},
 	extensions = { "fugitive", "nvim-tree", "quickfix" },
 })

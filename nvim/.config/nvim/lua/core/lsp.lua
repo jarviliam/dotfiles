@@ -52,12 +52,6 @@ local function setup_keymaps(_, bufnr)
 	)
 	map(
 		"n",
-		"<leader>ff",
-		vim.lsp.buf.formatting,
-		{ silent = true, buffer = bufnr, desc = "lsp: format" }
-	)
-	map(
-		"n",
 		"K",
 		vim.lsp.buf.hover,
 		{ silent = true, buffer = bufnr, desc = "lsp: hover" }

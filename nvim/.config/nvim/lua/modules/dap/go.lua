@@ -37,6 +37,7 @@ dap.adapters.dockergo = function(callback, config)
 		callback({ type = "server", host = "127.0.0.1", port = port })
 	end, 100)
 end
+
 dap.adapters.go = function(callback, config)
 	local stdout = vim.loop.new_pipe(false)
 	local handle
@@ -98,7 +99,7 @@ dap.configurations.go = {
 		substitutePath = {
 			{
 				from = "${workspaceFolder}",
-				to = "/usr/src/app/",
+				to = "/debug/",
 			},
 			{
 				from = "/Users/liam.jarvis/go/pkg/",
@@ -110,19 +111,19 @@ dap.configurations.go = {
 	},
 	{
 		type = "dockergo",
-		name = "Upload-Worker",
+		name = "Upload-Worker Attach",
 		mode = "remote",
+		request = "attach",
 		substitutePath = {
 			{
 				from = "${workspaceFolder}",
-				to = "/usr/src/app/",
+				to = "/debug/",
 			},
 			{
 				from = "/Users/liam.jarvis/go/pkg/",
 				to = "/go/pkg/",
 			},
 		},
-		request = "attach",
 		port = 40000,
 	},
 }

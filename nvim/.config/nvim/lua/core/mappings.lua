@@ -1,49 +1,55 @@
 vim.g.mapleader = " "
 local l = "<leader>"
-local nmap = require("keymap").nmap
-local vmap = require("keymap").vmap
+local map = vim.keymap.set
 
 -----------------------------------------------------------------------------//
 -- Core
 -----------------------------------------------------------------------------//
-nmap(l .. "th", "<C-w>h")
-nmap(l .. "tj", "<C-w>j")
-nmap(l .. "tk", "<C-w>k")
-nmap(l .. "tl", "<C-w>l")
+map("n", l .. "th", "<C-w>h", { silent = true, desc = "move: left" })
+map("n", l .. "tj", "<C-w>j", { silent = true, desc = "move: down" })
+map("n", l .. "tk", "<C-w>k", { silent = true, desc = "move: up" })
+map("n", l .. "tl", "<C-w>l", { silent = true, desc = "move: right" })
 
 -- Move Selection
-vmap("J", ":m '>+1<CR>gv=gv")
+map("v", "J", ":m '>+1<CR>gv=gv", { silent = true, desc = "shift: up" })
+map("v", "K", ":m '>-1<CR>gv=gv", { silent = true, desc = "shift: down" })
 
-nmap("Q", "<Nop>")
+map("v", ">>", ">><Esc>gv", { desc = "indent and reselect" }) -- reselect after >>
+map("v", "<<", "<<<Esc>gv", { desc = "dedent and reselect" }) -- reselect after <<
 
-nmap("n", "nzzzv")
-nmap("N", "Nzzzv")
-nmap("J", "mzJ`z")
+map("n", "Q", "<Nop>")
+
+map("n", "n", "nzzzv")
+map("n", "N", "Nzzzv")
+map("n", "J", "mzJ`z")
 
 -----------------------------------------------------------------------------//
 -- buffers {{{1
 -----------------------------------------------------------------------------//
-nmap("<TAB>", ":bnext<CR>") -- buffer next
-nmap("<S-TAB>", ":bprevious<CR>") -- buffer previous
-
------------------------------------------------------------------------------//
--- NvimTree
------------------------------------------------------------------------------//
---nmap(l .. "tt", ":NvimTreeToggle<CR>")
+map(
+	"n",
+	"<TAB>",
+	":bnext<CR>",
+	{ silent = true, desc = "buffer: cycle forward" }
+)
+map(
+	"n",
+	"<S-TAB>",
+	":bprevious<CR>",
+	{ silent = true, desc = "buffer: cycle backward" }
+)
 
 --Undo Tree---
-nmap(l .. "u", ":UndotreeToggle<CR>")
+map(
+	"n",
+	l .. "u",
+	":UndotreeToggle<CR>",
+	{ silent = true, desc = "undo: toggle" }
+)
 
------------------------------------------------------------------------------//
--- QuickFix
-----------------------------------------------------------------------------//
-nmap("[q", ":cprevious<CR>")
-nmap("]q", ":cnext<CR>")
-nmap("[Q", ":cfirst<CR>")
-nmap("]Q", ":clast<CR>")
-nmap("[l", ":lprevious<CR>")
-nmap("]l", ":lnext<CR>")
-nmap("[L", ":lfirst<CR>")
-nmap("]L", ":llast<CR>")
-
-nmap(l .. "q", ":lua require('core.utils').clear_buffers()<CR>")
+map(
+	"n",
+	l .. "q",
+	":lua require('core.utils').clear_buffers()<CR>",
+	{ silent = true, desc = "buffer: clear" }
+)

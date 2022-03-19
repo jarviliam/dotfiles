@@ -1,4 +1,4 @@
-local bmap = require("keymap").bmap
+local map = vim.keymap.set
 
 vim.api.nvim_exec(
 	[[
@@ -9,16 +9,36 @@ augroup end
 	""
 )
 
-as.augroup("TextYankHighlight", {
-	{
-		events = { "TextYankPost" },
-		targets = { "*" },
-		command = function()
-			vim.highlight.on_yank({
-				timeout = 500,
-			})
-		end,
-	},
+local cursorLineGroup = vim.api.nvim_create_augroup(
+	"CursorLineControl",
+	{ clear = true }
+)
+vim.api.nvim_create_autocmd("WinLeave", {
+	group = cursorLineGroup,
+	callback = function()
+		vim.opt_local.cursorline = false
+	end,
+})
+vim.api.nvim_create_autocmd("WinEnter", {
+	group = cursorLineGroup,
+	callback = function()
+		vim.opt_local.cursorline = true
+	end,
+})
+
+local YankGroup = vim.api.nvim_create_augroup(
+	"TextYankHighlight",
+	{ clear = true }
+)
+
+-- Highlight Yank. * is default
+vim.api.nvim_create_autocmd("TextYankPost", {
+	group = YankGroup,
+	callback = function()
+		vim.highlight.on_yank({
+			timeout = 500,
+		})
+	end,
 })
 
 ---Clears cmdline after a few seconds
@@ -37,14 +57,27 @@ local function clear_cmd()
 	end
 end
 
-as.augroup("ClearCommandMessages", {
-	{
-		events = { "CmdlineLeave", "CmdlineChanged" },
-		targets = { ":" },
-		command = clear_cmd(),
-	},
+local clearCommands = vim.api.nvim_create_augroup(
+	"ClearCommandMessages",
+	{ clear = true }
+)
+vim.api.nvim_create_autocmd({ "CmdlineLeave", "CmdlineChanged" }, {
+	group = clearCommands,
+	pattern = ":",
+	callback = clear_cmd(),
 })
 
+-- local vimRCIncSearch = vim.api.nvim_create_augroup(
+-- 	"VimrcIncSearchHighlight",
+-- 	{ clear = true }
+-- )
+-- vim.api.nvim_create_autocmd("CmdlineEnter", {
+-- 	group = vimRCIncSearch,
+-- 	pattern = "[/\\?]",
+-- 	callback = function()
+--     vim.opt.hlsearch = true
+--   end,
+-- })
 as.augroup("VimrcIncSearchHighlight", {
 	{
 		events = { "CmdlineEnter" },
@@ -63,7 +96,12 @@ as.augroup("ExternalCommands", {
 		events = { "BufEnter" },
 		targets = { "*.png,*.jpg,*.gif" },
 		command = function()
-			vim.cmd(string.format('silent! "%s | :bw"', vim.g.open_command .. " " .. vim.fn.expand("%")))
+			vim.cmd(
+				string.format(
+					'silent! "%s | :bw"',
+					vim.g.open_command .. " " .. vim.fn.expand("%")
+				)
+			)
 		end,
 	},
 })
@@ -85,7 +123,8 @@ as.augroup("QuickClose", {
 		events = { "FileType" },
 		targets = { "*" },
 		command = function()
-			local is_readonly = (vim.bo.readonly or not vim.bo.modifiable) and vim.fn.hasmapto("q", "n") == 0
+			local is_readonly = (vim.bo.readonly or not vim.bo.modifiable)
+				and vim.fn.hasmapto("q", "n") == 0
 
 			local is_eligible = vim.bo.buftype ~= ""
 				or is_readonly
@@ -93,7 +132,7 @@ as.augroup("QuickClose", {
 				or vim.tbl_contains(quick_close_filetypes, vim.bo.filetype)
 
 			if is_eligible then
-				bmap("q", "<cmd>close<CR>", 0)
+				map("n", "q", "<cmd>close<CR>", { buffer = 0, silent = true })
 			end
 		end,
 	},
