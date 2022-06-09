@@ -30,11 +30,18 @@ alias -s {rs,toml}=nvim
 alias -s {yml}=nvim
 
 #Exa
-alias l="exa -l"
-alias ls="exa"
-alias sl="exa"
-alias la="exa -la --git"
-alias lt="exa -Tla --git"
+if [ -x "$(command -v lsd)" ]; then
+	alias ls='lsd'
+	alias tree='lsd --tree'
+	alias la='lsd -a'
+elif [ -x "$(command -v exa)" ]; then
+	alias ls='exa'
+	alias la='exa -a'
+	alias tree='exa --tree'
+fi
+
+# alias la="exa -la --git"
+# alias lt="exa -Tla --git"
 
 #Movement
 alias ..="cd .."
@@ -43,23 +50,7 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
 #General
-alias cp="cp -i"     # Confirm before overwriting something
+alias cp="cp -ip"    # Confirm before overwriting something
+alias mv="mv -i"     # Confirm before overwriting something
 alias df='df -h'     # Human-readable sizes
 alias free='free -m' # Show sizes in MB
-
-#Git
-alias \
-  ga='git add' \
-  gcl='git clone' \
-  gaa='git add --all' \
-  gb='git branch -a' \
-  gcm='git commit -m' \
-  gd='git diff' \
-  gp='git push' \
-  gl='git pull' \
-  gll='git log' \
-  gs='git status' \
-  gr='git remote -v' \
-  grm='git rm' \
-  grmc='git rm --cached' \
-  gmv='git mv'

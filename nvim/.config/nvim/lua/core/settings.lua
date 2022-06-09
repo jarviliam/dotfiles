@@ -1,18 +1,5 @@
 local options = vim.opt
 
-vim.g.sonokai_style = "shusia"
-vim.g.sonokai_enable_italic = 1
-vim.g.sonokai_diagnostic_text_highlight = 1
-vim.g.sonokai_diagnostic_virtual_text = "colored"
-
-vim.g.gruvbox_material_enable_italic = 1
-
-vim.g.everforest_background = "medium"
-vim.g.everforest_enable_italic = 1
-vim.g.everforest_diagnostic_text_highlight = 1
-vim.g.everforest_diagnostic_virtual_text = "colored"
-vim.cmd("colorscheme everforest")
-
 --- Mouse
 options.mouse = ""
 
@@ -25,16 +12,16 @@ vim.g.guifont = "Hack Nerd Font Code Mono"
 
 --- Message outputs
 options.shortmess = {
-	t = true, -- truncate file messages at start
-	A = true, -- ignore annoying swap file messages
-	o = true, -- file-read message overwrites previous
-	O = true, -- file-read message overwrites previous
-	T = true, -- truncate non-file messages in middle
-	f = true, -- (file x of x) instead of just (x of x
-	F = true, -- Don't give file info when editing a file, NOTE: this breaks autocommand messages
-	s = true,
-	c = true,
-	W = true, -- Don't show [w] or written when writing
+  t = true, -- truncate file messages at start
+  A = true, -- ignore annoying swap file messages
+  o = true, -- file-read message overwrites previous
+  O = true, -- file-read message overwrites previous
+  T = true, -- truncate non-file messages in middle
+  f = true, -- (file x of x) instead of just (x of x
+  F = true, -- Don't give file info when editing a file, NOTE: this breaks autocommand messages
+  s = true,
+  c = true,
+  W = true, -- Don't show [w] or written when writing
 }
 
 --- Timings
@@ -51,37 +38,33 @@ options.clipboard = { "unnamedplus" }
 --- Utils
 options.showmode = false
 options.sessionoptions = {
-	"globals",
-	"buffers",
-	"curdir",
-	"help",
-	"winpos",
+  "globals",
+  "buffers",
+  "curdir",
+  "help",
+  "winpos",
 }
 options.viewoptions = { "cursor", "folds" }
 options.virtualedit = "block"
 
--- Greprg
-if as.executable("rg") then
-	options.grepprg =
-		[[rg --glob "!.git" --hidden --no-heading --vimgrep --follow $*]]
-	options.grepformat = vim.opt.grepformat ^ { "%f:%l:%c:%m" }
-end
+options.grepprg = [[rg --glob "!.git" --hidden --no-heading --vimgrep --follow $*]]
+options.grepformat = vim.opt.grepformat ^ { "%f:%l:%c:%m" }
 
 --- Formatoptions
 options.formatoptions = {
-	["1"] = true,
-	["2"] = true, -- Use indent from 2nd line of a paragraph
-	q = true, -- continue comments with gq"
-	c = true, -- Auto-wrap comments using textwidth
-	r = true, -- Continue comments when pressing Enter
-	n = true, -- Recognize numbered lists
-	t = false, -- autowrap lines using text width value
-	j = true, -- remove a comment leader when joining lines.
-	-- Only break if the line was not longer than 'textwidth' when the insert
-	-- started and only at a white character that has been entered during the
-	-- current insert command.
-	l = true,
-	v = true,
+  ["1"] = true,
+  ["2"] = true, -- Use indent from 2nd line of a paragraph
+  q = true, -- continue comments with gq"
+  c = true, -- Auto-wrap comments using textwidth
+  r = true, -- Continue comments when pressing Enter
+  n = true, -- Recognize numbered lists
+  t = false, -- autowrap lines using text width value
+  j = true, -- remove a comment leader when joining lines.
+  -- Only break if the line was not longer than 'textwidth' when the insert
+  -- started and only at a white character that has been entered during the
+  -- current insert command.
+  l = true,
+  v = true,
 }
 
 --- Spelling
@@ -120,12 +103,12 @@ options.expandtab = true
 options.list = true
 options.listchars = { eol = "↩", tab = "▸ ", trail = "·" }
 options.fillchars = {
-	diff = "🮮",
-	fold = "┉",
-	foldopen = "▾",
-	foldsep = "┊",
-	foldclose = "▸",
-	vert = "┃",
+  diff = "🮮",
+  fold = "┉",
+  foldopen = "▾",
+  foldsep = "┊",
+  foldclose = "▸",
+  vert = "┃",
 }
 -- options.listchars = {
 -- 	eol = nil,
@@ -143,29 +126,29 @@ options.pumheight = 15
 options.wildoptions = "pum" -- Show completion items using the pop-up-menu (pum)
 options.pumblend = 3
 options.wildignore = {
-	"*.aux",
-	"*.out",
-	"*.toc",
-	"*.o",
-	"*.obj",
-	"*.dll",
-	"*.jar",
-	"*.pyc",
-	"*.rbc",
-	"*.class",
-	"*.gif",
-	"*.ico",
-	"*.jpg",
-	"*.jpeg",
-	"*.png",
-	"*.avi",
-	"*.wav",
-	"*.*~",
-	"*~ ",
-	"*.swp",
-	".lock",
-	".DS_Store",
-	"tags.lock",
+  "*.aux",
+  "*.out",
+  "*.toc",
+  "*.o",
+  "*.obj",
+  "*.dll",
+  "*.jar",
+  "*.pyc",
+  "*.rbc",
+  "*.class",
+  "*.gif",
+  "*.ico",
+  "*.jpg",
+  "*.jpeg",
+  "*.png",
+  "*.avi",
+  "*.wav",
+  "*.*~",
+  "*~ ",
+  "*.swp",
+  ".lock",
+  ".DS_Store",
+  "tags.lock",
 }
 
 -- show menu even for one item do not auto select/insert
@@ -175,8 +158,8 @@ options.autowriteall = true
 options.smartindent = true -- add <tab> depending on syntax (C/C++)
 options.startofline = false -- keep cursor column on navigation
 
-local indent = 4
-options.tabstop, options.shiftwidth = indent, indent -- Tab indentation levels every two columns
+options.tabstop = 4
+options.shiftwidth = 4
 options.smarttab = true -- Use shiftwidths at left margin, tabstops everywhere else
 
 --- Window splitting / Buffers
@@ -185,14 +168,14 @@ options.splitright = true
 options.eadirection = "hor"
 options.switchbuf = "useopen,uselast"
 options.fillchars = {
-	vert = "▕", -- alternatives │
-	fold = " ",
-	eob = " ", -- suppress ~ at EndOfBuffer
-	diff = "╱", -- alternatives = ⣿ ░ ─
-	msgsep = "‾",
-	foldopen = "▾",
-	foldsep = "│",
-	foldclose = "▸",
+  vert = "▕", -- alternatives │
+  fold = " ",
+  eob = " ", -- suppress ~ at EndOfBuffer
+  diff = "╱", -- alternatives = ⣿ ░ ─
+  msgsep = "‾",
+  foldopen = "▾",
+  foldsep = "│",
+  foldclose = "▸",
 }
 
 --- Folds
@@ -214,27 +197,20 @@ options.sidescrolloff = 5 -- min number of cols to keep between cursor and scree
 options.writebackup = false
 options.swapfile = false
 
--- use ':grep' to send resulsts to quickfix
--- use ':lgrep' to send resulsts to loclist
-if vim.fn.executable("rg") == 1 then
-	options.grepprg = "rg --vimgrep --no-heading --smart-case --hidden"
-	options.grepformat = "%f:%l:%c:%m"
-end
-
 vim.g.markdown_fenced_languages = {
-	"vim",
-	"lua",
-	"cpp",
-	"sql",
-	"python",
-	"bash=sh",
-	"console=sh",
-	"javascript",
-	"typescript",
-	"js=javascript",
-	"ts=typescript",
-	"yaml",
-	"json",
+  "vim",
+  "lua",
+  "cpp",
+  "sql",
+  "python",
+  "bash=sh",
+  "console=sh",
+  "javascript",
+  "typescript",
+  "js=javascript",
+  "ts=typescript",
+  "yaml",
+  "json",
 }
 vim.cmd([[menu File.Save :w<CR>]])
 vim.cmd([[menu File.Stop :q<CR>]])

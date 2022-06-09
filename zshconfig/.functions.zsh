@@ -1,7 +1,3 @@
-sc() {
-  screencapture -x ~/Screenshots/$1
-}
-
 cd() {
     if [[ "$#" != 0 ]]; then
         builtin cd "$@";

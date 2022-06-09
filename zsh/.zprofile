@@ -9,6 +9,7 @@ eval "$(pyenv init --path)"
 # MacPorts Installer addition on 2022-01-16_at_22:35:22: adding an appropriate PATH variable for use with MacPorts.
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 export PATH=${PATH}:`go env GOPATH`/bin
+export PATH="~/work/istio-1.13.4/bin:$PATH"
 
 # Finished adapting your PATH environment variable for use with MacPorts.
 

@@ -1,31 +1,28 @@
-
-function zsh_source() {
-  [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
-}
+#zmodload zsh/zprof
 
 source "$HOME/dotfiles/zshconfig/.aliasrc"
 source "$HOME/dotfiles/zshconfig/.functions.zsh"
 
-HISTFILE=~/.zhistory
-HISTSIZE=10000
-SAVEHIST=10000
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+export PATH="/Users/liam.jarvis/.kubectx:$PATH"
+export MANPATH="$HOME/.local/share/man:$MANPATH"
+export MANPATH="/usr/local/share/man:$MANPATH"
+export HISTFILE="$HOME/.zhistory"
+export HISTSIZE=10000
+export SAVEHIST=$HISTSIZE
 
 ## Options section
-setopt correct                                                  # Auto correct mistakes
-setopt extendedglob                                             # Extended globbing. Allows using regular expressions with *
-setopt nocaseglob                                               # Case insensitive globbing
-setopt rcexpandparam                                            # Array expension with parameters
-setopt nocheckjobs                                              # Don't warn about running processes when exiting
-setopt numericglobsort                                          # Sort filenames numerically when it makes sense
-setopt nobeep                                                   # No beep
-setopt appendhistory                                            # Immediately append history instead of overwriting
-setopt histignorealldups                                        # If a new command is a duplicate, remove the older one
+set +0 nonotify
+setopt hist_save_no_dups hist_ignore_dups       # eliminate duplicate entries in history
+setopt correctall                               # enable auto correction
+setopt autopushd pushdignoredups                # auto push dir into stack and and don’t duplicate them
+bindkey -e                                      # emacs mode
 setopt autocd                                                   # if only directory path is entered, cd there.
 setopt inc_append_history                                       # save commands are added to the history immediately, otherwise only when shell exits.
-
-# these directories are necessary for zsh.
-[[ ! -d ~/.cache/zsh ]] && mkdir -p ~/.cache/zsh
-[[ ! -d ~/.local/share/zsh ]] && mkdir -p ~/.local/share/zsh
+autoload -U promptinit
+promptinit
+printf "\e[5 q" > $TTY
 
 # {{{completion
 zcomp_init () {
@@ -47,7 +44,7 @@ zcomp_init () {
 
     # Use caching to make completion for commands such as dpkg and apt usable.
     zstyle ':completion::complete:*' use-cache on
-    zstyle ':completion::complete:*' cache-path "${HOME}/.cache/zsh/.zcompcache"
+    zstyle ':completion::complete:*' cache-path "${ZDOTDIR:-$HOME}/.cache/zsh/.zcompcache"
 
     # Case-insensitive (all), partial-word, and then substring completion.
     if zstyle -t ':prezto:module:completion:*' case-sensitive; then
@@ -163,6 +160,7 @@ zstyle -e ':completion:*:hosts' hosts 'reply=(
     zstyle ':completion:*:(ssh|scp|rsync):*:hosts-host' ignored-patterns '*(.|:)*' loopback ip6-loopback localhost ip6-localhost broadcasthost
     zstyle ':completion:*:(ssh|scp|rsync):*:hosts-domain' ignored-patterns '<->.<->.<->.<->' '^[-[:alnum:]]##(.[-[:alnum:]]##)##' '*@*'
     zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns '^(<->.<->.<->.<->|(|::)([[:xdigit:].]##:(#c,2))##(|%*))' '127.0.0.<->' '255.255.255.255' '::1' 'fe80::*'
+    eval "$(zoxide init zsh)"
 }
 # }}}
 
@@ -174,84 +172,74 @@ zstyle -e ':completion:*:hosts' hosts 'reply=(
 source "$HOME/.zinit/bin/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
-zinit ice atload"source $HOME/dotfiles/zshconfig/.p10k-theme.zsh"
+PURE_POWER_MODE=modern
+# This is entirely from sainnhe's dotfiles
+zinit ice atload"source $HOME/dotfiles/.zsh-theme/edge-dark.zsh"
 zinit light romkatv/powerlevel10k
 zinit light zdharma-continuum/fast-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit ice wait'0' lucid depth=1; zinit light zsh-users/zsh-history-substring-search
-zinit ice wait'0' lucid depth=1; zinit light skywind3000/z.lua
 zinit ice wait'1' lucid depth=1; zinit light ytet5uy4/fzf-widgets
-zinit ice wait'0' lucid depth=1; zinit light urbainvaes/fzf-marks
 zinit ice wait'1' lucid depth=1; zinit light hlissner/zsh-autopair
-zinit ice wait'1' lucid depth=1; zinit light jeffreytse/zsh-vi-mode
-zinit ice wait'0' lucid depth=1; zinit light sainnhe/zsh-completions
-zinit ice wait'0' lucid depth=1 \
-    atload"export FPATH=$HOME/.config/.zinit/plugins/RobSis---zsh-completion-generator/completions:$FPATH"
-zinit light RobSis/zsh-completion-generator
-zinit ice wait'0' lucid depth=1 \
-    atload"export FPATH=$HOME/.config/.zinit/plugins/nevesnunes---sh-manpage-completions/completions/zsh:$FPATH" \
-    atload"zcomp_init" \
-    atclone"mv run.sh gencomp-manpage" \
-    atclone"sed -i -e '1i pushd ~/.config/.zinit/plugins/nevesnunes---sh-manpage-completions/' gencomp-manpage" \
-    atclone"sed -i -e '\$a popd' gencomp-manpage" \
-    atpull"%atclone" \
-    as"program"
-zinit light nevesnunes/sh-manpage-completions
-zinit ice wait'0' pick'.zsh-snippets' lucid; zinit light "$HOME"
-zinit ice wait'1' lucid; zinit snippet OMZ::plugins/extract/extract.plugin.zsh
-zinit ice wait'1' lucid; zinit snippet OMZ::plugins/command-not-found/command-not-found.plugin.zsh
-# }}}
+zinit ice wait'0' lucid depth=1 atload"zcomp_init"; zinit light sainnhe/zsh-completions
+zinit ice wait'1' lucid depth=1 \
+    as"program" \
+    pick"pfetch"
+zinit light dylanaraps/pfetch
+zinit ice wait'1' lucid depth=1 \
+    as"program" \
+    pick"bin/*" \
+    atload"export MANPATH=$HOME/.zinit/plugins/sunaku---dasht/man:$MANPATH"
+zinit light sunaku/dasht
+# zinit snippet OMZ::plugins/kubectl
+# zinit snippet OMZ::plugins/kubectx
+
+FAST_HIGHLIGHT[chroma-git]="chroma/-ogit.ch"
 
 # {{{fzf
 # $ fzf                 # fuzzy search files
 # Tab/Down/S-Tab/Up     # navigate
 # C-s                   # Select items
 # C-p                   # Toggle preview
-export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_DEFAULT_COMMAND='fd --type=file --hidden'
 export FZF_DEFAULT_OPTS="
--m --height=50%
+--multi
+--height=50%
 --layout=reverse
---prompt='➤ '
+--prompt='? '
+--pointer='-'
+--marker='+'
 --ansi
 --tabstop=4
 --color=dark
---color=bg:-1,hl:2,fg+:4,bg+:-1,hl+:2
---color=info:1,prompt:2,pointer:5,marker:1,spinner:3,header:11
+--color=hl:2:bold,fg+:4:bold,bg+:-1,hl+:2:bold,info:3:bold,border:8,prompt:2,pointer:5,marker:1,header:6
 --bind=tab:down,btab:up,ctrl-s:toggle,ctrl-p:toggle-preview
 "
 
 # C-f fzf-widgets
-# A-f file-widget
 # C-r history search
 # **<Tab> fuzzy matching path
 if [ -d /usr/share/fzf ]; then
     source /usr/share/fzf/completion.zsh
     source /usr/share/fzf/key-bindings.zsh
 fi
+bindkey '^F'  fzf-select-widget
+bindkey '^R'  fzf-insert-history
+bindkey -r "^[c"
+bindkey -r "^T"
 
-#fzf-marks
-# Usage:
-# $ mark        # mark current directory
-# $ fzm         # select marked directories using fzf
-# ^z            # select marked directories using fzf
-# ^d            # delete selected items when in fzf
-FZF_MARKS_FILE="$HOME/.cache/fzf-marks"
-FZF_MARKS_COMMAND="fzf"
-FZF_MARKS_COLOR_RHS="249"
-FZF_MARKS_JUMP="^z"
+# {{{zsh-autosuggestions
+export ZSH_AUTOSUGGEST_USE_ASYNC="true"
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=244"
+bindkey '^[z' autosuggest-execute
 # }}}
-
-# bind UP and DOWN arrow keys to history substring search
-zmodload zsh/terminfo
-#bindkey "$terminfo[kcuu1]" history-substring-search-up
-#bindkey "$terminfo[kcud1]" history-substring-search-down
-bindkey '^[[A' history-substring-search-up			
+# {{{zsh-history-substring-search
+bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
-eval "$(pyenv init -)"
-
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-[ -f "/Users/liam.jarvis/.ghcup/env" ] && source "/Users/liam.jarvis/.ghcup/env" # ghcup-env
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
-export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+# }}}
+# {{{pfetch
+export PF_COL1=2
+export PF_COL3=3
+# }}}

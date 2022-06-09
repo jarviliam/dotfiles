@@ -18,22 +18,29 @@ cmp.setup({
 			return item
 		end,
 	},
-	documentation = {
-		border = as.style.lsp.border,
+	window = {
+		documentation = cmp.config.window.bordered(),
 	},
-	mapping = {
-		["<C-e>"] = cmp.mapping.close(),
+	mapping = cmp.mapping.preset.insert({
+		["<C-e>"] = cmp.config.disable,
 		["<C-d>"] = cmp.mapping.scroll_docs(-4),
 		["<C-f>"] = cmp.mapping.scroll_docs(4),
-		["<C-Space>"] = cmp.mapping(
+		-- TODO(jarviliam): Test <C-y> so I can tmux C-Space
+		["<C-y>"] = cmp.mapping(
 			cmp.mapping.confirm({
 				behavior = cmp.ConfirmBehavior.Insert,
 				select = true,
 			}),
 			{ "i", "c" }
 		),
-		["<C-y>"] = cmp.mapping.complete(),
-	},
+		-- ["<C-Space>"] = cmp.mapping(
+		-- 	cmp.mapping.confirm({
+		-- 		select = true,
+		-- 	}),
+		-- 	{ "i", "c" }
+		-- ),
+		-- ["<C-y>"] = cmp.mapping.complete(),
+	}),
 	sorting = {
 		priority_weight = 100,
 	},
@@ -45,15 +52,14 @@ cmp.setup({
 	completion = {
 		keyword_length = 1,
 	},
-	sources = {
+	sources = cmp.config.sources({
 		{ name = "luasnip", priority_weight = 80 },
 		{ name = "nvim_lsp", priority_weight = 100, max_item_count = 15 },
 		{ name = "nvim_lua", priority_weight = 90 },
 		{ name = "buffer", priority_weight = 70, max_item_count = 5 },
 		{ name = "path", priority_weight = 110, keyword_length = 3 },
-	},
+	}),
 	experimental = {
-		native_menu = false,
 		ghost_text = true,
 	},
 })

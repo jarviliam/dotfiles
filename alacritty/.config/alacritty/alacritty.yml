@@ -295,7 +295,7 @@ schemes:
       - { index: 16, color: "#f4a261" }
       - { index: 17, color: "#d67ad2" }
   # }}}
-  ayu: &ayu # Default colors
+  ayu: &ayu
     primary:
       background: "#1f2430"
       foreground: "#cbccc6"
@@ -303,14 +303,14 @@ schemes:
 
     # Normal colors
     normal:
-      black: "#212733" #
-      red: "#f08778" #
-      green: "#53bf97" #
-      yellow: "#fdcc60" #
-      blue: "#60b8d6" #
-      magenta: "#ec7171" #
-      cyan: "#98e6ca" #
-      white: "#fafafa" #
+      black: "#212733"
+      red: "#f08778"
+      green: "#53bf97"
+      yellow: "#fdcc60"
+      blue: "#60b8d6"
+      magenta: "#ec7171"
+      cyan: "#98e6ca"
+      white: "#fafafa"
 
     # Brightened
     bright:
@@ -323,7 +323,7 @@ schemes:
       cyan: "#9debcf"
       white: "#ffffff"
 
-  colors: *ayu
+  colors: *gruvbox_material_dark
 
 draw_bold_text_with_bright_colors: true
 

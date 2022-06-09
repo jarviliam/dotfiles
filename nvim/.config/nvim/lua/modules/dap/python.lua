@@ -10,14 +10,15 @@ table.insert(dap.configurations.python, {
 	request = "attach",
 	host = "localhost",
 	port = 10001,
+	justMyCode = false,
 	pathMappings = {
+		{
+			localRoot = "/Users/liam.jarvis/.pyenv/versions/3.10.1/lib/python3.10",
+			remoteRoot = "/opt/pysetup/.venv/lib/python3.9",
+		},
 		{
 			localRoot = vim.fn.getcwd(),
 			remoteRoot = "/",
-		},
-		{
-			localRoot = "/Users/liam.jarvis/.pyenv/versions/3.10.1/lib/",
-			remoteRoot = "/opt/pysetup/.venv/lib/",
 		},
 	},
 })
