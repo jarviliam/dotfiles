@@ -1,8 +1,21 @@
----Setup Keymaps for clients
----@param _ table lsp client
+require("modules.lsp.diagnostics").setup()
 
-local function default_onattach(client, buf)
-  require("modules.lsp.keys").setup(client, buf)
+local function on_attach(client, bufnr)
+  require("modules.lsp.format").setup(client, bufnr)
+  require("modules.lsp.keys").setup(client, bufnr)
+
+  if client.name == "typescript" or client.name == "tsserver" then
+    local ts = require("nvim-lsp-ts-utils")
+    ts.setup({
+      disable_commands = false,
+      enable_import_on_completion = false,
+      import_on_completion_timeout = 5000,
+      eslint_bin = "eslint_d", -- use eslint_d if possible!
+      eslint_enable_diagnostics = true,
+      eslint_enable_disable_comments = true,
+    })
+    ts.setup_client(client)
+  end
 end
 
 local yaml = {
@@ -31,105 +44,62 @@ local yaml = {
   hover = true,
 }
 
-local M = {
-  on_attach = default_onattach,
-  capabilities = nil,
+local capabilities = require("cmp_nvim_lsp").update_capabilities(
+  vim.lsp.protocol.make_client_capabilities()
+)
+
+require("lua-dev").setup()
+
+local options = {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  flags = {
+    debounce_text_changes = 150,
+  },
+  settings = {
+    yaml = yaml,
+  },
 }
 
--- Sets up defaults of border settings of floaters
--- @param options table
--- @return nil
-local function setup_borders(options)
-  -- Hover window
-  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-    vim.lsp.handlers.hover,
-    options
-  )
-  -- signature Help window
-  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-    vim.lsp.handlers.signature_help,
-    {
-      border = "rounded",
-    }
-  )
+local servers = {
+  bashls = {},
+  clangd = {},
+  dockerls = {},
+  jsonls = {},
+  gopls = {},
+  pyright = {
+    before_init = function(params, config)
+      local Path = require("plenary.path")
+      local venv = Path:new((config.root_dir:gsub("/", Path.path.sep)), ".venv")
+      if venv:joinpath("bin"):is_dir() then
+        config.settings.python.pythonPath =
+        tostring(venv:joinpath("bin", "python"))
+      else
+        config.settings.python.pythonPath =
+        tostring(venv:joinpath("Scripts", "python.exe"))
+      end
+    end,
+  },
+  sumneko_lua = {
+    settings = {
+      Lua = {
+        diagnostics = {
+          globals = { "vim" },
+        },
+      },
+    },
+  },
+  rust_analyzer = {},
+  terraformls = {},
+  tsserver = {},
+  yamlls = {},
+}
+
+require("modules.lsp.null").setup(options)
+local lspconfig = require("lspconfig")
+for server, config in pairs(servers) do
+  for k, v in pairs(config) do
+    options[k] = v
+  end
+  lspconfig[server].setup(options)
 end
-
--- Sets up lsp completion capabilities. Requires cmp_nvim_lsp.
-local function setup_comp_capabilities()
-  M.capabilities = vim.lsp.protocol.make_client_capabilities()
-
-  local ok, cmp_lsp = as.safe_require("cmp_nvim_lsp")
-  if ok then
-    M.capabilities = cmp_lsp.update_capabilities(
-      vim.lsp.protocol.make_client_capabilities()
-    )
-  end
-end
-
--- Setup for lsp servers. Requires lspconfig
--- @param name string LSPServer name
--- @paran options table
-function M.init(opts)
-  if opts == nil or opts == {} then
-    opts = { debug = false }
-  end
-
-  setup_borders(opts)
-  require("modules.lsp.diagnostics").setup()
-  setup_comp_capabilities()
-
-  if opts.debug then
-    vim.lsp.set_log_level("debug")
-  end
-
-  local languages = {
-    "bash",
-    "clang",
-    "cmake",
-    "docker",
-    "go",
-    "haskell",
-    "html",
-    "json",
-    "lua",
-    "python",
-    "rust",
-    "terraform",
-    "typescript",
-    "vue",
-    "yaml",
-  }
-
-  for _, l in pairs(languages) do
-    local config = string.format("modules.lsp.%s", l)
-    as.safe_require(config)
-  end
-  vim.cmd(
-    [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float({focusable=false})]]
-  )
-end
-
--- Init nvim-lsp
--- @param opts table {debug}
-function M.setup(name, options)
-  local flags = {
-    allow_incremental_sync = true,
-    debounce_text_changes = 200,
-  }
-  local default_opts = {
-    on_attach = M.on_attach,
-    capabilities = M.capabilities,
-    flags = flags,
-    settings = { yaml = yaml },
-  }
-
-  options = vim.tbl_extend("force", default_opts, options or {})
-  local ok, lspconfig = as.safe_require("lspconfig")
-  if not ok then
-    return
-  end
-
-  lspconfig[name].setup(options)
-end
-
-return M

@@ -2,7 +2,6 @@ local ok, lualine = as.safe_require("lualine")
 if not ok then
   return
 end
-local gps = require("nvim-gps")
 local function diff_source()
   local gitsigns = vim.b.gitsigns_status_dict
   if gitsigns then
@@ -37,7 +36,16 @@ local sections = {
       path = 1, -- 0: Just the filename 1: Relative path 2: Absolute pathath
       shorting_target = 40, -- Shortens path to leave 40 spaces in the window
     },
-    { gps.get_location, cond = gps.is_available },
+    {
+      function()
+        local navic = require("nvim-navic")
+        return navic.get_location()
+      end,
+      cond = function()
+        local navic = require("nvim-navic")
+        return navic.is_available()
+      end,
+    },
   },
   lualine_x = { "encoding", "fileformat", "filesize" },
   lualine_y = { "progress" },

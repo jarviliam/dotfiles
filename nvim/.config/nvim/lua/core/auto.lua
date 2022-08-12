@@ -7,10 +7,8 @@ augroup end
   ""
 )
 
-local cursorLineGroup = vim.api.nvim_create_augroup(
-  "CursorLineControl",
-  { clear = true }
-)
+local cursorLineGroup =
+vim.api.nvim_create_augroup("CursorLineControl", { clear = true })
 vim.api.nvim_create_autocmd("WinLeave", {
   group = cursorLineGroup,
   callback = function()
@@ -24,10 +22,8 @@ vim.api.nvim_create_autocmd("WinEnter", {
   end,
 })
 
-local YankGroup = vim.api.nvim_create_augroup(
-  "TextYankHighlight",
-  { clear = true }
-)
+local YankGroup =
+vim.api.nvim_create_augroup("TextYankHighlight", { clear = true })
 
 -- Highlight Yank. * is default
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -55,10 +51,8 @@ local function clear_cmd()
   end
 end
 
-local clearCommands = vim.api.nvim_create_augroup(
-  "ClearCommandMessages",
-  { clear = true }
-)
+local clearCommands =
+vim.api.nvim_create_augroup("ClearCommandMessages", { clear = true })
 vim.api.nvim_create_autocmd({ "CmdlineLeave", "CmdlineChanged" }, {
   group = clearCommands,
   pattern = ":",

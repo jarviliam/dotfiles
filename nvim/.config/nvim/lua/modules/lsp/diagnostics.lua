@@ -23,6 +23,9 @@ function M.setup()
     local col = "Diagnostic" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = col })
   end
+  vim.cmd(
+    [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float({focusable=false})]]
+  )
 end
 
 return M

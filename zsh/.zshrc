@@ -1,4 +1,4 @@
-#zmodload zsh/zprof
+# zmodload zsh/zprof
 
 source "$HOME/dotfiles/zshconfig/.aliasrc"
 source "$HOME/dotfiles/zshconfig/.functions.zsh"
@@ -178,21 +178,12 @@ zinit ice atload"source $HOME/dotfiles/.zsh-theme/edge-dark.zsh"
 zinit light romkatv/powerlevel10k
 zinit light zdharma-continuum/fast-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
+zinit light wfxr/forgit
+zinit ice depth=1; zinit light jeffreytse/zsh-vi-mode
 zinit ice wait'0' lucid depth=1; zinit light zsh-users/zsh-history-substring-search
 zinit ice wait'1' lucid depth=1; zinit light ytet5uy4/fzf-widgets
 zinit ice wait'1' lucid depth=1; zinit light hlissner/zsh-autopair
 zinit ice wait'0' lucid depth=1 atload"zcomp_init"; zinit light sainnhe/zsh-completions
-zinit ice wait'1' lucid depth=1 \
-    as"program" \
-    pick"pfetch"
-zinit light dylanaraps/pfetch
-zinit ice wait'1' lucid depth=1 \
-    as"program" \
-    pick"bin/*" \
-    atload"export MANPATH=$HOME/.zinit/plugins/sunaku---dasht/man:$MANPATH"
-zinit light sunaku/dasht
-# zinit snippet OMZ::plugins/kubectl
-# zinit snippet OMZ::plugins/kubectx
 
 FAST_HIGHLIGHT[chroma-git]="chroma/-ogit.ch"
 

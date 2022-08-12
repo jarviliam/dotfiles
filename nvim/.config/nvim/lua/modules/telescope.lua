@@ -1,11 +1,8 @@
-local ok, telescope = as.safe_require("telescope")
-if not ok then
-  return
-end
-
+local telescope = require("telescope")
 local actions = require("telescope.actions")
 local builtin = require("telescope.builtin")
 local map = vim.keymap.set
+local trouble = require("trouble.providers.telescope")
 
 telescope.setup({
   defaults = {
@@ -51,7 +48,10 @@ telescope.setup({
 
         ["<C-k>"] = actions.preview_scrolling_up,
         ["<C-j>"] = actions.preview_scrolling_down,
-
+        ["<C-s>"] = trouble.open_selected_with_trouble,
+        ["<C-t>"] = trouble.open_with_trouble,
+        ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+        ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
         ["<TAB>"] = actions.toggle_selection + actions.move_selection_next,
         ["<Esc>"] = actions.close,
       },
@@ -59,6 +59,8 @@ telescope.setup({
         ["<CR>"] = actions.select_default + actions.center,
         ["<C-d>"] = actions.delete_buffer,
         ["<C-v>"] = actions.select_vertical,
+        ["<C-s>"] = trouble.open_selected_with_trouble,
+        ["<C-t>"] = trouble.open_with_trouble,
 
         ["<C-k>"] = actions.preview_scrolling_up,
         ["<C-j>"] = actions.preview_scrolling_down,

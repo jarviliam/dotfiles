@@ -5,6 +5,10 @@ wk.setup({
   triggers = "auto",
   plugins = { spelling = true },
   key_labels = { ["<leader>"] = "SPC" },
+  triggers_blacklist = {
+    i = { "j", "k", "n" },
+    v = { "j", "k" },
+  },
 })
 
 local leader = {

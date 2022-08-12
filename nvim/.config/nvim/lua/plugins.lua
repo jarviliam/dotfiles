@@ -50,9 +50,14 @@ packer.startup(function(use)
   -----------------------------------------------------------------------------//
   use({
     "neovim/nvim-lspconfig",
+    event = "BufReadPre",
     after = "cmp-nvim-lsp",
+    wants = {
+      "null-ls.nvim",
+      "nvim-lsp-ts-utils",
+    },
     config = function()
-      require("core.lsp").init({ debug = false, border = "rounded" })
+      require("core.lsp")
     end,
   })
   use({
@@ -76,23 +81,23 @@ packer.startup(function(use)
   use({
     "jose-elias-alvarez/null-ls.nvim",
     event = "BufRead",
-    config = 'require("modules.null")',
   })
   use({
-    "SmiteshP/nvim-gps",
-    requires = "nvim-treesitter/nvim-treesitter",
-    wants = "nvim-treesitter",
-    module = "nvim-gps",
+    "jose-elias-alvarez/nvim-lsp-ts-utils",
+  })
+  use({
+    "SmiteshP/nvim-navic",
+    requires = "neovim/nvim-lspconfig",
+    module = "nvim-navic",
     config = function()
-      require("nvim-gps").setup({ separator = " " })
+      vim.g.navic_silence = true
+      require("nvim-navic").setup({ separator = " " })
     end,
   })
   use({
     "danymat/neogen",
     requires = "nvim-treesitter/nvim-treesitter",
-    config = function()
-      require("modules.neogen")
-    end,
+    config = get_config("neogen"),
   })
 
   -----------------------------------------------------------------------------//
@@ -228,15 +233,7 @@ packer.startup(function(use)
     "rcarriga/nvim-dap-ui",
     requires = { "mfussenegger/nvim-dap" },
     config = function()
-      require("dapui").setup({
-        sidebar = { size = 80 },
-        tray = { size = 10 },
-        floating = {
-          max_width = 0.9,
-          max_height = 0.5,
-          border = vim.g.border_chars,
-        },
-      })
+      require("dapui").setup({})
     end,
   })
   use({ "jbyuki/one-small-step-for-vimkind", requires = "nvim-dap" })
