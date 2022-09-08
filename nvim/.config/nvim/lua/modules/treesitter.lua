@@ -1,6 +1,3 @@
--- M1 Chip fails to compile Haskall Parser
---require("nvim-treesitter.install").compilers = { "gcc-11" }
-
 require("nvim-treesitter.configs").setup({
   ensure_installed = "all",
   ignore_install = { "phpdoc" },
@@ -23,8 +20,20 @@ require("nvim-treesitter.configs").setup({
       keymaps = {
         ["af"] = "@function.outer",
         ["if"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        ["ic"] = "@class.inner",
+        ["ao"] = "@class.outer",
+        ["io"] = "@class.inner",
+        ["ac"] = "@conditional.outer",
+        ["ic"] = "@conditional.inner",
+        ["ae"] = "@block.outer",
+        ["ie"] = "@block.inner",
+        ["al"] = "@loop.outer",
+        ["il"] = "@loop.inner",
+        ["is"] = "@statement.inner",
+        ["as"] = "@statement.outer",
+        ["ad"] = "@comment.outer",
+        ["id"] = "@comment.inner",
+        ["am"] = "@call.outer",
+        ["im"] = "@call.inner",
       },
     },
     lsp_interop = {
@@ -34,7 +43,7 @@ require("nvim-treesitter.configs").setup({
       },
     },
     swap = {
-      enable = false,
+      enable = true,
       swap_next = {
         ["<leader>a"] = "@parameter.inner",
         ["<leader>f"] = "@function.outer",

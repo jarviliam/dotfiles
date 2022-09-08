@@ -26,7 +26,7 @@ vim.g.python3_host_prog = "/Users/liam.jarvis/.pyenv/versions/3.10.1/bin/python"
 -- Disable built-in plug-ins
 local disabled_built_ins = {
   "gzip",
-  "man",
+  -- "man",
   "matchit",
   "matchparen",
   "shada_plugin",

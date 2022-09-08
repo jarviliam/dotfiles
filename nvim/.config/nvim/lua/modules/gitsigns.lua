@@ -50,18 +50,22 @@ gitsigns.setup({
       gitsigns.preview_hunk,
       { desc = "gitsigns: preview hunk" }
     ) -- preview hunk
+    map("n", "<leaderg>ghb", function()
+      gitsigns.blame_line({ full = true })
+    end, { desc = "gitsigns: blame current line" }) -- git blame
     map(
       "n",
-      "<leaderg>hb",
-      gitsigns.blame_line,
-      { desc = "gitsigns: blame current line" }
-    ) -- git blame
+      "<leader>ght",
+      gitsigns.toggle_current_line_blame,
+      { desc = "gitsigns: toggle blame" }
+    ) -- preview hunk
+    map("n", "<leader>ghd", gitsigns.diffthis, { desc = "gitsigns: diff" })
     map(
       "n",
       "<leader>ghr",
       gitsigns.reset_hunk,
       { desc = "gitsigns: reset hunk" }
-    ) -- reset hunk
+    )
     map(
       "n",
       "<leader>ghR",
@@ -77,7 +81,7 @@ gitsigns.setup({
     map("n", "<leader>ghs", gitsigns.stage_hunk, { desc = "gitsigns: stage" }) -- git stage hunk
     map(
       "n",
-      "<leaderg>hS",
+      "<leader>ghS",
       gitsigns.stage_buffer,
       { desc = "gitsigns: stage buffer" }
     ) -- git stage buffer

@@ -14,10 +14,9 @@ wk.setup({
 local leader = {
   ["w"] = {
     name = "+windows",
-    ["w"] = { "<C-W>p", "other-window" },
+    ["o"] = { "<C-W>p", "other-window" },
+    ["w"] = { ":update<CR>", "update-window" },
     ["d"] = { "<C-W>c", "delete-window" },
-    ["-"] = { "<C-W>s", "split-window-below" },
-    ["|"] = { "<C-W>v", "split-window-right" },
     ["2"] = { "<C-W>v", "layout-double-columns" },
     ["h"] = { "<C-W>h", "window-left" },
     ["j"] = { "<C-W>j", "window-below" },
@@ -88,12 +87,12 @@ local leader = {
     m = { "<cmd>Telescope marks<cr>", "Jump to Mark" },
   },
   f = {
-    name = "+file",
+    name = "+fuzzy",
     f = { "<cmd>Telescope find_files<cr>", "Find File" },
+    b = { "<cmd>Telescope buffers<cr>", "Buffers" },
     n = { "<cmd>enew<cr>", "New File" },
     z = "Zoxide",
   },
-  ["."] = "Find File",
   x = {
     name = "+errors",
     x = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Trouble" },
@@ -103,5 +102,15 @@ local leader = {
     q = { "<cmd>copen<cr>", "Open Quickfix List" },
   },
 }
-
+vim.keymap.set("n", "<A-i>", '<CMD>lua require("FTerm").toggle()<CR>')
+vim.api.nvim_create_user_command(
+  "FTermToggle",
+  require("FTerm").toggle,
+  { bang = true }
+)
+vim.keymap.set(
+  "t",
+  "<A-i>",
+  '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>'
+)
 wk.register(leader, { prefix = "<leader>" })

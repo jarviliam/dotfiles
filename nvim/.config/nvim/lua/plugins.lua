@@ -136,7 +136,6 @@ packer.startup(function(use)
   use({
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
-    event = "CursorHold",
     config = get_config("treesitter"),
     requires = {
       {
@@ -165,6 +164,7 @@ packer.startup(function(use)
       vim.g.startuptime_exe_args = { "+let g:auto_session_enabled = 0" }
     end,
   })
+  use({ "numToStr/FTerm.nvim" })
   -----------------------------------------------------------------------------//
   -- Text Objects and Editing {{{1
   -----------------------------------------------------------------------------//

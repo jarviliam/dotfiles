@@ -59,17 +59,6 @@ vim.api.nvim_create_autocmd({ "CmdlineLeave", "CmdlineChanged" }, {
   callback = clear_cmd(),
 })
 
--- local vimRCIncSearch = vim.api.nvim_create_augroup(
--- 	"VimrcIncSearchHighlight",
--- 	{ clear = true }
--- )
--- vim.api.nvim_create_autocmd("CmdlineEnter", {
--- 	group = vimRCIncSearch,
--- 	pattern = "[/\\?]",
--- 	callback = function()
---     vim.opt.hlsearch = true
---   end,
--- })
 as.augroup("VimrcIncSearchHighlight", {
   {
     events = { "CmdlineEnter" },

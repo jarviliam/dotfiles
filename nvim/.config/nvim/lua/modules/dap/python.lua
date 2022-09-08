@@ -13,12 +13,12 @@ table.insert(dap.configurations.python, {
   justMyCode = false,
   pathMappings = {
     {
-      localRoot = "/Users/liam.jarvis/.pyenv/versions/3.10.1/lib/python3.10",
-      remoteRoot = "/opt/pysetup/.venv/lib/python3.10",
+      localRoot = vim.fn.getcwd() .. "/.venv/",
+      remoteRoot = "/opt/pysetup/.venv/",
     },
     {
       localRoot = vim.fn.getcwd(),
-      remoteRoot = "/",
+      remoteRoot = "/km-api/",
     },
   },
 })
