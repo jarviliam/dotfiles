@@ -1,0 +1,52 @@
+if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+  exec startx
+fi
+
+[ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "$XDG_CURRENT_DESKTOP" = "GNOME" ] || export QT_QPA_PLATFORMTHEME="qt5ct"
+
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+. "$HOME/.cargo/env"
+
+### editors
+export EDITOR="${EDITOR:-nvim}"
+export VISUAL="${VISUAL:-nvim}"
+export PAGER="${PAGER:-less}"
+
+### language
+export LANG="${LANG:-en_US.UTF-8}"
+export LANGUAGE="${LANGUAGE:-en}"
+export LC_ALL="${LC_ALL:-en_US.UTF-8}"
+
+### paths
+# ensure path arrays do not contain duplicates
+typeset -gU cdpath fpath mailpath path
+
+# set the list of directories that `cd` searches
+# cdpath=(
+#   $cdpath
+# )
+
+# set the list of directories that zsh searches for commands
+path=(
+  $HOME/{,s}bin(N)
+  /opt/{homebrew,local}/{,s}bin(N)
+  /usr/local/{,s}bin(N)
+  $path
+)
+
+### less
+
+# set default less options
+export LESS="${LESS:--g -i -M -R -S -w -z-4}"
+
+# set the less input preprocessor
+if [[ -z "$LESSOPEN" ]] && (( $#commands[(i)lesspipe(|.sh)] )); then
+  export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
+fi
+eval $(/opt/homebrew/bin/brew shellenv)
+eval "$(pyenv init --path)"
+export PATH=${PATH}:`go env GOPATH`/bin
+# MacPorts Installer addition on 2022-01-16_at_22:35:22: adding an appropriate MANPATH variable for use with MacPorts.
+export MANPATH="/opt/local/share/man:$MANPATH"
+# Finished adapting your MANPATH environment variable for use with MacPorts.

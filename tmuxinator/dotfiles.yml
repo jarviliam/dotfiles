@@ -1,0 +1,11 @@
+name: dotfiles
+root: ~/
+
+windows:
+  - dots:
+    root: ~/dotfiles
+    focus: True
+    layout: main-horizontal
+    panes:
+      - main:
+        - clear

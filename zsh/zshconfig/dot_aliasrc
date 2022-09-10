@@ -1,0 +1,49 @@
+#!/bin/sh
+
+alias prdlog="shobo-aws-sts-cli -keyring -role-to-switch arn:aws:iam::020151147593:role/switch-role-ops)"
+alias stglog="shobo-aws-sts-cli -keyring -role-to-switch arn:aws:iam::164201395711:role/switch-role-dev)"
+alias prdlogt="shobo-aws-sts-cli -keyring -role-to-switch arn:aws:iam::020151147593:role/kumamushi-prd-terraform-role)"
+alias stglogt="shobo-aws-sts-cli -keyring -role-to-switch arn:aws:iam::164201395711:role/kumamushi-stg-terraform-role)"
+
+alias -s txt=nvim
+alias -s vim=nvim
+alias -s zsh=nvim
+alias -s zshrc=nvim
+alias -s {c,h}=nvim
+alias -s {js,json}=nvim
+alias -s {md,MD}=nvim
+alias -s {rs,toml}=nvim
+alias -s {yml}=nvim
+
+alias k='kubectl'
+alias ka='kubectl apply --recursive -f'
+alias kex='kubectl exec -it'
+alias klo='kubectl logs -f'
+alias kg='kubectl get'
+alias kd='kubectl describe'
+
+#Exa
+if [ -x "$(command -v lsd)" ]; then
+	alias ls='lsd'
+	alias tree='lsd --tree'
+	alias la='lsd -a'
+elif [ -x "$(command -v exa)" ]; then
+	alias ls='exa'
+	alias la='exa -a'
+	alias tree='exa --tree'
+fi
+
+# alias la="exa -la --git"
+# alias lt="exa -Tla --git"
+
+#Movement
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+
+#General
+alias cp="cp -ip"    # Confirm before overwriting something
+alias mv="mv -i"     # Confirm before overwriting something
+alias df='df -h'     # Human-readable sizes
+alias free='free -m' # Show sizes in MB

@@ -1,0 +1,32 @@
+# /Users/liam.jarvis/.config/tmuxinator/kumamushi.yml
+
+name: kumamushi
+root: ~/
+
+windows:
+  - km-infra:
+      root: ~/work/kumamushi-infra
+      layout: main-horizontal
+      panes:
+      - logs:
+        - clear
+        - docker compose up services
+        - docker compose logs -ft
+        
+  - km-api:
+      root: ~/work/kumamushi-api
+      layout: main-horizontal
+      focus: True
+      panes:
+        - logs:
+          - clear
+          - docker compose up api-worker
+  # - km-backend:
+  #   layout: main-horizontal
+  #   root: ~/work/kumamushi-backend
+  - km-dashboard:
+      root: ~/work/kumamushi-frontend
+      layout: main-horizontal
+      panes:
+        - logs:
+          - npm run dashboard:dev
